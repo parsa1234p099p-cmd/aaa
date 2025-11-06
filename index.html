@@ -7,15 +7,20 @@
   <meta name="description" content="آکادمی موسیقی آوای زریاب - آموزش گیتار و آواز" />
   <!--
   راهنمای سریع:
-  - لوگو را کنار فایل با نام logo.jpg/png بگذار.
-  - فقط مسیر نسبی بده: مثل "media/manavi/pic.jpg" (بدون اسلش اول).
-  - تابع asset() خودش روی GitHub Pages مسیر REPO را جلوتر می‌گذارد.
+  - لوگو: کنار فایل با نام logo.jpg/png بگذار و src=<img id="siteLogo"> را تنظیم کن.
+  - رسانه‌ها: در data پایین فایل، آرایه‌های photosGlobal/videosGlobal و همچنین
+    videosByTeacher و students را با مسیر فایل‌ها پر کن.
+  - گالری: از صفحه «گالری» می‌توان بین «همه»، «اساتید» (با انتخاب استاد) و «هنرجویان» فیلتر کرد.
+  - صدا: اسکرول -> نت‌های Bella Ciao (دکمه فوتر خاموش/روشن).
   -->
 
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root{ --primary:#0f1f35; --accent:#c4a255; --ink:#0b1020; --bg:#0a0f1c; --muted:#c9d1d9; --card:#10192b; --glass:rgba(15,25,43,.55) }
+    :root{
+      --primary:#0f1f35; --accent:#c4a255; --ink:#0b1020; --bg:#0a0f1c;
+      --muted:#c9d1d9; --card:#10192b; --glass:rgba(15,25,43,.55)
+    }
     *{box-sizing:border-box}
     html,body{height:100%; scroll-behavior:smooth}
     body{
@@ -27,10 +32,19 @@
     }
     a{color:var(--accent); text-decoration:none}
     img{max-width:100%; height:auto}
-    .blob{position:fixed; inset:auto auto -120px -120px; width:42vmax; height:42vmax; background:radial-gradient(circle at 30% 30%, rgba(196,162,85,.3), rgba(196,162,85,0)); filter:blur(40px); pointer-events:none; z-index:0}
-    .blob2{left:auto; right:-140px; bottom:-140px; background:radial-gradient(circle at 70% 20%, rgba(14,24,44,.9), rgba(14,24,44,0)); width:50vmax; height:50vmax}
 
-    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(10,15,28,.85), rgba(10,15,28,.4)); border-bottom:1px solid rgba(196,162,85,.22)}
+    /* تزئین */
+    .blob{position:fixed; inset:auto auto -120px -120px; width:42vmax; height:42vmax;
+      background:radial-gradient(circle at 30% 30%, rgba(196,162,85,.3), rgba(196,162,85,0));
+      filter:blur(40px); pointer-events:none; z-index:0}
+    .blob2{left:auto; right:-140px; bottom:-140px;
+      background:radial-gradient(circle at 70% 20%, rgba(14,24,44,.9), rgba(14,24,44,0));
+      width:50vmax; height:50vmax}
+
+    /* هدر */
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,15,28,.85), rgba(10,15,28,.4));
+      border-bottom:1px solid rgba(196,162,85,.22)}
     .container{max-width:1200px; margin:0 auto; padding:0 16px}
     .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
     .brand{display:flex; align-items:center; gap:12px}
@@ -38,11 +52,14 @@
     .brand h1{font-size:22px; margin:0; letter-spacing:.3px}
     nav ul{display:flex; gap:4px; list-style:none; padding:0; margin:0}
     nav a{position:relative; display:inline-block; padding:10px 14px; border-radius:14px; color:#e9edf3}
-    nav a::after{content:""; position:absolute; inset:auto 14px -2px 14px; height:2px; background:linear-gradient(90deg,transparent, var(--accent), transparent); transform:scaleX(0); transform-origin:center; transition:transform .25s}
+    nav a::after{content:""; position:absolute; inset:auto 14px -2px 14px; height:2px;
+      background:linear-gradient(90deg,transparent, var(--accent), transparent);
+      transform:scaleX(0); transform-origin:center; transition:transform .25s}
     nav a.active::after, nav a:hover::after{transform:scaleX(1)}
     nav a.active{background:var(--card); box-shadow:0 0 0 1px rgba(196,162,85,.25) inset}
     .cta{background:var(--accent); color:#0a0f1c; font-weight:700}
 
+    /* سکشن‌ها و کارت‌ها */
     section{padding:28px 0 46px; position:relative; z-index:1}
     .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
     .col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-12{grid-column:span 12}
@@ -50,26 +67,31 @@
     .card h3{margin:0 0 10px}
     .lead{color:#c7cfdb}
 
-    .hero{display:grid; grid-template-columns:1.2fr .8fr; align-items:center; gap:24px; padding:56px 0}
+    /* قهرمان */
+    .hero{position:relative; display:grid; grid-template-columns:1.2fr .8fr; align-items:center; gap:24px; padding:56px 0}
     .hero h2{font-size:40px; line-height:1.35; margin:0 0 12px}
     .hero p{color:#c7cfdb; margin:0 0 18px}
     .hero .card{background:var(--glass); border:1px solid rgba(196,162,85,.2); border-radius:24px; padding:16px; backdrop-filter: blur(6px)}
 
+    /* استادان */
     .teacher{display:grid; grid-template-columns:120px 1fr; gap:14px; align-items:center}
     .teacher img.avatar{width:100%; height:120px; object-fit:cover; border-radius:18px; border:1px solid rgba(196,162,85,.25)}
     .chips{display:flex; gap:8px; flex-wrap:wrap}
     .chip{background:rgba(196,162,85,.15); color:#ffe9b0; border:1px dashed rgba(196,162,85,.4); border-radius:999px; padding:6px 10px; font-size:12px}
 
+    /* گالری */
     .gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:12px}
     .gallery figure{margin:0; border-radius:16px; overflow:hidden; border:1px solid rgba(196,162,85,.15); box-shadow:0 6px 16px rgba(0,0,0,.18)}
     .gallery video, .gallery img{display:block; width:100%; height:230px; object-fit:cover}
     .thumb:hover{transform:scale(1.02)}
 
+    /* نوار ابزار گالری */
     .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px}
     .toolbtn{background:rgba(196,162,85,.12); border:1px solid rgba(196,162,85,.35); color:#ffe9b0; border-radius:12px; padding:8px 12px; cursor:pointer}
     .toolbtn.active{background:var(--accent); color:#0a0f1c; border-color:var(--accent)}
     .toolselect{appearance:none; background:#0b1526; color:#e9eef7; border:1px solid rgba(196,162,85,.35); border-radius:12px; padding:8px 12px}
 
+    /* لایت‌باکس */
     .lightbox{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.7); z-index:100}
     .lightbox.open{display:flex}
     .lightbox .inner{position:relative; width:min(92vw,1100px); max-height:86vh;}
@@ -77,19 +99,23 @@
     .lightbox .close, .lightbox .navbtn{position:absolute; top:-44px; color:#fff; border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.1); padding:8px 12px; border-radius:10px; cursor:pointer}
     .lightbox .close{right:0} .lightbox .navbtn.prev{left:0} .lightbox .navbtn.next{left:68px}
 
+    /* جدول‌ها */
     table{width:100%; border-collapse:collapse; margin-top:10px}
     th,td{padding:10px 12px; border-bottom:1px solid rgba(196,162,85,.18); text-align:right}
     thead th{background:rgba(196,162,85,.12); color:#ffe9b0; border-bottom:1px solid rgba(196,162,85,.35)}
     tbody tr:hover{background:rgba(196,162,85,.06)}
 
+    /* فوتر */
     footer{margin-top:40px; padding:26px 0; border-top:1px solid rgba(196,162,85,.2); background:rgba(15,25,43,.5)}
     .footerbar{display:flex; align-items:center; justify-content:space-between; gap:12px}
     .mute-btn{background:transparent; color:#eaeef5; border:1px solid rgba(196,162,85,.4); border-radius:14px; padding:10px 14px; cursor:pointer}
     .muted{opacity:.65}
 
+    /* انیمیشن نمایان شدن */
     .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s, transform .6s}
     .reveal.inview{opacity:1; transform:none}
 
+    /* پاسخ‌گرا */
     @media (max-width: 900px){
       .hero{grid-template-columns:1fr}
       .col-4{grid-column:span 12}
@@ -105,15 +131,12 @@
   <header>
     <div class="container nav">
       <div class="brand reveal">
-        <!-- src را می‌گذاریم، ولی در JS با asset() اصلاح نهایی می‌شود -->
         <img id="siteLogo" src="logo.jpg" alt="لوگوی آوای زریاب" />
         <h1>آوای زریاب</h1>
       </div>
       <nav class="reveal">
         <ul>
           <li><a href="#home" data-route>خانه</a></li>
-        </ul>
-        <ul>
           <li><a href="#teachers" data-route>استادان</a></li>
           <li><a href="#history" data-route>تاریخچه</a></li>
           <li><a href="#gallery" data-route>گالری</a></li>
@@ -149,7 +172,7 @@
       </div>
     </section>
 
-    <!-- استادان -->
+    <!-- استادان (بدون گالری شخصی) -->
     <section id="teachers" class="route" hidden>
       <h2 class="reveal">معرفی استادان</h2>
       <div id="teachersList" class="grid"></div>
@@ -191,7 +214,7 @@
       </div>
     </section>
 
-    <!-- گالری با فیلتر -->
+    <!-- گالری با فیلتر اساتید/هنرجویان -->
     <section id="gallery" class="route" hidden>
       <h2 class="reveal">گالری آثار</h2>
       <p class="lead reveal">نمایش آخرین ویدئوها و تصاویر؛ می‌توانید بین «همه»، «اساتید» و «هنرجویان» فیلتر کنید.</p>
@@ -257,29 +280,11 @@
   </footer>
 
   <script>
-  // ====================== پایه مسیر برای GitHub Pages =======================
-  // اگر روی USERNAME.github.io/REPO-NAME/ باشید، BASE="/REPO-NAME/" خواهد شد.
-  function computeBase(){
-    if(!location.hostname.endsWith('github.io')) return '';
-    const parts = location.pathname.split('/').filter(Boolean);
-    // اگر Project Page است، بخش اول نام ریپوست
-    return parts.length ? ('/' + parts[0] + '/') : '/';
-  }
-  const BASE = computeBase();
-
-  // مسیر را به شکل امن بساز (برای http(s) یا data: دست نمی‌زنیم)
-  function asset(p){
-    if(!p) return p;
-    if(/^https?:\/\//i.test(p) || /^data:/i.test(p)) return p;
-    // هر اسلش شروعی را حذف می‌کنیم تا دو اسلش نیاید
-    const clean = p.replace(/^\/+/, '');
-    return BASE + clean;
-  }
-
   // ====================== داده‌ها =======================
   const data = {
     introVideoUrl: "media/manavi/filmmoarefi.mp4",
 
+    // گالری «همه»
     photosGlobal: [
       // "media/p1.jpg","media/p2.jpg"
     ],
@@ -287,22 +292,26 @@
       // "media/v1.mp4","media/v2.mp4"
     ],
 
+    // معرفی سادهٔ استادان (بدون گالری شخصی در صفحه استادان)
     teachers:[
       { id:"soheil",  name:"سهیل معنوی",  role:"مربی گیتار", avatar:"media/manavi/pic.jpg",       bio:"آموزش گیتار (کلاسیک/پاپ) و تئوری موسیقی." },
       { id:"farideh", name:"فریده عنایتی", role:"مربی آواز",  avatar:"media/farideh_avatar.jpg", bio:"تکنیک‌های صداسازی، تنفس صحیح و اجرای قطعات." }
     ],
 
+    // ویدئوهای دسته‌بندی‌شده برای «اساتید» در گالری
     videosByTeacher: {
-      soheil:  ["media/manavi/film1.mp4","media/manavi/film2.mp4"],
-      farideh: []
+      soheil:  [ /* "media/soheil_1.mp4","media/soheil_2.mp4" */"media/manavi/film1.mp4","media/manavi/film2.mp4" ],
+      farideh: [ /* "media/farideh_1.mp4" */ ]
     },
 
+    // بخش هنرجویان در گالری
     students: [
-      // { name:"هنرجو ۱", videos:["media/st1_1.mp4"], photos:["media/st1_1.jpg"] },
+      // { name:"هنرجو ۱", videos:["media/st1_1.mp4","media/st1_2.mp4"], photos:["media/st1_1.jpg"] },
+      // { name:"هنرجو ۲", videos:["media/st2_1.mp4"] }
     ]
   };
 
-  // ====================== روتینگ ساده =======================
+  // ====================== روتینگ ساده (چندصفحه‌ای) =======================
   const routes = Array.from(document.querySelectorAll('.route'));
   const navLinks = Array.from(document.querySelectorAll('[data-route]'));
   function setActive(hash){
@@ -313,27 +322,22 @@
   window.addEventListener('hashchange', ()=> setActive(location.hash));
   setActive(location.hash||'#home');
 
-  // لوگو و ویدئوی معرفی با مسیر نسبیِ امن
-  (function initBrandAndIntro(){
-    const logo = document.getElementById('siteLogo');
-    if(logo && logo.getAttribute('src')) logo.setAttribute('src', asset(logo.getAttribute('src')));
-    if(data.introVideoUrl){
-      const vIntro = document.getElementById('introVideo');
-      vIntro.src = asset(data.introVideoUrl); vIntro.load();
-    }
-  })();
+  // ویدئوی معرفی
+  if(data.introVideoUrl){
+    const vIntro = document.getElementById('introVideo');
+    vIntro.src = data.introVideoUrl; vIntro.load();
+  }
 
-  // ====================== استادان =======================
+  // ====================== رندر استادان (بدون گالری شخصی) =======================
   function renderTeachers(){
     const wrap = document.getElementById('teachersList');
     wrap.innerHTML = '';
     data.teachers.forEach(t=>{
       const card = document.createElement('div');
       card.className = 'card col-6 reveal';
-      const avatarSrc = asset(t.avatar || '');
       card.innerHTML = `
         <div class="teacher">
-          <img class="avatar" src="${avatarSrc}" alt="${t.name}">
+          <img class="avatar" src="${t.avatar||'https://unavatar.io/github/'}" alt="${t.name}">
           <div>
             <h3>${t.name}</h3>
             <div class="chips"><span class="chip">${t.role}</span></div>
@@ -345,32 +349,38 @@
     observeReveal();
   }
 
-  // ====================== گالری و لایت‌باکس =======================
+  // ====================== گالری: حالت‌ها و رندر =======================
   const toolbarBtns = () => Array.from(document.querySelectorAll('.toolbtn'));
   const teacherSelect = document.getElementById('teacherFilter');
   const galleryWrap = document.getElementById('globalGallery');
 
+  // آماده‌سازی لیست استادان در سلکت
   function populateTeacherSelect(){
     teacherSelect.innerHTML = `<option value="">انتخاب استاد…</option>` +
       data.teachers.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
   }
 
-  let galleryMode = 'all';   // all | teachers | students
-  let galleryTeacherId = '';
-  let currentItems = [];     // {type:'img'|'vid', src:string}
+  let galleryMode = 'all';           // all | teachers | students
+  let galleryTeacherId = '';         // وقتی mode=teachers
+  let currentItems = [];             // برای لایت‌باکس
 
-  function mediaObj(type, src, meta={}){ return {type, src: asset(src), meta}; }
+  function mediaObj(type, src, meta={}){ return {type, src, meta}; }
 
   function buildItemsAll(){
-    return [
+    const items = [
       ...data.videosGlobal.map(src=> mediaObj('vid', src)),
-      ...data.photosGlobal.map(src=> mediaObj('img', src)),
+      ...data.photosGlobal.map(src=> mediaObj('img', src))
     ];
+    return items;
   }
+
   function buildItemsTeachers(){
     if(!galleryTeacherId) return [];
-    return (data.videosByTeacher[galleryTeacherId] || []).map(src=> mediaObj('vid', src, {owner:galleryTeacherId}));
+    const vids = (data.videosByTeacher[galleryTeacherId] || []).map(src=> mediaObj('vid', src, {owner:galleryTeacherId}));
+    // اگر خواستی عکس هم برای هر استاد داشته باشی، مشابه بالا اضافه کن.
+    return vids;
   }
+
   function buildItemsStudents(){
     const items = [];
     data.students.forEach(s=>{
@@ -381,41 +391,61 @@
   }
 
   function renderGallery(){
+    // فعال/غیرفعال کردن کنترل‌ها
     toolbarBtns().forEach(b=> b.classList.toggle('active', b.dataset.mode===galleryMode));
     teacherSelect.disabled = (galleryMode!=='teachers');
 
+    // انتخاب آیتم‌ها
     if(galleryMode==='all') currentItems = buildItemsAll();
     else if(galleryMode==='teachers') currentItems = buildItemsTeachers();
     else if(galleryMode==='students') currentItems = buildItemsStudents();
 
+    // رندر
     if(!currentItems.length){
       galleryWrap.innerHTML = `<small style="color:#9fb0c8">موردی برای نمایش موجود نیست. لطفاً فیلترها را تغییر دهید یا داده‌ها را در بخش data تکمیل کنید.</small>`;
       return;
     }
     galleryWrap.innerHTML = currentItems.map((m,i)=> m.type==='img'
       ? `<figure><img class="thumb" data-idx="${i}" src="${m.src}" alt=""></figure>`
-      : `<figure><video class="thumb" data-idx="${i}" src="${m.src}" preload="metadata" playsinline></video></figure>`
+      : `<figure><video class="thumb" data-idx="${i}" src="${m.src}" preload="metadata"></video></figure>`
     ).join('');
   }
 
+  // رویدادهای نوار ابزار
   document.addEventListener('click',(e)=>{
     const btn = e.target.closest('.toolbtn');
-    if(btn){
-      galleryMode = btn.dataset.mode;
-      if(galleryMode!=='teachers'){ galleryTeacherId=''; teacherSelect.value=''; }
-      renderGallery();
-      return;
-    }
-    const thumb = e.target.closest('.thumb');
-    if(thumb && galleryWrap.contains(thumb)){
-      openLightbox(parseInt(thumb.dataset.idx||'0',10));
-    }
+    if(!btn) return;
+    galleryMode = btn.dataset.mode;   // all | teachers | students
+    if(galleryMode!=='teachers'){ galleryTeacherId=''; teacherSelect.value=''; }
+    renderGallery();
   });
-  teacherSelect.addEventListener('change', ()=>{ galleryTeacherId = teacherSelect.value || ''; renderGallery(); });
+  teacherSelect.addEventListener('change', ()=>{
+    galleryTeacherId = teacherSelect.value || '';
+    renderGallery();
+  });
 
-  function initGallery(){ populateTeacherSelect(); galleryMode='all'; renderGallery(); }
+  // ====================== راه‌اندازی اولیه گالری =======================
+  function initGallery(){
+    populateTeacherSelect();
+    // پیش‌فرض: «همه»
+    galleryMode = 'all';
+    renderGallery();
+  }
 
-  // لایت‌باکس
+  renderTeachers();
+  initGallery();
+
+  // ====================== انیمیشن نمایان شدن =======================
+  function observeReveal(){
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('inview'); io.unobserve(e.target);} });
+    }, {threshold:.15});
+    els.forEach(el=> io.observe(el));
+  }
+  observeReveal();
+
+  // ====================== لایت‌باکس =======================
   const lb = document.getElementById('lightbox');
   const lbContent = document.getElementById('lbContent');
   const lbPrev = document.getElementById('lbPrev');
@@ -423,7 +453,11 @@
   const lbClose = document.getElementById('lbClose');
   let currentIndex = 0;
 
-  function openLightbox(idx){ currentIndex = idx; renderLB(); lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
+  function openLightbox(idx){
+    currentIndex = idx;
+    renderLB();
+    lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+  }
   function renderLB(){
     const item = currentItems[currentIndex];
     if(!item){ lb.classList.remove('open'); return; }
@@ -432,40 +466,40 @@
       : `<video id="lbVideo" src="${item.src}" controls autoplay playsinline></video>`;
     if(item.type==='vid'){ const v = document.getElementById('lbVideo'); if(v){ v.play().catch(()=>{}); } }
   }
-  function step(delta){ currentIndex = (currentIndex + delta + currentItems.length) % currentItems.length; renderLB(); }
+  function step(delta){
+    currentIndex = (currentIndex + delta + currentItems.length) % currentItems.length;
+    renderLB();
+  }
   lbPrev.addEventListener('click', ()=> step(-1));
   lbNext.addEventListener('click', ()=> step(1));
   lbClose.addEventListener('click', ()=> {lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbContent.innerHTML='';});
   document.addEventListener('keydown', (e)=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') lbClose.click(); if(e.key==='ArrowRight') step(1); if(e.key==='ArrowLeft') step(-1); });
+  document.addEventListener('click',(e)=>{
+    const el = e.target.closest('.thumb');
+    if(!el || !galleryWrap.contains(el)) return;
+    openLightbox(parseInt(el.dataset.idx||'0',10));
+  });
 
-  // ====================== انیمیشن ورود =======================
-  function observeReveal(){
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('inview'); io.unobserve(e.target);} });
-    }, {threshold:.15});
-    els.forEach(el=> io.observe(el));
-  }
-
-  // ====================== صدای Bella Ciao =======================
-  const BELLA_NOTES = [329.63,329.63,349.23,392.00,392.00,349.23,329.63,293.66, 329.63,329.63,349.23,392.00,392.00,349.23,329.63,293.66, 261.63,261.63,293.66,329.63,329.63,293.66,293.66];
+  // ====================== صدای ملودی Bella Ciao هنگام اسکرول =======================
+  const BELLA_NOTES = [
+    329.63,329.63,349.23,392.00,392.00,349.23,329.63,293.66,
+    329.63,329.63,349.23,392.00,392.00,349.23,329.63,293.66,
+    261.63,261.63,293.66,329.63,329.63,293.66,293.66,
+  ];
   let audioCtx; let allowSound = true; let lastY = window.scrollY; let melodyIndex = 0;
   function ensureAudio(){ if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); } }
   function pluck(freq=220){
     if(!allowSound) return; ensureAudio(); const now = audioCtx.currentTime;
     const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); const filt = audioCtx.createBiquadFilter();
     filt.type='lowpass'; filt.frequency.value=3000; osc.type='triangle'; osc.frequency.value=freq;
-    gain.gain.setValueAtTime(0.0001, now); gain.gain.exponentialRampToValueAtTime(0.9, now+0.01); gain.gain.exponentialRampToValueAtTime(0.0001, now+0.38);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.9, now+0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now+0.38);
     osc.connect(filt).connect(gain).connect(audioCtx.destination); osc.start(now); osc.stop(now+0.4);
   }
   function playNextNote(){ const f = BELLA_NOTES[melodyIndex % BELLA_NOTES.length]; melodyIndex++; pluck(f); }
   window.addEventListener('scroll', ()=>{ const dy = Math.abs(window.scrollY - lastY); lastY = window.scrollY; if(dy > 18) playNextNote(); }, {passive:true});
   document.getElementById('toggleSound').addEventListener('click',()=>{ allowSound = !allowSound; document.getElementById('toggleSound').classList.toggle('muted', !allowSound); });
-
-  // ====================== اجرا =======================
-  renderTeachers();
-  initGallery();
-  observeReveal();
 
   </script>
 </body>
