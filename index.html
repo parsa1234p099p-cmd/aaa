@@ -1,611 +1,1872 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>آوای زریاب — آکادمی موسیقی</title>
+    <meta charset="utf-8" />
+    <title>آموزشگاه موسیقی آوای زریاب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Vazirmatn,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        }
 
-  <!-- فونت (گوگل فونت یا فونت محلی) -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+        body {
+            margin: 0;
+            background: #020617;
+            color: #e5e7eb;
+        }
 
-  <style>
-    :root{
-      --bg: #050507;
-      --card: #0f1720;
-      --primary: #203A56; /* سرمه‌ای - برگرفته از لوگو */
-      --accent: #C9A04C;  /* طلایی لوگو */
-      --muted: #97a3b0;
-      --neon-glow: 0 8px 24px rgba(200,160,76,0.12);
-      --radius: 14px;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    /* Mobile-first */
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Vazirmatn", Tahoma, sans-serif;
-      background: linear-gradient(180deg,#000 0%, #050507 100%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding-bottom:80px;
-    }
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    header{
-      position:sticky;
-      top:0;
-      z-index:30;
-      backdrop-filter: blur(6px);
-      background: linear-gradient(180deg, rgba(5,5,7,0.6), rgba(5,5,7,0.3));
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      padding:12px 14px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-    }
+        /* HEADER + NAV */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(15,23,42,.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(148,163,184,.35);
+        }
 
-    .brand{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .brand img{
-      width:56px;
-      height:56px;
-      object-fit:contain;
-      filter: drop-shadow(0 6px 18px rgba(194,160,60,0.18));
-    }
-    .brand h1{
-      margin:0;
-      font-size:16px;
-      letter-spacing:0.6px;
-      color:var(--accent);
-    }
-    .nav{
-      display:flex;
-      gap:8px;
-      align-items:center;
-    }
-    .nav button{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.04);
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:10px;
-      font-size:13px;
-    }
-    .nav button.active{
-      color:var(--accent);
-      border-color: rgba(201,160,76,0.2);
-      box-shadow: var(--neon-glow);
-    }
+        .nav {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-    main{
-      padding:18px 14px 100px;
-      max-width:960px;
-      margin:0 auto;
-    }
+        .brand {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-    /* Hero */
-    .hero{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding:18px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(32,58,86,0.12), rgba(201,160,76,0.02));
-      border:1px solid rgba(201,160,76,0.04);
-      box-shadow: 0 8px 30px rgba(32,58,86,0.08);
-    }
-    .hero .left{
-      flex:1;
-    }
-    .hero h2{
-      margin:0 0 8px 0;
-      color:var(--accent);
-      font-size:18px;
-    }
-    .hero p{margin:0;color:var(--muted);font-size:13px}
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            object-fit: cover;
+            box-shadow: 0 0 14px rgba(250,204,21,.7);
+        }
 
-    .hero .cta{
-      margin-top:12px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      background:linear-gradient(90deg,var(--accent),#ffd87a);
-      color:#08101b;
-      padding:10px 14px;
-      border-radius:12px;
-      border:none;
-      font-weight:700;
-      box-shadow: 0 8px 20px rgba(201,160,76,0.12);
-    }
-    .ghost{
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted);
-    }
+        .brand-main {
+            margin: 0;
+            font-weight: 800;
+            font-size: 18px;
+        }
 
-    /* Sections */
-    section{
-      margin-top:18px;
-      padding:14px;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    h3{margin:0 0 10px 0;color:var(--accent)}
-    .text-muted{color:var(--muted);font-size:13px}
+        .brand-sub {
+            margin: 0;
+            font-size: 11px;
+            opacity: .8;
+        }
 
-    /* Teacher cards */
-    .teachers{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px}
-    .teacher{
-      min-width:180px;
-      background:linear-gradient(180deg, rgba(32,58,86,0.04), rgba(0,0,0,0.02));
-      padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      flex-shrink:0;
-    }
-    .teacher img{width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:8px}
-    .teacher h4{margin:0;color:#eaf3ff;font-size:14px}
-    .teacher p{margin:6px 0 0 0;color:var(--muted);font-size:12px}
-    .teacher button{margin-top:8px;width:100%;padding:8px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:600}
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-    /* Gallery grid */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:8px;
-    }
-    .grid img, .grid video{
-      width:100%;height:140px;object-fit:cover;border-radius:8px;
-    }
+        .nav-link {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            background: transparent;
+            color: inherit;
+        }
 
-    /* PDF embeds */
-    .pdf-list{display:flex;flex-direction:column;gap:8px}
-    .pdf-item{display:flex;gap:10px;align-items:center;justify-content:space-between}
-    .pdf-item a{color:var(--accent);font-weight:600;text-decoration:none}
+            .nav-link:hover {
+                border-color: rgba(148,163,184,.6);
+                background: rgba(15,23,42,.9);
+            }
 
-    /* Articles */
-    article p{color:var(--muted);font-size:14px}
+            .nav-link.active {
+                border-color: rgba(250,204,21,.8);
+                background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
+                color: #111827;
+                box-shadow: 0 0 12px rgba(250,204,21,.6);
+            }
 
-    /* Footer bar for mobile */
-    .footer-nav{
-      position:fixed;left:0;right:0;bottom:0;background:linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
-      border-top:1px solid rgba(255,255,255,0.03);
-      display:flex;gap:4px;justify-content:space-around;padding:8px;height:64px;align-items:center;
-    }
-    .footer-nav button{background:transparent;border:none;color:var(--muted);font-size:12px}
+        .btn-gold {
+            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
+            color: #111827;
+            border: none;
+            box-shadow: 0 0 14px rgba(250,204,21,.7);
+        }
 
-    /* Teacher detail overlay */
-    .overlay{
-      position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.85),rgba(2,6,23,0.92));
-      display:none;align-items:flex-end;padding:18px;z-index:80;
-    }
-    .panel{
-      width:100%;max-width:960px;background:linear-gradient(180deg,#071225,#071525);border-radius:16px;padding:14px;border:1px solid rgba(201,160,76,0.06)
-    }
-    .close-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:10px;color:var(--muted)}
+            .btn-gold:hover {
+                filter: brightness(1.05);
+            }
 
-    /* responsive tweaks for larger screens */
-    @media(min-width:900px){
-      main{padding:28px}
-      .grid img, .grid video{height:200px}
-      .teachers{overflow-x:unset;flex-wrap:wrap}
-      .teacher{min-width:260px}
-    }
-  </style>
+        /* HAMBURGER */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 3px;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 20px;
+            height: 2px;
+            background: #e5e7eb;
+            border-radius: 999px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                position: fixed;
+                inset-inline: 0;
+                top: 52px;
+                background: rgba(15,23,42,.98);
+                flex-direction: column;
+                padding: 10px 16px 14px;
+                align-items: flex-start;
+                border-bottom: 1px solid rgba(148,163,184,.35);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height .22s ease;
+            }
+
+                .nav-links.open {
+                    max-height: 340px;
+                }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .section {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 20px 14px 26px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 4px 0;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .card {
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,.35);
+            background: radial-gradient(circle at top,rgba(15,23,42,1),rgba(15,23,42,.98));
+            padding: 14px;
+            margin-top: 10px;
+        }
+
+        .card-soft {
+            border-radius: 18px;
+            border: 1px solid rgba(30,64,175,.55);
+            background: radial-gradient(circle at top,rgba(30,64,175,.35),rgba(15,23,42,1));
+            padding: 14px;
+            margin-top: 10px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0,1.5fr) minmax(0,1.2fr);
+            gap: 16px;
+            align-items: stretch;
+        }
+
+        @media(max-width:900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.6);
+            background: rgba(15,23,42,.8);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%,#bbf7d0,#22c55e);
+            box-shadow: 0 0 10px rgba(34,197,94,.8);
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 8px 0 4px;
+        }
+
+        .hero-text {
+            font-size: 13px;
+            opacity: .9;
+        }
+
+        .intro-media {
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,.35);
+            background: #020617;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: 100%;
+        }
+
+            .intro-media video,
+            .intro-media img {
+                width: 100%;
+                border-radius: 14px;
+                display: block;
+                background: #020617;
+            }
+
+        .intro-placeholder {
+            font-size: 12px;
+            opacity: .8;
+        }
+
+        ul {
+            margin: 6px 0 8px 0;
+            padding-right: 18px;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 12px;
+        }
+
+        @media(max-width:800px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .commandment {
+            margin-bottom: 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px dashed rgba(148,163,184,.35);
+        }
+
+            .commandment:last-child {
+                border-bottom: none;
+            }
+
+        .teacher-card {
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,.4);
+            padding: 12px;
+            background: radial-gradient(circle at top,rgba(15,23,42,.95),rgba(15,23,42,1));
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .teacher-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teacher-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            object-fit: cover;
+            box-shadow: 0 0 14px rgba(250,204,21,.6);
+            flex-shrink: 0;
+        }
+
+        .teacher-meta h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .teacher-meta p {
+            margin: 0;
+            font-size: 11px;
+            opacity: .9;
+        }
+
+        .teacher-body {
+            font-size: 12px;
+            line-height: 1.8;
+            max-height: 150px;
+            overflow-y: auto;
+            padding-inline-end: 4px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .chip {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.5);
+            background: rgba(15,23,42,.8);
+        }
+
+        .slider-row {
+            margin-top: 6px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scroll-snap-type: x mandatory;
+        }
+
+            .slider-row::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .slider-row::-webkit-scrollbar-thumb {
+                background: rgba(148,163,184,.7);
+                border-radius: 999px;
+            }
+
+        .slide-item {
+            min-width: 180px;
+            max-width: 220px;
+            scroll-snap-align: start;
+            border-radius: 12px;
+            border: 1px solid rgba(148,163,184,.45);
+            background: #020617;
+            padding: 6px;
+            font-size: 11px;
+        }
+
+            .slide-item img,
+            .slide-item video {
+                width: 100%;
+                border-radius: 8px;
+                display: block;
+            }
+
+        .books-layout {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 14px;
+        }
+
+        @media(max-width:960px) {
+            .books-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .poster-card {
+            border-radius: 18px;
+            padding: 14px;
+            border: 1px solid rgba(234,179,8,.4);
+            background: radial-gradient(circle at top,#1e293b,#020617);
+        }
+
+        .poster-banner {
+            border-radius: 14px;
+            border: 1px dashed rgba(250,204,21,.6);
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .book-card {
+            border-radius: 14px;
+            border: 1px solid rgba(148,163,184,.4);
+            padding: 10px;
+            background: #020617;
+            font-size: 12px;
+        }
+
+        .book-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .book-meta {
+            font-size: 11px;
+            opacity: .9;
+        }
+
+        .price {
+            color: #fde68a;
+            font-weight: 600;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.45);
+            background: transparent;
+            color: #e5e7eb;
+            padding: 5px 10px;
+            font-size: 11px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+            .btn:disabled {
+                opacity: .6;
+                cursor: default;
+            }
+
+        .btn-outline {
+            border-color: rgba(148,163,184,.7);
+            background: rgba(15,23,42,.9);
+        }
+
+        .cart-card {
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,.4);
+            background: radial-gradient(circle at top,rgba(15,23,42,.98),#020617);
+            padding: 12px;
+            font-size: 12px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .cart-empty {
+            font-size: 11px;
+            opacity: .8;
+        }
+
+        .auth-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1.3fr;
+            gap: 16px;
+            align-items: start;
+        }
+
+        @media(max-width:960px) {
+            .auth-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(15,23,42,.9);
+            border-radius: 999px;
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            padding: 5px 0;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+
+            .auth-tab.active {
+                background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
+                color: #111827;
+                font-weight: 600;
+            }
+
+        label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 3px;
+            opacity: .9;
+        }
+
+        .input {
+            width: 100%;
+            background: rgba(15,23,42,.95);
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.45);
+            padding: 7px 11px;
+            color: #e5e7eb;
+            font-size: 13px;
+            outline: none;
+        }
+
+            .input:focus {
+                border-color: #facc15;
+                box-shadow: 0 0 0 1px rgba(250,204,21,.35);
+            }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px;
+        }
+
+        @media(max-width:700px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .small-link {
+            font-size: 11px;
+            color: #e5e7eb;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .status {
+            font-size: 11px;
+            margin-top: 6px;
+            min-height: 14px;
+        }
+
+            .status.ok {
+                color: #bbf7d0;
+            }
+
+            .status.err {
+                color: #fecaca;
+            }
+
+        .user-panel {
+            border-radius: 18px;
+            border: 1px solid rgba(34,197,94,.6);
+            padding: 12px;
+            background: radial-gradient(circle at top,rgba(22,163,74,.2),#020617);
+            font-size: 12px;
+        }
+
+        footer {
+            border-top: 1px solid rgba(148,163,184,.3);
+            padding: 10px 14px 14px;
+            text-align: center;
+            font-size: 11px;
+            opacity: .8;
+        }
+
+        /* TAB SECTIONS */
+        .tab-section {
+            display: none;
+        }
+
+            .tab-section.active {
+                display: block;
+            }
+    </style>
 </head>
 <body>
+    <div class="page">
 
-<header>
-  <div class="brand">
-    <!-- جایگزین تصویر لوگو: assets/logo.png -->
-    <img src="assets/logo.png" alt="لوگو آوای زریاب" id="siteLogo">
-    <div>
-      <h1>آوای زریاب</h1>
-      <div style="font-size:12px;color:var(--muted)">آکادمی موسیقی — گیتار و آواز</div>
+        <!-- HEADER -->
+        <header>
+            <div class="nav">
+                <div class="brand">
+                    <!-- لوگو: فایل را در wwwroot/assets/logo.png قرار بده -->
+                    <img class="logo" src="assets/logo.png" alt="لوگوی آموزشگاه آوای زریاب">
+                    <div>
+                        <p class="brand-main">آموزشگاه موسیقی آوای زریاب</p>
+                        <p class="brand-sub">از ریشه‌های شرقی تا قلب موسیقی جهان</p>
+                    </div>
+                </div>
+                <div class="hamburger" id="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <nav class="nav-links" id="navLinks">
+                    <button class="nav-link active" data-tab="tab-home">خانه</button>
+                    <button class="nav-link" data-tab="tab-guitar-history">تاریخچه گیتار</button>
+                    <button class="nav-link" data-tab="tab-commandments">۱۰ فرمان گیتار</button>
+                    <button class="nav-link" data-tab="tab-anxiety">اضطراب اجرا</button>
+                    <button class="nav-link" data-tab="tab-target-practice">تمرین هدفمند</button>
+                    <button class="nav-link" data-tab="tab-teachers">اساتید</button>
+                    <button class="nav-link" data-tab="tab-students">هنرجویان</button>
+                    <button class="nav-link" data-tab="tab-books">کتاب‌ها</button>
+                    <button class="nav-link btn-gold" data-tab="tab-auth" id="navAuthBtn">ورود / ثبت‌نام</button>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- TAB: HOME / HERO -->
+            <section class="section tab-section active" id="tab-home">
+                <div class="hero-grid">
+                    <div>
+                        <span class="badge">
+                            <span class="badge-dot"></span>
+                            آموزش تخصصی گیتار، آواز، تنبک و کمانچه
+                        </span>
+                        <h1 class="hero-title">آوای زریاب؛ پلی میان شرق و غرب موسیقی</h1>
+                        <p class="hero-text">
+                            در آموزشگاه موسیقی آوای زریاب، به‌جای آموزش صرفاً تکنیک، سعی می‌کنیم «نگاه موسیقایی»
+                            و «هویت شنیداری» هنرجو را بسازیم؛ از ریشه‌های شرقی و آثار زریاب تا گیتار کلاسیک،
+                            فلامنکو، بلوز، راک و آواز علمی.
+                        </p>
+                        <div class="card-soft" style="margin-top:12px">
+                            <h3>چرا آوای زریاب؟</h3>
+                            <ul>
+                                <li>آموزش گیتار کلاسیک، فلامنکو، پاپ و سبک‌های مدرن با روش‌های به‌روز</li>
+                                <li>کلاس‌های تخصصی آواز، صداسازی و سلفژ زیر نظر اساتید مجرب</li>
+                                <li>تأکید بر تمرین هدفمند، ذهن‌آگاهی در اجرا و مدیریت اضطراب صحنه</li>
+                                <li>امکان شرکت در ورکشاپ‌ها، اجراهای کارگاهی و ضبط و تحلیل اجراها</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="intro-media" id="introMediaBox">
+                            <h3 style="font-size:14px;margin:0 0 4px">🎬 ویدیو معرفی آموزشگاه</h3>
+                            <div id="introMediaContent" class="intro-placeholder">
+                                در حال حاضر ویدیوی معرفی ثبت نشده است.
+                                پس از آپلود توسط ادمین، اینجا نمایش داده می‌شود.
+                            </div>
+                            <p style="font-size:11px;opacity:.8;margin:0">
+                                ویدیو و پوستر معرفی از طریق پنل مدیریت سایت، بدون نیاز به تغییر کد به‌روزرسانی می‌شود.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: GUITAR HISTORY -->
+            <section class="section tab-section" id="tab-guitar-history">
+                <div class="section-header">
+                    <h2>🎸 تاریخچه و تحلیل ساز گیتار؛ از ریشه‌های شرقی تا قلب موسیقی جهانی</h2>
+                </div>
+                <div class="card">
+                    <h3>📜 پیدایش تاریخی گیتار</h3>
+                    <p>
+                        ساز گیتار، یکی از پرنفوذترین سازهای زهی در تاریخ موسیقی، ریشه‌ای چند هزار ساله دارد.
+                        نمونه‌های اولیه‌ی آن در تمدن‌های باستانی مانند سومر، مصر، ایران و یونان دیده شده‌اند.
+                        در ایران، سازهایی چون تنبور و بربط شباهت‌هایی ساختاری با گیتار داشته‌اند.
+                    </p>
+                    <p>
+                        با گسترش تمدن اسلامی به غرب، این سازها به اندلس (جنوب اسپانیا) راه یافتند و در آن‌جا با فرهنگ اروپایی
+                        تلفیق شدند. در قرون وسطی، سازهایی مانند «لوت» و «ویه‌ویلا» در اروپا رایج شدند که به‌تدریج به گیتار
+                        کلاسیک امروزی تبدیل شدند. واژه‌ی <b>guitarra</b> در زبان اسپانیایی از «قیثاره» عربی گرفته شده
+                        و نشان‌دهنده‌ی پیوند فرهنگی شرق و غرب در شکل‌گیری این ساز است.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>🪕 نقش زریاب در تحول گیتار</h3>
+                    <p>
+                        زریاب (ابوالحسن علی ابن نافع)، موسیقیدان برجسته‌ی قرن نهم میلادی و از شاگردان اسحاق موصلی در بغداد بود.
+                        او پس از مهاجرت به اندلس، تأثیری شگرف بر موسیقی غربی گذاشت:
+                    </p>
+                    <ul>
+                        <li>افزودن سیم پنجم به ساز عود، که بعدها در تکامل گیتار مؤثر بود.</li>
+                        <li>تأسیس نخستین مدرسه‌ی موسیقی در قرطبه، با آموزش نظام‌مند و نوآورانه.</li>
+                        <li>انتقال سبک‌های شرقی به غرب، که زمینه‌ساز پیدایش گیتار فلامنکو شد.</li>
+                    </ul>
+                    <p>
+                        زریاب تنها یک نوازنده نبود؛ او نظریه‌پرداز و هنرمندی فرهنگی بود که موسیقی را با آداب، لباس،
+                        و حتی خوراک پیوند داد و به شکل‌گیری هویت هنری اندلس کمک کرد.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>🎶 چرا گیتار مهم است؟</h3>
+                    <ul>
+                        <li><b>تنوع سبک‌ها:</b> از کلاسیک تا راک، فلامنکو، جز، بلوز و پاپ، گیتار در قلب بسیاری از سبک‌های موسیقی قرار دارد.</li>
+                        <li><b>بیان فردی:</b> امکان نواختن همزمان آکورد و ملودی، آن را به ابزاری قدرتمند برای بیان احساسات تبدیل کرده است.</li>
+                        <li><b>دسترسی و محبوبیت:</b> حمل آسان، دامنه‌ی قیمتی متنوع و قابلیت یادگیری تدریجی باعث محبوبیت جهانی آن شده است.</li>
+                        <li><b>نقش فرهنگی:</b> گیتار در موسیقی فولکلور، مذهبی، اعتراضی و عاشقانه حضور دارد و نماد نوعی آزادی هنری است.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌟 بزرگان گیتار و اهمیت‌شان</h3>
+                    <div class="grid-2">
+                        <div>
+                            <div class="commandment">
+                                <b>آندرس سگوویا – سبک کلاسیک</b>
+                                <p class="small">
+                                    بنیان‌گذار گیتار کلاسیک مدرن؛ او گیتار را از حاشیه به صحنه‌ی جدی موسیقی کلاسیک آورد.
+                                </p>
+                            </div>
+                            <div class="commandment">
+                                <b>پاکو دِ لوسیا – فلامنکو</b>
+                                <p class="small">
+                                    تلفیق فلامنکو با جز و موسیقی کلاسیک؛ نوآوری‌های او در تکنیک و بیان، چهره‌ی فلامنکو را دگرگون کرد.
+                                </p>
+                            </div>
+                            <div class="commandment">
+                                <b>جیمی هندریکس – راک</b>
+                                <p class="small">
+                                    انقلابی در صدای گیتار الکتریک؛ نمادی از خلاقیت، بداهه‌نوازی و روح معترض دهه‌ی ۶۰ میلادی.
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="commandment">
+                                <b>جان ویلیامز – کلاسیک</b>
+                                <p class="small">
+                                    نوازنده‌ای با تکنیک درخشان و تفسیرهایی دقیق از رپرتوار کلاسیک؛ نقش مهمی در گسترش آثار برای گیتار دارد.
+                                </p>
+                            </div>
+                            <div class="commandment">
+                                <b>اریک کلپتون – بلوز / راک</b>
+                                <p class="small">
+                                    تلفیق بلوز با راک؛ نقدهای موسیقایی، اجراها و ترانه‌های او تأثیر عمیقی بر فرهنگ موسیقی غربی گذاشته است.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: 10 COMMANDMENTS -->
+            <section class="section tab-section" id="tab-commandments">
+                <div class="section-header">
+                    <h2>🎼 ۱۰ فرمانِ طلایی در نوازندگیِ گیتار کلاسیک</h2>
+                </div>
+                <div class="card">
+                    <div class="commandment">
+                        <b>۱. انتخاب ساز مناسب</b>
+                        <p>
+                            اولین قدم، داشتن سازی با کیفیت و صدای قابل قبول است. حتی مبتدیان هم باید سازی داشته باشند که
+                            صدای شفاف و دسته‌ی راحتی داشته باشد. ساز بی‌کیفیت انگیزه‌ی تمرین را کم می‌کند و پیشرفت را کند.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۲. وضعیت بدنی و نشستن صحیح</b>
+                        <p>
+                            وضعیت بدن تأثیر مستقیمی بر کیفیت نوازندگی دارد. بدن و ساز باید در تعادل باشند.
+                            رها بودن و نواختن بدون انقباض عضلانی، یکی از اهداف نوازنده‌ی جدی است. استفاده از زیرپایی گیتار
+                            یا صندلی مناسب، از مشکلات عضلانی آینده پیشگیری می‌کند.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۳. تمرین روزانه و منظم</b>
+                        <p>
+                            در ژاپن روشی با نام <b>کایزن (Kaizen)</b> وجود دارد؛ یعنی پیشرفت تدریجی با تغییرات کوچک اما مداوم.
+                            در موسیقی هم همین‌طور است: تمرین روزانه‌ی کوتاه (مثلاً ۳۰ دقیقه) بسیار مؤثرتر از تمرین‌های پراکنده
+                            و طولانی است.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۴. شناخت تئوری موسیقی</b>
+                        <p>
+                            تئوری موسیقی، پایۀ فهم عمیق قطعات است. بدون آن، اجرا سطحی می‌ماند. یادگیری گام‌ها، ریتم‌ها
+                            و آکوردها باعث می‌شود درک بهتری از چیزی که می‌نوازید داشته باشید و نوازندگی‌تان شنیداری‌تر و
+                            آگاهانه‌تر شود.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۵. استفاده از منابع معتبر بین‌المللی</b>
+                        <p>
+                            متدهایی مانند کتاب پارکنینگ، دوره‌ی گیتار آکسفورد، متدهای آرون شیرر و کتاب تکنیک معروف
+                            <b>Pumping Nylon</b> نوشته‌ی اسکات تنانت، در کنار اتودهای کارکاسی، جولیانی، تارگا، لئو بروو
+                            و هیتور ویلالوبوس، می‌توانند هر نوازنده‌ی جدی گیتار کلاسیک را در مسیر درست هدایت کنند.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۶. تکنیک مناسب</b>
+                        <p>
+                            تکنیک‌هایی مثل اسلر، آرپژنوازی و ترمولو نیازمند تمرین روزانه و دقیق‌اند. باید تمرین‌ها را طوری طراحی کرد
+                            که تکنیک‌های مختلف در آن‌ها به‌طور هدفمند تمرین شوند، نه صرفاً تکرار مکانیکی.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۷. گوش دادن به اجراهای بزرگان</b>
+                        <p>
+                            شنیدن اجرای اساتید، بخش مهمی از یادگیری است. اجراهای آندرس سگوویا، دیوید راسل، جولین بریم،
+                            جان ویلیامز و پپه رومرو، هم الهام‌بخش و هم آموزشی‌اند. امروزه از طریق یوتیوب و پلتفرم‌های دیگر،
+                            می‌توان به اجراهای نسل جدید نوازندگان نیز دسترسی داشت.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۸. ضبط و ارزیابی خود</b>
+                        <p>
+                            شنیدن صدای خود از بیرون، یکی از مؤثرترین روش‌ها برای رشد است. ضبط تمرین‌ها کمک می‌کند ضعف‌ها را
+                            پیدا کرده و روند پیشرفت را بهتر ببینید. ضبط را در برنامه‌ی هفتگی خود ثابت کنید.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۹. مدیریت اضطراب صحنه</b>
+                        <p>
+                            ترس از اجرا در جمع بسیار طبیعی است. تمرین ذهن‌آگاهی، اجرای تمرینی در حضور دوستان و یادگیری شیوه‌های
+                            تنفس و ریلکسیشن، به مدیریت این اضطراب کمک می‌کند. مهم این است که استرس را دشمن نبینیم؛ بلکه
+                            یاد بگیریم آن را همراه خود به صحنه ببریم.
+                        </p>
+                    </div>
+                    <div class="commandment">
+                        <b>۱۰. صبر و عشق به موسیقی</b>
+                        <p>
+                            نوازندگی گیتار کلاسیک سفری بلندمدت است، نه یک مسابقه‌ی کوتاه. کسانی در این مسیر موفق‌اند که عاشق
+                            فرایند یادگیری باشند، از سختی‌ها فرار نکنند و برنامه‌ریزی داشته باشند. راه مهم‌تر از مقصد است؛
+                            با ایده‌آل‌گرایی افراطی، شوق خود را از بین نبرید.
+                        </p>
+                    </div>
+                    <p style="margin-top:8px;font-size:12px;opacity:.85">
+                        <b>جمع‌بندی:</b> برای تبدیل شدن به نوازنده‌ی حرفه‌ای، باید ترکیبی از عادت‌های درست، دانش موسیقی،
+                        تمرین هوشمند و ذهن آرام را در خود پرورش دهید.
+                    </p>
+                </div>
+            </section>
+
+            <!-- TAB: ANXIETY -->
+            <section class="section tab-section" id="tab-anxiety">
+                <div class="section-header">
+                    <h2>🎤 اضطراب اجرا (Performance Anxiety)</h2>
+                </div>
+                <div class="card">
+                    <p>
+                        اضطراب اجرا یکی از طبیعی‌ترین و رایج‌ترین حالت‌ها در بین نوازندگان و خوانندگان است؛
+                        حتی در سطح‌های حرفه‌ای. خبر خوب این‌که کنترل آن کاملاً ممکن است، به‌ویژه با تمرین‌های
+                        ذهنی و بدنی درست.
+                    </p>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🎯 ۱. تغییر نگرش ذهنی</h3>
+                        <ul>
+                            <li>اضطراب دشمن نیست؛ انرژیِ هیجان است که مغز هنوز نمی‌داند چگونه آن را مدیریت کند.</li>
+                            <li>قبل از اجرا به خودتان یادآوری کنید: «من اینجا هستم تا موسیقی را با دیگران تقسیم کنم، نه برای قضاوت شدن.»</li>
+                            <li>به جای پرسیدن «آیا خراب می‌کنم؟» بپرسید «چطور از این لحظه لذت ببرم؟»</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🧠 ۲. آماده‌سازی ذهنی (Mental Training)</h3>
+                        <ul>
+                            <li><b>تصویرسازی مثبت:</b> هر روز چند دقیقه خود را در حال اجرای موفق روی صحنه تصور کنید.</li>
+                            <li><b>گوش دادن به تمرین‌های موفق:</b> ضبط تمرین‌های خوبتان را بشنوید تا مغز باور کند «من می‌توانم».</li>
+                            <li><b>تبدیل اضطراب به تمرکز:</b> ضربان قلب بالا را نشانه‌ی هیجان و آماده‌بودن ببینید، نه ترس.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>💪 ۳. کنترل بدن و تنفس</h3>
+                        <ul>
+                            <li><b>تنفس ۴-۷-۸:</b> ۴ ثانیه دم، ۷ ثانیه حبس، ۸ ثانیه بازدم؛ سه بار تکرار برای آرام‌سازی سیستم عصبی.</li>
+                            <li><b>ریلکسیشن عضلانی:</b> انقباض و رهاسازی عضلات شانه، گردن و دست‌ها قبل از اجرا.</li>
+                            <li><b>حالت بدن:</b> نشستن یا ایستادن با قامت باز، سیگنال اعتماد به مغز می‌فرستد.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🎸 ۴. آمادگی فنی واقعی</h3>
+                        <ul>
+                            <li>چندین بار در شرایط شبیه اجرا تمرین کنید؛ مثلاً جلوی دوربین یا در جمع دوستان.</li>
+                            <li>هدف را «ادامه دادن» بگذارید، نه اجرای بی‌اشتباه؛ اشتباه بخشی طبیعی از موسیقی زنده است.</li>
+                            <li>یک روتین پیش از اجرا بسازید: تنفس آرام، مرور ذهنی قطعه، گفتن جمله‌ی آرام‌بخش شخصی مثل «من آماده‌ام».</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>💬 ۵. برخورد با اشتباه</h3>
+                        <ul>
+                            <li>پس از اشتباه، خود را قضاوت نکنید؛ توصیف کنید: «در بخش دوم تمرکزم کم شد.»</li>
+                            <li>ضبط و تحلیل اجراها کمک می‌کند به‌جای ترسیدن از اشتباه، آن را ابزاری برای رشد ببینید.</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>🌿 ۶. تمرین‌های بلندمدت برای آرامش کلی</h3>
+                        <ul>
+                            <li>مدیتیشن روزانه (۵ تا ۱۰ دقیقه)</li>
+                            <li>ورزش سبک منظم (یوگا، پیاده‌روی، تمرین تنفس عمیق)</li>
+                            <li>خواب کافی و تغذیه‌ی سبک پیش از اجرا</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: TARGET PRACTICE -->
+            <section class="section tab-section" id="tab-target-practice">
+                <div class="section-header">
+                    <h2>🎯 تمرینِ هدفمند؛ جایی که تکنیک به احساس خدمت می‌کند</h2>
+                </div>
+                <div class="card">
+                    <p>
+                        بدون تمرین‌های منظم و هدفمند، نمی‌توان به اجرای باکیفیت و پر از احساس روی ساز رسید.
+                        یک باور نادرست میان برخی نوازندگان وجود دارد: این‌که می‌توان ضعف‌های تکنیکی و بنیادی داشت
+                        و در عین حال «با احساس» نواخت؛ این تصور در عمل، هنگام مواجهه با قطعات پیچیده، خیلی زود فرو می‌ریزد.
+                    </p>
+                    <p>
+                        «با احساس نواختن» یعنی چیزی فراتر از اجرای درست نت‌ها؛ یعنی نواختن با ذهن و قلب،
+                        جایی که دانش و آگاهی موسیقایی در خدمت بیان درونی قرار می‌گیرد.
+                    </p>
+                    <p>
+                        از یاد نبریم: تکنیک و دانش موسیقی، دشمن احساس نیستند؛ <b>پایۀ احساس‌اند</b>.
+                        همان‌طور که شاعر برای بیان عمیق‌ترین احساساتش نیازمند تسلط بر زبان است،
+                        نوازنده نیز باید زبان سازش را بشناسد تا بتواند احساس درونش را بی‌واسطه منتقل کند.
+                    </p>
+                    <p>
+                        احساس واقعی در موسیقی از «آزادی» می‌آید، و آزادی نتیجه‌ی تمرین‌های طولانی، آگاهانه و صبورانه است؛
+                        زمانی که بدن و ذهن چنان با ساز یکی می‌شوند که دیگر لازم نیست به حرکت انگشتان فکر کنید؛
+                        در آن لحظه است که می‌توانید واقعاً با نت‌ها احساس و فکرتان را بیان کنید.
+                    </p>
+                    <p>
+                        <b>نکته‌ی کلیدی:</b> ناپدید شدن تکنیک را با «نبودن تکنیک» اشتباه نگیریم!
+                        تکنیک وقتی کامل جا افتاده باشد، از دید شنونده نامرئی می‌شود؛
+                        چیزی که باقی می‌ماند «موسیقی ناب» است.
+                    </p>
+                </div>
+            </section>
+
+            <!-- TAB: TEACHERS (با عکس پروفایل و ویدیوهای ثابت) -->
+            <section class="section tab-section" id="tab-teachers">
+                <div class="section-header">
+                    <h2>👩‍🏫 اساتید آموزشگاه آوای زریاب</h2>
+                </div>
+                <div class="grid-2">
+
+                    <!-- استاد معنوی -->
+                    <div class="teacher-card">
+                        <div class="teacher-head">
+                            <!-- عکس را در wwwroot/assets/teachers/manavi.jpg بگذار -->
+                            <img class="teacher-avatar"
+                                 src="assets/pic.jpg"
+                                 alt="استاد سهیل معنوی">
+                            <div class="teacher-meta">
+                                <h3>استاد سهیل معنوی</h3>
+                                <p>مربی گیتار (کلاسیک و پاپ)</p>
+                            </div>
+                        </div>
+                        <div class="teacher-body">
+                            <p>
+                                آموزش گیتار با رویکرد قدم‌به‌قدم، تلفیق تمرین‌های تکنیکی و موسیقایی،
+                                با تأکید بر درک ریتم، صدادهی صحیح و تفسیر هنری قطعات.
+                            </p>
+                            <div class="chips">
+                                <span class="chip">گیتار کلاسیک</span>
+                                <span class="chip">گیتار پاپ</span>
+                                <span class="chip">مبانی تئوری موسیقی</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="font-size:13px;margin-top:4px">🎥 گالری اجرای استاد معنوی</h3>
+                            <div class="slider-row">
+                                <!-- این ویدیوها را خودت در این مسیرها قرار بده -->
+                                <div class="slide-item">
+                                    <b>اجرای قطعه ۱</b>
+                                    <video controls preload="metadata" src="assets/film1.mp4"></video>
+                                </div>
+                                <div class="slide-item">
+                                    <b>اجرای قطعه ۲</b>
+                                    <video controls preload="metadata" src="assets/film2.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- استاد عنایتی -->
+                    <div class="teacher-card">
+                        <div class="teacher-head">
+                            <!-- عکس را در wwwroot/assets/teachers/enayati.jpg بگذار -->
+                            <img class="teacher-avatar"
+                                 src="assets/enayati.jpg"
+                                 alt="استاد عنایتی">
+                            <div class="teacher-meta">
+                                <h3>استاد عنایتی</h3>
+                                <p>مربی آواز و صداسازی</p>
+                            </div>
+                        </div>
+                        <div class="teacher-body">
+                            <p><b>تحصیلات:</b> دانش‌آموخته‌ی مترجمی زبان انگلیسی</p>
+                            <p><b>تجربیات آموزشی:</b></p>
+                            <ul style="padding-right:16px;font-size:11px">
+                                <li>فراگیری ویولن نزد خانم افسانه مزرعتی (از ۱۳۸۹)</li>
+                                <li>دوره‌های مبانی خوانندگی و آواز پاپ با استاد سعید سیاحی (از ۱۳۹۷)</li>
+                                <li>فراگیری گیتار پاپ نزد استاد سهیل معنوی (از ۱۳۹۹)</li>
+                                <li>فراگیری پیانو به صورت خودآموز</li>
+                                <li>دوره‌های دیکته موسیقی با استاد فاطمه کاهه</li>
+                                <li>کلاس‌های صداسازی در مدرسه‌ی آواز داوود محمدی زیر نظر اساتید مختلف</li>
+                                <li>دوره‌های مربی‌گری صداسازی (سطح مبتدی و پیشرفته)</li>
+                                <li>دوره‌ی ژانر جز و راک با استاد نیلوفر حقانی</li>
+                            </ul>
+                            <p><b>حوزه‌های کاری و پژوهشی:</b></p>
+                            <ul style="padding-right:16px;font-size:11px">
+                                <li>مربی صداسازی در مدرسه آواز داوود محمدی</li>
+                                <li>مربی صداسازی و آواز در آموزشگاه آوای زریاب کاشان</li>
+                                <li>عضو فعال انجمن مطالعات آوازی ایران</li>
+                                <li>
+                                    همکاری در ترجمه‌ی کتاب‌ها و مقالات تخصصی صدا مانند
+                                    <i>Anatomy of the Voice</i> و
+                                    <i>Singing: The Mechanism and the Technique</i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size:13px;margin-top:4px">🎥 گالری اجرای استاد عنایتی</h3>
+                            <div class="slider-row">
+                                <div class="slide-item">
+                                    <b>اجرای آموزشی ۱</b>
+                                    <video controls preload="metadata" src="media/teachers/enayati-1.mp4"></video>
+                                </div>
+                                <div class="slide-item">
+                                    <b>اجرای آموزشی ۲</b>
+                                    <video controls preload="metadata" src="media/teachers/enayati-2.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- استاد علی تلیلی -->
+                    <div class="teacher-card">
+                        <div class="teacher-head">
+                            <!-- عکس را در wwwroot/assets/teachers/talili.jpg بگذار -->
+                            <img class="teacher-avatar"
+                                 src="assets/ali.jpg"
+                                 alt="استاد علی تلیلی">
+                            <div class="teacher-meta">
+                                <h3>استاد علی تلیلی</h3>
+                                <p>مربی تنبک و کمانچه</p>
+                            </div>
+                        </div>
+                        <div class="teacher-body">
+                            <p>
+                                آموزش سازهای کوبه‌ای و کمانچه با تمرکز بر رپرتوار موسیقی دستگاهی،
+                                ریتم‌خوانی، درک وزن و همراهی گروهی.
+                            </p>
+                            <div class="chips">
+                                <span class="chip">تنبک</span>
+                                <span class="chip">کمانچه</span>
+                                <span class="chip">ریتم‌خوانی</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 style="font-size:13px;margin-top:4px">🎥 گالری اجرای استاد علی تلیلی</h3>
+                            <div class="slider-row">
+                                <div class="slide-item">
+                                    <b>اجرای ریتمیک ۱</b>
+                                    <video controls preload="metadata" src="media/teachers/talili-1.mp4"></video>
+                                </div>
+                                <div class="slide-item">
+                                    <b>اجرای ریتمیک ۲</b>
+                                    <video controls preload="metadata" src="media/teachers/talili-2.mp4"></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- توضیح کلی -->
+                    <div class="teacher-card">
+                        <h3>🎓 رویکرد آموزشی در آوای زریاب</h3>
+                        <p style="font-size:12px">
+                            هر استاد علاوه بر گالری شخصی (ویدیو و تصویر)، برنامه‌ی آموزشی ویژه‌ی خود را دارد.
+                            هنرجویان در طول ترم، امکان ضبط اجرا، تحلیل، شرکت در اجراهای کارگاهی،
+                            و استفاده از منابع تکمیلی (کتاب و PDF) را دارند.
+                        </p>
+                        <p style="font-size:12px">
+                            برای دیدن نمونه اجراهای تازه‌ی اساتید، می‌توانید به‌مرور این بخش را به‌روزرسانی کنید؛
+                            کافی‌ست فایل‌های ویدیو را در مسیر
+                            <code>wwwroot/media/teachers/</code> جایگزین کنید.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: STUDENTS (از طریق پنل ادمین) -->
+            <section class="section tab-section" id="tab-students">
+                <div class="section-header">
+                    <h2>👨‍🎓 هنرجویان آوای زریاب</h2>
+                </div>
+                <div class="card">
+                    <p>
+                        در این بخش، بخشی از تصاویر و ویدیوهای اجرا، تمرین و فعالیت هنرجویان آموزشگاه را می‌بینید.
+                        این گالری از طریق پنل مدیریت به‌صورت مداوم قابل به‌روزرسانی است.
+                    </p>
+                    <div id="studentsSlider" class="slider-row" style="margin-top:10px">
+                        <div class="slide-item">در حال بارگذاری...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: BOOKS + CART -->
+            <section class="section tab-section" id="tab-books">
+                <div class="section-header">
+                    <h2>📚 کتاب‌های آموزشی آوای زریاب</h2>
+                </div>
+                <div class="books-layout">
+                    <div>
+                        <div class="poster-card">
+                            <h3>پوستر و معرفی کتاب‌ها</h3>
+                            <div class="poster-banner">
+                                <p>
+                                    در این بخش می‌توانید کتاب‌ها و منابع آموزشی ویژه‌ی آموزشگاه را تهیه کنید.
+                                    هر کتاب توسط اساتید بررسی شده و در مسیر آموزشی هنرجویان جایگاه مشخصی دارد.
+                                </p>
+                                <p style="font-size:11px;opacity:.9">
+                                    پوستر و اطلاعات کتاب‌ها از طریق پنل مدیریت ثبت می‌شود؛
+                                    فایل‌های PDF در هاست شما (مثلاً <code>/uploads/books/</code>) قرار می‌گیرند.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top:10px">
+                            <h3 style="margin-bottom:4px;font-size:15px">لیست کتاب‌ها</h3>
+                            <div id="booksList" class="book-list">
+                                <div class="book-card">
+                                    در حال بارگذاری کتاب‌ها...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="cart-card">
+                            <h3 style="margin-top:0;font-size:15px">🛒 سبد خرید</h3>
+                            <div id="cartItems" style="margin-top:6px">
+                                <p class="cart-empty">سبد خرید شما خالی است.</p>
+                            </div>
+                            <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+                                <span id="cartTotal" style="font-size:12px">مجموع: ۰ تومان</span>
+                                <button id="btnCheckout" class="btn btn-gold" style="font-size:12px">پرداخت (نمونه)</button>
+                            </div>
+                            <p id="cartStatus" class="status" style="margin-top:6px"></p>
+                            <p style="font-size:11px;opacity:.8;margin-top:6px">
+                                درگاه پرداخت واقعی بعداً در بک‌اند متصل می‌شود؛ فعلاً این بخش صرفاً شبیه‌سازی است.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: AUTH + USER PANEL -->
+            <section class="section tab-section" id="tab-auth">
+                <div class="section-header">
+                    <h2>👤 ورود، ثبت‌نام و پنل کاربری</h2>
+                </div>
+
+                <div class="auth-layout">
+                    <!-- کارت فرم‌ها -->
+                    <div class="card-soft" id="authCard">
+                        <div class="auth-tabs">
+                            <div class="auth-tab active" data-mode="login">ورود</div>
+                            <div class="auth-tab" data-mode="register">ثبت‌نام</div>
+                            <div class="auth-tab" data-mode="forgot">فراموشی رمز</div>
+                        </div>
+
+                        <!-- فرم ورود -->
+                        <div class="auth-panel" id="panel-login">
+                            <p style="font-size:12px;opacity:.9">
+                                اگر قبلاً ثبت‌نام کرده‌اید، با ایمیل یا نام کاربری و رمز عبور وارد شوید.
+                            </p>
+                            <div class="input-row">
+                                <div>
+                                    <label>ایمیل یا نام کاربری</label>
+                                    <input id="loginIdentifier" class="input" placeholder="مثلاً: user@example.com یا نام کاربری" />
+                                </div>
+                                <div>
+                                    <label>رمز عبور</label>
+                                    <input id="loginPassword" class="input" type="password" placeholder="••••••••" />
+                                </div>
+                            </div>
+                            <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+                                <span class="small-link" data-switch="forgot">فراموشی رمز عبور؟</span>
+                                <button id="btnLogin" class="btn btn-gold">ورود به حساب</button>
+                            </div>
+                            <p id="statusLogin" class="status"></p>
+                        </div>
+
+                        <!-- فرم ثبت‌نام -->
+                        <div class="auth-panel" id="panel-register" style="display:none">
+                            <p style="font-size:12px;opacity:.9">
+                                ابتدا نام کاربری، ایمیل و رمز عبور خود را وارد کنید. سپس یک کد تأیید برای ایمیل شما ارسال می‌شود.
+                            </p>
+                            <div class="input-row">
+                                <div>
+                                    <label>نام کاربری</label>
+                                    <input id="regUsername" class="input" placeholder="نام کاربری" />
+                                </div>
+                                <div>
+                                    <label>ایمیل</label>
+                                    <input id="regEmail" class="input" type="email" placeholder="you@example.com" />
+                                </div>
+                            </div>
+                            <div class="input-row" style="margin-top:6px">
+                                <div>
+                                    <label>رمز عبور</label>
+                                    <input id="regPassword" class="input" type="password" placeholder="••••••••" />
+                                </div>
+                                <div>
+                                    <label>تکرار رمز عبور</label>
+                                    <input id="regConfirm" class="input" type="password" placeholder="••••••••" />
+                                </div>
+                            </div>
+                            <div style="margin-top:8px">
+                                <button id="btnRegister" class="btn btn-gold">ثبت‌نام</button>
+                            </div>
+                            <p id="statusRegister" class="status"></p>
+
+                            <!-- فرم کد تأیید -->
+                            <div id="verifyBox" style="margin-top:10px;display:none">
+                                <hr style="border-color:rgba(148,163,184,.35);margin:8px 0">
+                                <p style="font-size:12px;opacity:.9">
+                                    کد تأیید برای ایمیل شما ارسال شد. لطفاً کد را در این بخش وارد کنید.
+                                </p>
+                                <div class="input-row">
+                                    <div>
+                                        <label>ایمیل</label>
+                                        <input id="verifyEmail" class="input" type="email" />
+                                    </div>
+                                    <div>
+                                        <label>کد تأیید</label>
+                                        <input id="verifyCode" class="input" placeholder="مثلاً 123456" />
+                                    </div>
+                                </div>
+                                <div style="margin-top:8px">
+                                    <button id="btnVerifyEmail" class="btn btn-gold">تأیید ایمیل و ورود</button>
+                                </div>
+                                <p id="statusVerify" class="status"></p>
+                            </div>
+                        </div>
+
+                        <!-- فرم فراموشی رمز -->
+                        <div class="auth-panel" id="panel-forgot" style="display:none">
+                            <p style="font-size:12px;opacity:.9">
+                                ایمیلی که با آن ثبت‌نام کرده‌اید را وارد کنید تا کد بازیابی برای شما ارسال شود.
+                            </p>
+                            <div>
+                                <label>ایمیل</label>
+                                <input id="forgotEmail" class="input" type="email" placeholder="you@example.com" />
+                            </div>
+                            <div style="margin-top:8px">
+                                <button id="btnForgot" class="btn btn-gold">ارسال کد بازیابی</button>
+                            </div>
+                            <p id="statusForgot" class="status"></p>
+
+                            <div id="resetBox" style="margin-top:10px;display:none">
+                                <hr style="border-color:rgba(148,163,184,.35);margin:8px 0">
+                                <p style="font-size:12px;opacity:.9">
+                                    کد ارسال‌شده به ایمیل، به همراه رمز جدید را در این بخش وارد کنید.
+                                </p>
+                                <div class="input-row">
+                                    <div>
+                                        <label>کد بازیابی</label>
+                                        <input id="resetCode" class="input" placeholder="کد ۶ رقمی" />
+                                    </div>
+                                    <div>
+                                        <label>رمز جدید</label>
+                                        <input id="resetPass" class="input" type="password" placeholder="••••••••" />
+                                    </div>
+                                </div>
+                                <div style="margin-top:6px">
+                                    <label>تکرار رمز جدید</label>
+                                    <input id="resetPassConfirm" class="input" type="password" placeholder="••••••••" />
+                                </div>
+                                <div style="margin-top:8px">
+                                    <button id="btnReset" class="btn btn-gold">تغییر رمز عبور</button>
+                                </div>
+                                <p id="statusReset" class="status"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- پنل کاربری -->
+                    <div class="user-panel" id="userPanel" style="display:none">
+                        <h3 style="margin-top:0;margin-bottom:6px;font-size:15px">🎧 پنل کاربری شما</h3>
+                        <p id="userWelcome" style="margin:4px 0;font-size:12px"></p>
+                        <p style="margin:4px 0;font-size:12px">
+                            پس از ورود، می‌توانید کتاب‌ها را به سبد خرید خود اضافه کنید و از مطالب آموزشی سایت بهره‌مند شوید.
+                        </p>
+                        <ul style="font-size:12px;line-height:1.9;padding-right:18px">
+                            <li>خرید کتاب‌های آموزشی و دریافت PDF</li>
+                            <li>دسترسی به محتوای ویژه (در صورت تعریف در آینده)</li>
+                            <li>امکان توسعه‌ی پنل برای نمایش دوره‌ها، کلاس‌های رزرو شده و…</li>
+                        </ul>
+                        <button id="btnLogoutUser" class="btn btn-outline" style="margin-top:6px">خروج از حساب کاربری</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            © آموزشگاه موسیقی آوای زریاب – تمامی حقوق محفوظ است.
+        </footer>
     </div>
-  </div>
 
-  <nav class="nav" aria-label="منو">
-    <button data-target="home" class="active">خانه</button>
-    <button data-target="about">درباره</button>
-    <button data-target="teachers">استادان</button>
-    <button data-target="students">هنرجویان</button>
-    <button data-target="solfege">سلفژ</button>
-    <button data-target="articles">مطالب</button>
-  </nav>
-</header>
+    <script>
+        const API_BASE = window.location.origin;
+        const USER_TOKEN_KEY = "userToken";
+        const USER_INFO_KEY = "userInfo";
+        const CART_KEY = "cartItems";
 
-<main>
-  <!-- HERO -->
-  <section id="home" class="page">
-    <div class="hero">
-      <div class="left">
-        <h2>آکادمی موسیقی آوای زریاب</h2>
-        <p class="text-muted">آموزش گیتار، آواز و ترویج هنر با رویکردی نوآورانه؛ گالری استادان، ویدیوهای هنرجویان، و بخش‌های آموزشی حرفه‌ای.</p>
+        const $ = s => document.querySelector(s);
 
-        <div class="cta">
-          <button class="btn" onclick="openSection('teachers')">معرفی استادان</button>
-          <button class="ghost" onclick="openSection('solfege')">سه رویکرد در سلفژ (PDF)</button>
-          <button class="ghost" id="enableSoundBtn">فعال‌سازی صدا</button>
-        </div>
-      </div>
+        // ========== NAV / HAMBURGER / TABS ==========
+        const navLinks = $("#navLinks");
+        const hamburger = $("#hamburger");
 
-      <div style="width:140px;display:flex;align-items:center;justify-content:center">
-        <!-- نمای بزرگی از لوگو (میخوای بزرگ‌تر باشه) -->
-        <img src="assets/logo.png" alt="لوگو بزرگ" style="width:120px;filter:drop-shadow(0 10px 30px rgba(201,160,76,0.12));">
-      </div>
-    </div>
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+        });
 
-    <!-- کوتاه: نمونه از شبکه گالری کوچک -->
-    <section style="margin-top:12px">
-      <h3>نمونه آثار اخیر</h3>
-      <div class="grid" id="homeGallery">
-        <!-- تصاویر نمونه (با جاوااسکریپت پر می‌شود) -->
-      </div>
-    </section>
-  </section>
+        document.querySelectorAll(".nav-link").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const tabId = btn.getAttribute("data-tab");
+                if (!tabId) return;
 
-  <!-- ABOUT -->
-  <section id="about" class="page" style="display:none">
-    <h3>تاریخچه و تحلیل ساز گیتار</h3>
-    <article>
-      <!-- متن طولانی که فرستادی اینجا قرار داده شد -->
-      <p><strong>پیدایش تاریخی گیتار</strong></p>
-      <p class="text-muted">ساز گیتار، یکی از پرنفوذترین سازهای زهی در تاریخ موسیقی، ریشه‌ای چند هزار ساله دارد... (متن کامل از ورودی کاربر)</p>
+                // فعال‌/غیرفعال کردن تب‌ها
+                document.querySelectorAll(".tab-section").forEach(sec => {
+                    sec.classList.toggle("active", sec.id === tabId);
+                });
 
-      <p><strong>نقش زریاب در تحول گیتار</strong></p>
-      <p class="text-muted">زریاب (ابوالحسن علی ابن نافع) ...</p>
+                // فعال‌/غیرفعال کردن دکمه‌های ناوبری
+                document.querySelectorAll(".nav-link").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
 
-      <p><strong>چرا گیتار مهم است؟</strong></p>
-      <p class="text-muted">گیتار به دلایل زیر یکی از مهم‌ترین سازهای جهان محسوب می‌شود: ...</p>
+                navLinks.classList.remove("open");
+            });
+        });
 
-      <p><strong>بزرگان گیتار</strong></p>
-      <p class="text-muted">آندرس سگوویا، پاکو دلوسیا، جیمی هندریکس، جان ویلیامز، اریک کلپتون ...</p>
-    </article>
-  </section>
+        // ========== HELPER: LOADING روی دکمه‌ها ==========
+        function withLoading(button, fn, loadingText) {
+            if (!button) return;
+            if (button.disabled) return; // جلوگیری از دوبار کلیک
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = loadingText || "در حال ارسال...";
+            Promise.resolve()
+                .then(fn)
+                .finally(() => {
+                    button.disabled = false;
+                    button.textContent = originalText;
+                });
+        }
 
-  <!-- TEACHERS -->
-  <section id="teachers" class="page" style="display:none">
-    <h3>استادان</h3>
-    <div class="teachers" id="teachersList">
-      <!-- کارت‌ها با جاوا پر می‌شود -->
-    </div>
+        // ========== INTRO MEDIA (از بک‌اند) ==========
+        async function loadIntroMedia() {
+            const box = $("#introMediaContent");
+            if (!box) return;
+            try {
+                const res = await fetch(API_BASE + "/api/content");
+                if (!res.ok) return;
+                const data = await res.json();
+                const intro = data.intro || {};
+                if (!intro.videoUrl && !intro.posterUrl) {
+                    box.innerHTML = '<div class="intro-placeholder">ویدیوی معرفی هنوز ثبت نشده است.</div>';
+                    return;
+                }
+                let html = "";
+                if (intro.videoUrl) {
+                    html += '<video controls preload="metadata" src="' + intro.videoUrl + '"></video>';
+                } else if (intro.posterUrl) {
+                    html += '<img src="' + intro.posterUrl + '" alt="پوستر معرفی آموزشگاه">';
+                }
+                box.innerHTML = html;
+            } catch {
+                box.innerHTML = '<div class="intro-placeholder">خطا در دریافت اطلاعات معرفی.</div>';
+            }
+        }
 
-    <div style="margin-top:12px">
-      <h3>گالری مشترک استادان</h3>
-      <div class="grid" id="teachersGallery">
-        <!-- پر می‌شود -->
-      </div>
-    </div>
-  </section>
+        // ========== STUDENT MEDIA (از بک‌اند) ==========
+        async function loadStudentMedia() {
+            const box = $("#studentsSlider");
+            if (!box) return;
+            box.innerHTML = '<div class="slide-item">در حال بارگذاری...</div>';
+            try {
+                const res = await fetch(API_BASE + "/api/media/students");
+                if (!res.ok) {
+                    box.innerHTML = '<div class="slide-item">خطا در دریافت اطلاعات.</div>';
+                    return;
+                }
+                const list = await res.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    box.innerHTML = '<div class="slide-item">مدیایی برای هنرجویان ثبت نشده است.</div>';
+                    return;
+                }
+                box.innerHTML = list.map(m => {
+                    const title = m.caption || "اجرای هنرجویان";
+                    const media = m.mediaType === "video"
+                        ? '<video controls preload="metadata" src="' + m.fileUrl + '"></video>'
+                        : '<img src="' + m.fileUrl + '" alt="' + title + '">';
+                    return (
+                        '<div class="slide-item">' +
+                        '<b>' + title + '</b>' +
+                        media +
+                        '</div>'
+                    );
+                }).join("");
+            } catch {
+                box.innerHTML = '<div class="slide-item">خطا در ارتباط با سرور.</div>';
+            }
+        }
 
-  <!-- STUDENTS -->
-  <section id="students" class="page" style="display:none">
-    <h3>گالری هنرجویان</h3>
-    <p class="text-muted">اینجا ویدیوها و عکس‌های هنرجویان مرتب و بر اساس استاد نمایش داده می‌شود.</p>
+        // ========== BOOKS & CART ==========
+        let cart = [];
 
-    <div id="studentsGrid" class="grid"></div>
-  </section>
+        function saveCart() {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }
 
-  <!-- SOLFEGE (PDFs) -->
-  <section id="solfege" class="page" style="display:none">
-    <h3>سه رویکرد کاربردی در سلفژ</h3>
-    <p class="text-muted">در این بخش می‌توانید فایل‌های PDF آموزشی مربوط به هر رویکرد را مشاهده یا جایگزین کنید.</p>
+        function loadCartFromStorage() {
+            try {
+                const raw = localStorage.getItem(CART_KEY);
+                cart = raw ? JSON.parse(raw) : [];
+            } catch {
+                cart = [];
+            }
+        }
 
-    <div class="pdf-list" id="pdfList">
-      <!-- آیتم‌ها از JS -->
-    </div>
+        function renderCart() {
+            const box = $("#cartItems");
+            const totalEl = $("#cartTotal");
+            if (!box || !totalEl) return;
+            if (cart.length === 0) {
+                box.innerHTML = '<p class="cart-empty">سبد خرید شما خالی است.</p>';
+                totalEl.textContent = "مجموع: ۰ تومان";
+                return;
+            }
+            let total = 0;
+            box.innerHTML = cart.map(b => {
+                total += b.price;
+                return (
+                    '<div class="cart-item">' +
+                    '<span>' + b.title + '</span>' +
+                    '<span>' + b.price.toLocaleString("fa-IR") + ' تومان</span>' +
+                    '</div>'
+                );
+            }).join("");
+            totalEl.textContent = "مجموع: " + total.toLocaleString("fa-IR") + " تومان";
+        }
 
-    <p class="text-muted" style="margin-top:8px;font-size:13px">راهنما: برای جایگزینی PDF، فایل‌های PDF را در پوشه <code>assets/pdfs/</code> قرار دهید و در آرایه `SolfgePdfs` در بخش جاوااسکریپت نام و مسیر آن را اضافه کنید.</p>
-  </section>
+        async function loadBooks() {
+            const listBox = $("#booksList");
+            if (!listBox) return;
+            listBox.innerHTML = '<div class="book-card">در حال بارگذاری کتاب‌ها...</div>';
+            try {
+                const res = await fetch(API_BASE + "/api/books");
+                if (!res.ok) {
+                    listBox.innerHTML = '<div class="book-card">خطا در دریافت کتاب‌ها.</div>';
+                    return;
+                }
+                const list = await res.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    listBox.innerHTML = '<div class="book-card">هنوز کتابی ثبت نشده است.</div>';
+                    return;
+                }
+                listBox.innerHTML = list.map(b => {
+                    const inCart = cart.some(x => x.id === b.id);
+                    return (
+                        '<div class="book-card">' +
+                        '<div class="book-title">' + b.title + '</div>' +
+                        '<div class="book-meta">' +
+                        (b.level ? 'سطح: ' + b.level + '<br>' : '') +
+                        '<span style="font-size:11px;opacity:.8">فرمت: PDF</span>' +
+                        '</div>' +
+                        '<div class="price">' + b.price.toLocaleString("fa-IR") + ' تومان</div>' +
+                        '<div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:8px">' +
+                        '<button class="btn btn-gold" ' +
+                        'data-book-id="' + b.id + '" ' +
+                        'data-book-title="' + b.title + '" ' +
+                        'data-book-price="' + b.price + '" ' +
+                        (inCart ? 'disabled' : '') + '>' +
+                        (inCart ? 'در سبد موجود است' : 'افزودن به سبد') +
+                        '</button>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                }).join("");
 
-  <!-- ARTICLES -->
-  <section id="articles" class="page" style="display:none">
-    <h3>مقالات و نکات</h3>
+                listBox.querySelectorAll("button[data-book-id]").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const token = getUserToken();
+                        const cartStatus = $("#cartStatus");
+                        if (!token) {
+                            if (cartStatus) {
+                                cartStatus.textContent = "برای خرید، ابتدا وارد حساب کاربری شوید.";
+                                cartStatus.className = "status err";
+                            } else {
+                                alert("برای خرید، ابتدا وارد حساب کاربری شوید.");
+                            }
+                            return;
+                        }
+                        const id = parseInt(btn.getAttribute("data-book-id"), 10);
+                        const title = btn.getAttribute("data-book-title");
+                        const price = Number(btn.getAttribute("data-book-price"));
+                        if (!cart.some(x => x.id === id)) {
+                            cart.push({ id, title, price });
+                            saveCart();
+                            renderCart();
+                            btn.disabled = true;
+                            btn.textContent = "در سبد موجود است";
+                        }
+                    });
+                });
 
-    <article>
-      <h4>۱۰ نکته برای تبدیل شدن به یک نوازنده گیتار کلاسیک حرفه‌ای</h4>
-      <p class="text-muted">۱. انتخاب ساز مناسب ... ۱۰. صبر و عشق به موسیقی ...</p>
-    </article>
+            } catch {
+                listBox.innerHTML = '<div class="book-card">خطا در ارتباط با سرور.</div>';
+            }
+        }
 
-    <article style="margin-top:12px">
-      <h4>اضطراب اجرا (Performance Anxiety)</h4>
-      <p class="text-muted">توضیحات و راهکارهای عملی برای کنترل استرس اجرا ...</p>
-    </article>
-  </section>
-</main>
+        $("#btnCheckout").addEventListener("click", () => {
+            const cartStatus = $("#cartStatus");
+            if (cart.length === 0) {
+                cartStatus.textContent = "سبد خرید خالی است.";
+                cartStatus.className = "status err";
+                return;
+            }
+            const token = getUserToken();
+            if (!token) {
+                cartStatus.textContent = "برای پرداخت، ابتدا وارد حساب کاربری شوید.";
+                cartStatus.className = "status err";
+                return;
+            }
+            // فقط نمونه – درخواست به سرور می‌فرستد، اما واقعی نیست
+            withLoading($("#btnCheckout"), async () => {
+                try {
+                    const res = await fetch(API_BASE + "/api/checkout", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ items: cart.map(c => ({ id: c.id, title: c.title, price: c.price })) })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        cartStatus.textContent = data.message || "خطا در ثبت پرداخت.";
+                        cartStatus.className = "status err";
+                        return;
+                    }
+                    cartStatus.textContent = data.message || "پرداخت ثبت شد (نمونه).";
+                    cartStatus.className = "status ok";
+                } catch {
+                    cartStatus.textContent = "خطا در ارتباط با سرور.";
+                    cartStatus.className = "status err";
+                }
+            }, "در حال ثبت...");
+        });
 
-<!-- Teacher detail overlay (برای هر استاد) -->
-<div class="overlay" id="overlay">
-  <div class="panel">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <h3 id="teacherName">استاد</h3>
-        <div id="teacherBio" class="text-muted" style="font-size:13px">توضیحات استاد</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="close-btn" onclick="closeOverlay()">بستن ✕</button>
-      </div>
-    </div>
+        // ========== AUTH / USER ==========
+        function getUserToken() {
+            return localStorage.getItem(USER_TOKEN_KEY) || "";
+        }
+        function getUserInfo() {
+            try {
+                const raw = localStorage.getItem(USER_INFO_KEY);
+                return raw ? JSON.parse(raw) : null;
+            } catch {
+                return null;
+            }
+        }
+        function setUserSession(token, user) {
+            localStorage.setItem(USER_TOKEN_KEY, token);
+            localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
+        }
+        function clearUserSession() {
+            localStorage.removeItem(USER_TOKEN_KEY);
+            localStorage.removeItem(USER_INFO_KEY);
+            localStorage.removeItem(CART_KEY);
+            cart = [];
+        }
 
-    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+        function applyUserUI() {
+            const token = getUserToken();
+            const user = getUserInfo();
+            const userPanel = $("#userPanel");
+            const authCard = $("#authCard");
+            const navAuthBtn = $("#navAuthBtn");
+            if (token && user) {
+                if (userPanel) {
+                    userPanel.style.display = "block";
+                    $("#userWelcome").textContent = "خوش آمدید، " + (user.username || user.email) + "!";
+                }
+                if (authCard) {
+                    authCard.style.opacity = 0.5;
+                    authCard.style.pointerEvents = "none";
+                }
+                if (navAuthBtn) {
+                    navAuthBtn.textContent = "پنل کاربری";
+                }
+            } else {
+                if (userPanel) userPanel.style.display = "none";
+                if (authCard) {
+                    authCard.style.opacity = 1;
+                    authCard.style.pointerEvents = "auto";
+                }
+                if (navAuthBtn) {
+                    navAuthBtn.textContent = "ورود / ثبت‌نام";
+                }
+            }
+        }
 
-    <h4>آثار استاد</h4>
-    <div id="teacherWorks" class="grid"></div>
+        // تب‌های Auth
+        document.querySelectorAll(".auth-tab").forEach(tab => {
+            tab.addEventListener("click", () => {
+                const mode = tab.getAttribute("data-mode");
+                document.querySelectorAll(".auth-tab").forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+                ["login", "register", "forgot"].forEach(m => {
+                    const panel = document.querySelector("#panel-" + m);
+                    if (panel) panel.style.display = (m === mode) ? "block" : "none";
+                });
+            });
+        });
 
-    <h4 style="margin-top:12px">هنرجویان استاد</h4>
-    <div id="teacherStudents" class="grid"></div>
+        document.querySelectorAll("[data-switch='forgot']").forEach(el => {
+            el.addEventListener("click", () => {
+                document.querySelector(".auth-tab[data-mode='forgot']").click();
+            });
+        });
 
-    <p class="text-muted" style="margin-top:10px;font-size:13px">برای اضافه کردن عکس/ویدیو به این استاد، مسیر فایل‌ها را در آرایه `teachers` در ابتدای اسکریپت تغییر دهید (جزئیات در کامنت کد).</p>
-  </div>
-</div>
+        // LOGIN
+        $("#btnLogin").addEventListener("click", () => {
+            const btn = $("#btnLogin");
+            withLoading(btn, async () => {
+                const id = $("#loginIdentifier").value.trim();
+                const pass = $("#loginPassword").value;
+                const st = $("#statusLogin");
+                st.textContent = "";
+                st.className = "status";
+                if (!id || !pass) {
+                    st.textContent = "ایمیل/نام کاربری و رمز را وارد کنید.";
+                    st.className = "status err";
+                    return;
+                }
+                try {
+                    const res = await fetch(API_BASE + "/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ identifier: id, password: pass })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        st.textContent = data.message || "ورود ناموفق بود.";
+                        st.className = "status err";
+                        return;
+                    }
+                    setUserSession(data.token, data.user);
+                    st.textContent = "ورود موفق. خوش آمدید.";
+                    st.className = "status ok";
+                    applyUserUI();
+                } catch {
+                    st.textContent = "خطا در ارتباط با سرور.";
+                    st.className = "status err";
+                }
+            }, "در حال ورود...");
+        });
 
-<!-- footer nav (mobile) -->
-<div class="footer-nav">
-  <button onclick="openSection('home')">خانه</button>
-  <button onclick="openSection('teachers')">استادان</button>
-  <button onclick="openSection('students')">هنرجویان</button>
-  <button onclick="openSection('solfege')">سلفژ</button>
-  <button onclick="openSection('articles')">مطالب</button>
-</div>
+        // REGISTER
+        let pendingEmail = "";
+        $("#btnRegister").addEventListener("click", () => {
+            const btn = $("#btnRegister");
+            withLoading(btn, async () => {
+                const username = $("#regUsername").value.trim();
+                const email = $("#regEmail").value.trim();
+                const pass = $("#regPassword").value;
+                const confirm = $("#regConfirm").value;
+                const st = $("#statusRegister");
+                st.textContent = "";
+                st.className = "status";
 
-<!-- اسکریپت -->
-<script>
-/* ========== داده‌های دمو ========== 
-   جایگزین کن یا گسترش بده:
-   - هر عکس/ویدیو را داخل پوشه assets/teachers/<teacher-id>/ قرار بده
-   - هر PDF را داخل assets/pdfs/ قرار بده
-   سپس آرایه‌ها را مطابق فایل‌های خودت آپدیت کن.
-*/
+                if (!username || !email || !pass || !confirm) {
+                    st.textContent = "تمام فیلدها را کامل کنید.";
+                    st.className = "status err";
+                    return;
+                }
+                try {
+                    const res = await fetch(API_BASE + "/api/auth/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, email, password: pass, confirmPassword: confirm })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        st.textContent = data.message || "ثبت‌نام ناموفق بود.";
+                        st.className = "status err";
+                        return;
+                    }
+                    st.textContent = data.message || "ثبت‌نام اولیه انجام شد. ایمیل خود را بررسی کنید.";
+                    st.className = "status ok";
+                    pendingEmail = email;
+                    const verifyBox = $("#verifyBox");
+                    const verifyEmail = $("#verifyEmail");
+                    if (verifyBox) {
+                        verifyBox.style.display = "block";
+                        verifyEmail.value = pendingEmail;
+                    }
+                } catch {
+                    st.textContent = "خطا در ارتباط با سرور.";
+                    st.className = "status err";
+                }
+            }, "در حال ارسال کد...");
+        });
 
-const teachers = [
-  {
-    id: 'soheil-manavi',
-    name: 'استاد سهیل معنوی',
-    role: 'مربی گیتار',
-    bio: 'متنی کوتاه درباره استاد سهیل معنوی — تخصص در گیتار کلاسیک و فلامنکو.',
-    avatar: 'assets/teachers/soheil/avatar.jpg', // جایگزین کن
-    works: [
-      'assets/teachers/soheil/work1.jpg',
-      'assets/teachers/soheil/work2.jpg',
-      'assets/teachers/soheil/work3.mp4' // میتواند ویدیو هم باشد
-    ],
-    students: [
-      'assets/teachers/soheil/student1.mp4',
-      'assets/teachers/soheil/student2.jpg'
-    ]
-  },
-  {
-    id: 'enaayati',
-    name: 'استاد عنایتی',
-    role: 'مربی آواز',
-    bio: 'متنی درباره استاد عنایتی — مدرس تکنیک‌های خوانندگی و تمرینات سلفژ.',
-    avatar: 'assets/teachers/enaayati/avatar.jpg',
-    works: [
-      'assets/teachers/enaayati/work1.jpg',
-      'assets/teachers/enaayati/work2.mp4'
-    ],
-    students: [
-      'assets/teachers/enaayati/student1.mp4',
-      'assets/teachers/enaayati/student2.jpg'
-    ]
-  }
-];
+        // VERIFY EMAIL
+        $("#btnVerifyEmail").addEventListener("click", () => {
+            const btn = $("#btnVerifyEmail");
+            withLoading(btn, async () => {
+                const email = $("#verifyEmail").value.trim();
+                const code = $("#verifyCode").value.trim();
+                const st = $("#statusVerify");
+                st.textContent = "";
+                st.className = "status";
+                if (!email || !code) {
+                    st.textContent = "ایمیل و کد تأیید را وارد کنید.";
+                    st.className = "status err";
+                    return;
+                }
+                try {
+                    const res = await fetch(API_BASE + "/api/auth/verify-email", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, code })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        st.textContent = data.message || "کد تأیید نامعتبر است.";
+                        st.className = "status err";
+                        return;
+                    }
+                    setUserSession(data.token, data.user);
+                    st.textContent = "ایمیل تأیید شد. خوش آمدید.";
+                    st.className = "status ok";
+                    applyUserUI();
+                } catch {
+                    st.textContent = "خطا در ارتباط با سرور.";
+                    st.className = "status err";
+                }
+            }, "در حال تأیید...");
+        });
 
-/* PDF های سلفژ */
-const SolfgePdfs = [
-  { title: 'رویکرد ۱ — شنیداری', path: 'assets/pdfs/solfege1.pdf' },
-  { title: 'رویکرد ۲ — ریتمیک', path: 'assets/pdfs/solfege2.pdf' },
-  { title: 'رویکرد ۳ — تئوریک', path: 'assets/pdfs/solfege3.pdf' }
-];
+        // FORGOT PASSWORD
+        $("#btnForgot").addEventListener("click", () => {
+            const btn = $("#btnForgot");
+            withLoading(btn, async () => {
+                const email = $("#forgotEmail").value.trim();
+                const st = $("#statusForgot");
+                st.textContent = "";
+                st.className = "status";
+                if (!email) {
+                    st.textContent = "ایمیل را وارد کنید.";
+                    st.className = "status err";
+                    return;
+                }
+                try {
+                    const res = await fetch(API_BASE + "/api/auth/forgot-password", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    st.textContent = data.message || "در صورت صحت ایمیل، کد ارسال شد.";
+                    st.className = "status ok";
+                    $("#resetBox").style.display = "block";
+                } catch {
+                    st.textContent = "خطا در ارتباط با سرور.";
+                    st.className = "status err";
+                }
+            }, "در حال ارسال کد...");
+        });
 
-/* گالری نمونه صفحه اصلی (میتونی همین فایل‌ها را جایگزین کنی) */
-const homeSamples = [
-  'assets/samples/sample1.jpg',
-  'assets/samples/sample2.jpg',
-  'assets/samples/sample3.jpg',
-  'assets/samples/sample4.jpg'
-];
+        // RESET PASSWORD
+        $("#btnReset").addEventListener("click", () => {
+            const btn = $("#btnReset");
+            withLoading(btn, async () => {
+                const email = $("#forgotEmail").value.trim();
+                const code = $("#resetCode").value.trim();
+                const newPass = $("#resetPass").value;
+                const confirmPass = $("#resetPassConfirm").value;
+                const st = $("#statusReset");
+                st.textContent = "";
+                st.className = "status";
+                if (!email || !code || !newPass || !confirmPass) {
+                    st.textContent = "همه‌ی فیلدها را کامل کنید.";
+                    st.className = "status err";
+                    return;
+                }
+                try {
+                    const res = await fetch(API_BASE + "/api/auth/reset-password", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, code, newPassword: newPass, confirmPassword: confirmPass })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                        st.textContent = data.message || "خطا در تغییر رمز.";
+                        st.className = "status err";
+                        return;
+                    }
+                    st.textContent = data.message || "رمز عبور با موفقیت تغییر کرد.";
+                    st.className = "status ok";
+                } catch {
+                    st.textContent = "خطا در ارتباط با سرور.";
+                    st.className = "status err";
+                }
+            }, "در حال ثبت...");
+        });
 
-/* ---------- رفتار SPA ساده ---------- */
-const navButtons = document.querySelectorAll('.nav button');
-navButtons.forEach(btn => btn.addEventListener('click', ()=> {
-  openSection(btn.dataset.target);
-}));
+        // LOGOUT
+        $("#btnLogoutUser").addEventListener("click", () => {
+            clearUserSession();
+            applyUserUI();
+            loadCartFromStorage();
+            renderCart();
+            loadBooks();
+        });
 
-function openSection(id){
-  // Nav active
-  document.querySelectorAll('.nav button').forEach(b=> b.classList.toggle('active', b.dataset.target===id));
-  // Hide all pages, show selected
-  document.querySelectorAll('main .page').forEach(p=> p.style.display = p.id===id ? '' : 'none');
-  // scroll top
-  window.scrollTo({top:0, behavior:'smooth'});
-  // update hash
-  history.replaceState(null, '', '#'+id);
-}
-
-/* ---------- نمایش استادها ---------- */
-const teachersList = document.getElementById('teachersList');
-const teachersGallery = document.getElementById('teachersGallery');
-const studentsGrid = document.getElementById('studentsGrid');
-
-function initTeachers(){
-  teachersList.innerHTML = '';
-  teachersGallery.innerHTML = '';
-  studentsGrid.innerHTML = '';
-
-  teachers.forEach(t=>{
-    // card
-    const card = document.createElement('div');
-    card.className = 'teacher';
-    card.innerHTML = `
-      <img src="${t.avatar}" alt="${t.name}">
-      <h4>${t.name}</h4>
-      <p>${t.role}</p>
-      <button onclick="openTeacher('${t.id}')">مشاهده گالری</button>
-    `;
-    teachersList.appendChild(card);
-
-    // add works to teachersGallery (first two)
-    (t.works || []).slice(0,2).forEach(w=>{
-      const el = mediaEl(w);
-      teachersGallery.appendChild(el);
-    });
-
-    // students gallery
-    (t.students || []).forEach(s=>{
-      const el = mediaEl(s);
-      studentsGrid.appendChild(el);
-    });
-  });
-}
-
-/* تبدیل مسیر به المان img یا video */
-function mediaEl(path){
-  const lower = path.toLowerCase();
-  if(lower.endsWith('.mp4') || lower.endsWith('.webm') || lower.endsWith('.ogg')){
-    const v = document.createElement('video');
-    v.src = path; v.controls = true; v.setAttribute('playsinline','');
-    v.style.borderRadius = '10px';
-    return v;
-  } else {
-    const i = document.createElement('img');
-    i.src = path; i.alt = '';
-    i.style.borderRadius = '10px';
-    return i;
-  }
-}
-
-/* ---------- باز کردن جزییات استاد ---------- */
-const overlay = document.getElementById('overlay');
-function openTeacher(id){
-  const t = teachers.find(x=> x.id===id);
-  if(!t) return;
-  document.getElementById('teacherName').innerText = t.name + ' — ' + t.role;
-  document.getElementById('teacherBio').innerText = t.bio;
-  const works = document.getElementById('teacherWorks'); works.innerHTML = '';
-  (t.works || []).forEach(w=> works.appendChild(mediaEl(w)));
-  const studs = document.getElementById('teacherStudents'); studs.innerHTML = '';
-  (t.students || []).forEach(s=> studs.appendChild(mediaEl(s)));
-
-  overlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden'; // prevent background scroll
-}
-function closeOverlay(){
-  overlay.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-/* ---------- PDF list ---------- */
-const pdfList = document.getElementById('pdfList');
-function initPdfs(){
-  pdfList.innerHTML = '';
-  SolfgePdfs.forEach(p=>{
-    const div = document.createElement('div'); div.className = 'pdf-item';
-    div.innerHTML = `
-      <div>
-        <div style="font-weight:600;color:var(--accent)">${p.title}</div>
-        <div class="text-muted" style="font-size:13px">${p.path}</div>
-      </div>
-      <div style="display:flex;gap:8px">
-        <a href="${p.path}" target="_blank">مشاهده پی‌دی‌اف</a>
-        <button class="ghost" onclick="downloadPdf('${p.path}')">دانلود</button>
-      </div>
-    `;
-    pdfList.appendChild(div);
-  });
-}
-function downloadPdf(path){
-  const a = document.createElement('a'); a.href = path; a.download = path.split('/').pop(); document.body.appendChild(a); a.click(); a.remove();
-}
-
-/* ---------- پرکردن گالری خانه ---------- */
-function initHomeGallery(){
-  const g = document.getElementById('homeGallery');
-  g.innerHTML = '';
-  homeSamples.forEach(p=>{
-    const img = document.createElement('img'); img.src = p; img.alt = '';
-    g.appendChild(img);
-  });
-}
-
-/* ---------- افکت صوتی هنگام اسکرول ---------- 
-   توضیح: مرورگرها اجازه autoplay ندارند؛ کاربر باید ابتدا با صفحه تعامل کند.
-   ما یک دکمه "فعال‌سازی صدا" قرار دادیم. پس از لمس آن، اسکرول صدا خواهد داد.
-*/
-let audioCtx, audioBuffer, soundEnabled=false;
-const enableBtn = document.getElementById('enableSoundBtn');
-enableBtn.addEventListener('click', async ()=>{
-  try{
-    // ساده‌ترین راه: بارگذاری فایل کوتاه mp3 و پخش آن با WebAudio
-    // فایل صوتی نمونه: assets/guitar-note.mp3
-    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const resp = await fetch('assets/guitar-note.mp3');
-    const arr = await resp.arrayBuffer();
-    audioBuffer = await audioCtx.decodeAudioData(arr);
-    soundEnabled = true;
-    enableBtn.innerText = 'صدا فعال شد';
-    enableBtn.classList.add('active');
-  }catch(e){
-    console.error(e);
-    enableBtn.innerText = 'بارگذاری صدا ناموفق';
-  }
-});
-
-let lastScroll = window.scrollY;
-let lastPlay = 0;
-window.addEventListener('scroll', ()=> {
-  if(!soundEnabled || !audioBuffer) return;
-  // فقط وقتی کاربر به سمت پایین اسکرول می‌کند و هر 350ms یک بار صدا
-  const cur = window.scrollY;
-  const now = Date.now();
-  if(cur > lastScroll + 10 && now - lastPlay > 350){
-    playNote();
-    lastPlay = now;
-  }
-  lastScroll = cur;
-});
-
-function playNote(){
-  if(!audioCtx || !audioBuffer) return;
-  const src = audioCtx.createBufferSource();
-  src.buffer = audioBuffer;
-  const gain = audioCtx.createGain();
-  gain.gain.value = 0.16 + Math.random()*0.08; // کمی تغییر ولوم
-  src.connect(gain).connect(audioCtx.destination);
-  src.playbackRate.value = 0.95 + Math.random()*0.12; // تغییر اندک در pitch
-  src.start();
-}
-
-/* ---------- init ---------- */
-function init(){
-  // اگر هَش وجود داشت نمایش بده
-  const h = location.hash ? location.hash.replace('#','') : 'home';
-  openSection(h);
-  initTeachers();
-  initPdfs();
-  initHomeGallery();
-}
-init();
-
-/* ---------- نحوه اضافه/جایگزینی فایل‌ها (راهنما برای کاربر) ----------
-  1) لوگو: assets/logo.png
-  2) صوتی اسکرول: assets/guitar-note.mp3 (یک نت کوتاه گیتار)
-  3) استادان:
-     - پوشه پیشنهادی: assets/teachers/<teacher-id>/
-     - در آرایه teachers در ابتدای اسکریپت، مسیر avatar/works/students را به فایل‌های واقعی تغییر بده
-  4) PDFs: مسیرها را در SolfgePdfs قرار بده (assets/pdfs/...)
-  5) نمونه‌های صفحه اصلی: assets/samples/
-  6) اگر می‌خواهی عکس/ویدیو از طریق پنل وب آپلود کنی: می‌توانم کد آپلود سمت‌سرور یا آپلود محلی (File API) اضافه کنم — بگو اگر نیاز داری.
-*/
-
-</script>
+        // ========== INIT ==========
+        (function init() {
+            loadCartFromStorage();
+            renderCart();
+            applyUserUI();
+            loadIntroMedia();
+            loadStudentMedia();
+            loadBooks();
+        })();
+    </script>
 </body>
 </html>

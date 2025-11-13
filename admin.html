@@ -1,0 +1,965 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>پنل مدیریت - آوای زریاب</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Vazirmatn,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at top,#020617,#02011a 48%,#000000 100%);
+            color: #e5e7eb
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        .wrap {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(148,163,184,.35);
+            background: linear-gradient(90deg,#020617,#020824);
+            position: sticky;
+            top: 0;
+            z-index: 40
+        }
+
+        .brand {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#92400e);
+            box-shadow: 0 0 14px rgba(250,204,21,.7)
+        }
+
+        .brand-main {
+            margin: 0;
+            font-weight: 800;
+            font-size: 18px;
+            color: #facc15
+        }
+
+        .brand-sub {
+            margin: 0;
+            font-size: 11px;
+            opacity: .8
+        }
+
+        .admin-chip {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.5);
+            background: rgba(15,23,42,.8);
+            white-space: nowrap
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.45);
+            background: transparent;
+            color: #e5e7eb;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap
+        }
+
+            .btn:hover {
+                border-color: #facc15
+            }
+
+        .btn-gold {
+            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
+            color: #111827;
+            border: none;
+            box-shadow: 0 0 14px rgba(250,204,21,.7)
+        }
+
+        .btn:disabled {
+            opacity: .6;
+            cursor: default
+        }
+
+        main {
+            flex: 1;
+            max-width: 1050px;
+            margin: 14px auto;
+            padding: 0 12px 20px
+        }
+
+        .card {
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,.35);
+            background: radial-gradient(circle at top,rgba(30,64,175,.22),rgba(15,23,42,.98));
+            padding: 14px;
+            margin-bottom: 14px
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: #facc15
+        }
+
+        h3 {
+            margin: 10px 0 8px;
+            font-size: 15px;
+            color: #fde68a
+        }
+
+        p {
+            margin: 4px 0;
+            font-size: 13px;
+            line-height: 1.9
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 3px;
+            opacity: .9
+        }
+
+        .input, select {
+            width: 100%;
+            background: rgba(15,23,42,.95);
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,.45);
+            padding: 7px 11px;
+            color: #e5e7eb;
+            font-size: 13px;
+            outline: none
+        }
+
+            .input:focus, select:focus {
+                border-color: #facc15;
+                box-shadow: 0 0 0 1px rgba(250,204,21,.35)
+            }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 10px
+        }
+
+        @media(max-width:800px) {
+            .row {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .status {
+            font-size: 12px;
+            margin-top: 6px;
+            min-height: 16px
+        }
+
+            .status.ok {
+                color: #bbf7d0
+            }
+
+            .status.err {
+                color: #fecaca
+            }
+
+        .preview-strip {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            margin-top: 6px;
+            scroll-snap-type: x mandatory
+        }
+
+            .preview-strip::-webkit-scrollbar {
+                height: 6px
+            }
+
+            .preview-strip::-webkit-scrollbar-thumb {
+                background: rgba(148,163,184,.7);
+                border-radius: 999px
+            }
+
+        .prev-item {
+            min-width: 180px;
+            max-width: 220px;
+            scroll-snap-align: start;
+            border-radius: 12px;
+            border: 1px solid rgba(148,163,184,.45);
+            background: #020617;
+            padding: 6px;
+            font-size: 11px
+        }
+
+            .prev-item img, .prev-item video {
+                width: 100%;
+                border-radius: 8px;
+                display: block
+            }
+
+        footer {
+            text-align: center;
+            font-size: 11px;
+            opacity: .75;
+            padding: 10px 0 14px
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <header>
+            <div class="brand">
+                <div class="logo"></div>
+                <div>
+                    <p class="brand-main">پنل مدیریت آوای زریاب</p>
+                    <p class="brand-sub">مدیریت ویدیوها، تصاویر و کتاب‌های آموزشگاه</p>
+                </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span id="adminChip" class="admin-chip">وضعیت: خارج از سیستم</span>
+                <button id="btnLogout" class="btn" style="display:none">خروج</button>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- ورود ادمین -->
+            <!-- لوگو و عکس پروفایل اساتید -->
+            <div class="card">
+                <h2>🎨 لوگوی سایت و پروفایل اساتید</h2>
+                <p style="font-size:12px;opacity:.9">
+                    از این بخش می‌توانید لوگوی اصلی سایت و عکس پروفایل اساتید را آپلود یا به‌روزرسانی کنید.
+                </p>
+
+                <div class="row" style="margin-top:8px">
+                    <div>
+                        <label>لوگو سایت</label>
+                        <input id="logoFile" class="input" type="file" accept="image/*" />
+                        <div style="margin-top:8px">
+                            <button id="btnUploadLogo" class="btn btn-gold">آپلود لوگو</button>
+                        </div>
+                        <div id="statusLogo" class="status"></div>
+                    </div>
+                    <div>
+                        <label>عکس پروفایل استاد</label>
+                        <select id="avatarTeacherKey" class="input">
+                            <option value="">-- انتخاب استاد --</option>
+                            <option value="manavi">استاد معنوی</option>
+                            <option value="enayati">استاد عنایتی</option>
+                            <option value="talili">استاد علی تلیلی</option>
+                        </select>
+                        <input id="avatarFile" class="input" type="file" accept="image/*" style="margin-top:6px" />
+                        <div style="margin-top:8px">
+                            <button id="btnUploadAvatar" class="btn btn-gold">آپلود عکس پروفایل</button>
+                        </div>
+                        <div id="statusAvatar" class="status"></div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:14px">پیش‌نمایش</h3>
+                <div class="preview-strip" id="brandingPreview"></div>
+            </div>
+
+
+
+
+
+
+            <div class="card" id="loginCard">
+                <h2>🔐 ورود ادمین</h2>
+                <p style="font-size:12px;opacity:.85">
+                    ایمیل و رمز عبور ادمین را وارد کنید. این مقادیر در فایل <code>appsettings.json</code> بخش <code>Admin</code> تعریف می‌شود.
+                </p>
+                <div class="row" style="margin-top:8px">
+                    <div>
+                        <label>ایمیل ادمین</label>
+                        <input id="adminEmail" class="input" type="email" placeholder="admin@example.com" />
+                    </div>
+                    <div>
+                        <label>رمز عبور ادمین</label>
+                        <input id="adminPass" class="input" type="password" placeholder="••••••••" />
+                    </div>
+                </div>
+                <div style="margin-top:10px">
+                    <button id="btnAdminLogin" class="btn btn-gold">ورود به پنل مدیریت</button>
+                </div>
+                <div id="statusLogin" class="status"></div>
+            </div>
+
+            <!-- پنل مدیریت -->
+            <div id="adminPanel" style="display:none">
+
+                <!-- معرفی -->
+                <div class="card">
+                    <h2>🎬 ویدیو و پوستر معرفی مجموعه</h2>
+                    <p style="font-size:12px;opacity:.9">
+                        ویدیو و پوستر معرفی آموزشگاه را از کامپیوتر یا گوشی انتخاب و آپلود کنید.
+                    </p>
+                    <div class="row" style="margin-top:8px">
+                        <div>
+                            <label>انتخاب ویدیو معرفی (MP4, WebM,...)</label>
+                            <input id="introVideoFile" class="input" type="file" accept="video/*" />
+                            <div style="margin-top:8px">
+                                <button id="btnUploadIntroVideo" class="btn btn-gold">آپلود ویدیو معرفی</button>
+                            </div>
+                            <div id="statusIntroVideo" class="status"></div>
+                        </div>
+                        <div>
+                            <label>انتخاب پوستر معرفی (عکس)</label>
+                            <input id="introPosterFile" class="input" type="file" accept="image/*" />
+                            <div style="margin-top:8px">
+                                <button id="btnUploadIntroPoster" class="btn btn-gold">آپلود پوستر</button>
+                            </div>
+                            <div id="statusIntroPoster" class="status"></div>
+                        </div>
+                    </div>
+                    <h3 style="margin-top:14px">پیش‌نمایش فعلی</h3>
+                    <div id="introPreview" class="preview-strip"></div>
+                </div>
+
+                <!-- مدیای اساتید -->
+                <div class="card">
+                    <h2>👩‍🏫 گالری اساتید</h2>
+                    <p style="font-size:12px;opacity:.9">
+                        اینجا می‌توانید برای هر استاد، ویدیوها و تصاویر گالری شخصی‌اش را آپلود کنید.
+                    </p>
+
+                    <div class="row" style="margin-top:8px">
+                        <div>
+                            <label>انتخاب استاد</label>
+                            <select id="teacherName" class="input">
+                                <option value="">-- انتخاب کنید --</option>
+                                <option value="استاد معنوی" data-key="manavi">استاد معنوی</option>
+                                <option value="استاد عنایتی" data-key="enayati">استاد عنایتی</option>
+                                <option value="استاد علی تلیلی" data-key="talili">استاد علی تلیلی</option>
+                                <option value="_custom">سایر / استاد مهمان</option>
+                            </select>
+                            <input id="teacherNameCustom" class="input"
+                                   style="margin-top:6px;display:none"
+                                   placeholder="نام استاد دیگر (در صورت انتخاب گزینه سایر)" />
+                        </div>
+                        <div>
+                            <label>انتخاب فایل‌ها (تصویر یا ویدیو، چندتایی)</label>
+                            <input id="teacherFiles" class="input" type="file" multiple accept="image/*,video/*" />
+                        </div>
+                    </div>
+                    <div style="margin-top:8px">
+                        <button id="btnUploadTeacherMedia" class="btn btn-gold">آپلود مدیای استاد</button>
+                    </div>
+                    <div id="statusTeacher" class="status"></div>
+
+                    <h3 style="margin-top:14px">آخرین مدیای ثبت‌شده اساتید</h3>
+                    <div id="teacherPreview" class="preview-strip"></div>
+                </div>
+
+                <!-- هنرجویان -->
+                <div class="card">
+                    <h2>👨‍🎓 گالری هنرجویان</h2>
+                    <p style="font-size:12px;opacity:.9">
+                        تصاویر و ویدیوهای هنرجویان را اینجا آپلود کنید.
+                    </p>
+                    <div class="row" style="margin-top:8px">
+                        <div>
+                            <label>توضیح کوتاه (اختیاری)</label>
+                            <input id="studentCaption" class="input" placeholder="مثلاً: اجرای هنرجویان کلاس گیتار" />
+                        </div>
+                        <div>
+                            <label>انتخاب فایل‌ها (تصویر یا ویدیو، چندتایی)</label>
+                            <input id="studentFiles" class="input" type="file" multiple accept="image/*,video/*" />
+                        </div>
+                    </div>
+                    <div style="margin-top:8px">
+                        <button id="btnUploadStudentMedia" class="btn btn-gold">آپلود مدیای هنرجویان</button>
+                    </div>
+                    <div id="statusStudent" class="status"></div>
+                    <h3 style="margin-top:14px">آخرین مدیای ثبت‌شده هنرجویان</h3>
+                    <div id="studentPreview" class="preview-strip"></div>
+                </div>
+
+                <!-- کتاب‌ها -->
+                <div class="card">
+                    <h2>📚 ثبت کتاب‌های آموزشی</h2>
+                    <p style="font-size:12px;opacity:.9">
+                        کتاب‌های آموزشی را با قیمت و آدرس PDF ثبت کنید.
+                    </p>
+                    <div class="row" style="margin-top:8px">
+                        <div>
+                            <label>عنوان کتاب</label>
+                            <input id="bookTitle" class="input" placeholder="مثلاً: متد گیتار کلاسیک جلد ۱" />
+                        </div>
+                        <div>
+                            <label>سطح (اختیاری)</label>
+                            <input id="bookLevel" class="input" placeholder="مبتدی / متوسط / پیشرفته" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                        <div>
+                            <label>قیمت (تومان)</label>
+                            <input id="bookPrice" class="input" type="number" min="0" step="1000" placeholder="مثلاً: 150000" />
+                        </div>
+                        <div>
+                            <label>آدرس PDF کتاب</label>
+                            <input id="bookPdfUrl" class="input" placeholder="/uploads/books/book1.pdf یا لینک کامل https://..." />
+                        </div>
+                    </div>
+                    <div style="margin-top:8px">
+                        <button id="btnAddBook" class="btn btn-gold">ثبت کتاب</button>
+                    </div>
+                    <div id="statusBook" class="status"></div>
+                    <h3 style="margin-top:14px">کتاب‌های ثبت‌شده</h3>
+                    <div id="booksPreview" class="preview-strip"></div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer>
+            © پنل مدیریت آموزشگاه موسیقی آوای زریاب
+        </footer>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        const ADMIN_TOKEN_KEY = "adminToken";
+        const $ = s => document.querySelector(s);
+
+        function setStatus(el, msg, isErr) {
+            if (!el) return;
+            el.textContent = msg || "";
+            el.className = "status " + (isErr ? "err" : "ok");
+        }
+
+        function getAdminToken() {
+            return localStorage.getItem(ADMIN_TOKEN_KEY) || "";
+        }
+
+        function applyAdminUI() {
+            const token = getAdminToken();
+            const chip = $("#adminChip");
+            const loginCard = $("#loginCard");
+            const adminPanel = $("#adminPanel");
+            const btnLogout = $("#btnLogout");
+            if (token) {
+                chip.textContent = "وضعیت: ادمین وارد شده است";
+                loginCard.style.display = "none";
+                adminPanel.style.display = "block";
+                btnLogout.style.display = "inline-block";
+                loadIntroPreview();
+                loadTeacherPreview();
+                loadStudentPreview();
+                loadBooksPreview();
+            } else {
+                chip.textContent = "وضعیت: خارج از سیستم";
+                loginCard.style.display = "block";
+                adminPanel.style.display = "none";
+                btnLogout.style.display = "none";
+            }
+        }
+
+        // ورود ادمین
+        $("#btnAdminLogin").addEventListener("click", async () => {
+            const email = $("#adminEmail").value.trim();
+            const password = $("#adminPass").value;
+            const st = $("#statusLogin");
+            setStatus(st, "", false);
+            if (!email || !password) {
+                setStatus(st, "ایمیل و رمز را وارد کنید.", true);
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "ورود ادمین ناموفق بود.", true);
+                    return;
+                }
+                localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+                setStatus(st, "ورود موفق. پنل مدیریت فعال شد.", false);
+                applyAdminUI();
+            } catch {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        $("#btnLogout").addEventListener("click", () => {
+            localStorage.removeItem(ADMIN_TOKEN_KEY);
+            applyAdminUI();
+        });
+
+        // آپلود ویدیو معرفی
+        $("#btnUploadIntroVideo").addEventListener("click", async () => {
+            const fileInput = $("#introVideoFile");
+            const st = $("#statusIntroVideo");
+            setStatus(st, "", false);
+            if (!getAdminToken()) {
+                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
+                return;
+            }
+            if (!fileInput.files || fileInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+            const fd = new FormData();
+            fd.append("file", fileInput.files[0]);
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/upload-intro-video`, {
+                    method: "POST",
+                    headers: { "X-Admin-Token": getAdminToken() },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود ویدیو.", true);
+                    return;
+                }
+                setStatus(st, data.message || "ویدیو با موفقیت ذخیره شد.", false);
+                fileInput.value = "";
+                loadIntroPreview();
+            } catch {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        // آپلود پوستر معرفی
+        $("#btnUploadIntroPoster").addEventListener("click", async () => {
+            const fileInput = $("#introPosterFile");
+            const st = $("#statusIntroPoster");
+            setStatus(st, "", false);
+            if (!getAdminToken()) {
+                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
+                return;
+            }
+            if (!fileInput.files || fileInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+            const fd = new FormData();
+            fd.append("file", fileInput.files[0]);
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/upload-intro-poster`, {
+                    method: "POST",
+                    headers: { "X-Admin-Token": getAdminToken() },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود پوستر.", true);
+                    return;
+                }
+                setStatus(st, data.message || "پوستر با موفقیت ذخیره شد.", false);
+                fileInput.value = "";
+                loadIntroPreview();
+            } catch {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        // پیش‌نمایش معرفی
+        async function loadIntroPreview() {
+            const box = $("#introPreview");
+            if (!box) return;
+            box.innerHTML = "";
+            try {
+                const res = await fetch(`${API_BASE}/api/content`);
+                if (!res.ok) return;
+                const data = await res.json();
+                const intro = data.intro || {};
+                if (!intro.videoUrl && !intro.posterUrl) {
+                    box.innerHTML = `<div class="prev-item">هنوز ویدیو یا پوستر معرفی ثبت نشده است.</div>`;
+                    return;
+                }
+                let html = "";
+                if (intro.videoUrl) {
+                    html += `
+                        <div class="prev-item">
+                            <b>ویدیو معرفی</b>
+                            <video controls preload="metadata" src="${intro.videoUrl}"></video>
+                        </div>`;
+                }
+                if (intro.posterUrl) {
+                    html += `
+                        <div class="prev-item">
+                            <b>پوستر معرفی</b>
+                            <img src="${intro.posterUrl}" alt="پوستر معرفی">
+                        </div>`;
+                }
+                box.innerHTML = html;
+            } catch {
+                box.innerHTML = `<div class="prev-item">خطا در دریافت پیش‌نمایش.</div>`;
+            }
+        }
+
+        // نمایش input دستی وقتی گزینه "سایر" انتخاب می‌شود
+        const teacherSelect = document.getElementById("teacherName");
+        const teacherCustom = document.getElementById("teacherNameCustom");
+        teacherSelect.addEventListener("change", () => {
+            if (teacherSelect.value === "_custom") {
+                teacherCustom.style.display = "block";
+            } else {
+                teacherCustom.style.display = "none";
+                teacherCustom.value = "";
+            }
+        });
+
+        // آپلود مدیای اساتید (آپدیت شده با select)
+        document.getElementById("btnUploadTeacherMedia").addEventListener("click", async () => {
+            const select = document.getElementById("teacherName");
+            let name = select.value;
+            if (name === "_custom") {
+                name = teacherCustom.value.trim();
+            }
+
+            const filesInput = document.getElementById("teacherFiles");
+            const st = document.getElementById("statusTeacher");
+            setStatus(st, "", false);
+
+            if (!getAdminToken()) {
+                setStatus(st, "ابتدا به‌عنوان ادمین وارد شوید.", true);
+                return;
+            }
+            if (!name) {
+                setStatus(st, "نام استاد را انتخاب یا وارد کنید.", true);
+                return;
+            }
+            if (!filesInput.files || filesInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append("teacherName", name);
+            for (const f of filesInput.files) {
+                fd.append("files", f);
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/teacher-media`, {
+                    method: "POST",
+                    headers: {
+                        "X-Admin-Token": getAdminToken()
+                    },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود مدیای استاد.", true);
+                    return;
+                }
+                setStatus(st, data.message || "مدیا با موفقیت ثبت شد.", false);
+                filesInput.value = "";
+                loadTeacherPreview();
+            } catch (e) {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+
+        async function loadTeacherPreview() {
+            const box = $("#teacherPreview");
+            if (!box) return;
+            box.innerHTML = "";
+            try {
+                const res = await fetch(`${API_BASE}/api/media/teachers`);
+                if (!res.ok) {
+                    box.innerHTML = `<div class="prev-item">خطا در دریافت اطلاعات.</div>`;
+                    return;
+                }
+                const list = await res.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    box.innerHTML = `<div class="prev-item">مدیایی برای اساتید ثبت نشده است.</div>`;
+                    return;
+                }
+                box.innerHTML = list.map(m => `
+                    <div class="prev-item">
+                        <b>${m.teacherName || "استاد"}</b>
+                        ${m.mediaType === "video"
+                        ? `<video controls preload="metadata" src="${m.fileUrl}"></video>`
+                        : `<img src="${m.fileUrl}" alt="${m.teacherName || "استاد"}">`}
+                    </div>
+                `).join("");
+            } catch {
+                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
+            }
+        }
+
+        // آپلود هنرجویان
+        $("#btnUploadStudentMedia").addEventListener("click", async () => {
+            const caption = $("#studentCaption").value.trim();
+            const filesInput = $("#studentFiles");
+            const st = $("#statusStudent");
+            setStatus(st, "", false);
+            if (!getAdminToken()) {
+                setStatus(st, "ابتدا وارد شوید.", true);
+                return;
+            }
+            if (!filesInput.files || filesInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+            const fd = new FormData();
+            if (caption) fd.append("caption", caption);
+            for (const f of filesInput.files) {
+                fd.append("files", f);
+            }
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/student-media`, {
+                    method: "POST",
+                    headers: { "X-Admin-Token": getAdminToken() },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود مدیای هنرجویان.", true);
+                    return;
+                }
+                setStatus(st, data.message || "مدیای هنرجویان ثبت شد.", false);
+                filesInput.value = "";
+                loadStudentPreview();
+            } catch {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        async function loadStudentPreview() {
+            const box = $("#studentPreview");
+            if (!box) return;
+            box.innerHTML = "";
+            try {
+                const res = await fetch(`${API_BASE}/api/media/students`);
+                if (!res.ok) {
+                    box.innerHTML = `<div class="prev-item">خطا در دریافت اطلاعات.</div>`;
+                    return;
+                }
+                const list = await res.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    box.innerHTML = `<div class="prev-item">مدیایی برای هنرجویان ثبت نشده است.</div>`;
+                    return;
+                }
+                box.innerHTML = list.map(m => `
+                    <div class="prev-item">
+                        <b>${m.caption || "اجرای هنرجویان"}</b>
+                        ${m.mediaType === "video"
+                        ? `<video controls preload="metadata" src="${m.fileUrl}"></video>`
+                        : `<img src="${m.fileUrl}" alt="${m.caption || "هنرجو"}">`}
+                    </div>
+                `).join("");
+            } catch {
+                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
+            }
+        }
+
+
+        // آپلود لوگو
+        document.getElementById("btnUploadLogo").addEventListener("click", async () => {
+            const fileInput = document.getElementById("logoFile");
+            const st = document.getElementById("statusLogo");
+            setStatus(st, "", false);
+
+            if (!getAdminToken()) {
+                setStatus(st, "لطفاً ابتدا وارد پنل ادمین شوید.", true);
+                return;
+            }
+            if (!fileInput.files || fileInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append("file", fileInput.files[0]);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/upload-logo`, {
+                    method: "POST",
+                    headers: { "X-Admin-Token": getAdminToken() },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود لوگو.", true);
+                    return;
+                }
+                setStatus(st, data.message || "لوگو ذخیره شد.", false);
+                fileInput.value = "";
+                loadBrandingPreview();
+            } catch (e) {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        // آپلود عکس پروفایل استاد
+        document.getElementById("btnUploadAvatar").addEventListener("click", async () => {
+            const teacherKey = document.getElementById("avatarTeacherKey").value;
+            const fileInput = document.getElementById("avatarFile");
+            const st = document.getElementById("statusAvatar");
+            setStatus(st, "", false);
+
+            if (!getAdminToken()) {
+                setStatus(st, "لطفاً ابتدا وارد پنل ادمین شوید.", true);
+                return;
+            }
+            if (!teacherKey) {
+                setStatus(st, "استاد را انتخاب کنید.", true);
+                return;
+            }
+            if (!fileInput.files || fileInput.files.length === 0) {
+                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
+                return;
+            }
+
+            const fd = new FormData();
+            fd.append("teacherKey", teacherKey);
+            fd.append("file", fileInput.files[0]);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/teacher-avatar`, {
+                    method: "POST",
+                    headers: { "X-Admin-Token": getAdminToken() },
+                    body: fd
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در آپلود عکس پروفایل.", true);
+                    return;
+                }
+                setStatus(st, data.message || "عکس پروفایل ذخیره شد.", false);
+                fileInput.value = "";
+                loadBrandingPreview();
+            } catch (e) {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        // پیش‌نمایش لوگو و آواتارها
+        async function loadBrandingPreview() {
+            const box = document.getElementById("brandingPreview");
+            if (!box) return;
+            box.innerHTML = "";
+
+            // اینجا چون دیتابیس نداریم، فقط مسیرهای ثابت را نشان می‌دهیم
+            const items = [
+                { title: "لوگوی سایت", url: "/uploads/branding/logo.png" },
+                { title: "استاد معنوی", url: "/uploads/teachers/avatars/manavi.jpg" },
+                { title: "استاد عنایتی", url: "/uploads/teachers/avatars/enayati.jpg" },
+                { title: "استاد علی تلیلی", url: "/uploads/teachers/avatars/talili.jpg" }
+            ];
+
+            let html = "";
+            for (const it of items) {
+                html += `
+        <div class="prev-item">
+          <b>${it.title}</b>
+          <img src="${it.url}" onerror="this.style.display='none'" alt="${it.title}">
+        </div>`;
+            }
+            box.innerHTML = html;
+        }
+
+
+
+
+        // ثبت کتاب
+        $("#btnAddBook").addEventListener("click", async () => {
+            const title = $("#bookTitle").value.trim();
+            const level = $("#bookLevel").value.trim();
+            const priceStr = $("#bookPrice").value.trim();
+            const pdfUrl = $("#bookPdfUrl").value.trim();
+            const st = $("#statusBook");
+            setStatus(st, "", false);
+            if (!getAdminToken()) {
+                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
+                return;
+            }
+            if (!title || !pdfUrl) {
+                setStatus(st, "عنوان و آدرس PDF را وارد کنید.", true);
+                return;
+            }
+            const price = priceStr ? Number(priceStr) : 0;
+            try {
+                const res = await fetch(`${API_BASE}/api/admin/books`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Admin-Token": getAdminToken()
+                    },
+                    body: JSON.stringify({ title, level: level || null, price, pdfUrl })
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    setStatus(st, data.message || "خطا در ثبت کتاب.", true);
+                    return;
+                }
+                setStatus(st, data.message || "کتاب ثبت شد.", false);
+                $("#bookTitle").value = "";
+                $("#bookLevel").value = "";
+                $("#bookPrice").value = "";
+                $("#bookPdfUrl").value = "";
+                loadBooksPreview();
+            } catch {
+                setStatus(st, "خطا در ارتباط با سرور.", true);
+            }
+        });
+
+        async function loadBooksPreview() {
+            const box = $("#booksPreview");
+            if (!box) return;
+            box.innerHTML = "";
+            try {
+                const res = await fetch(`${API_BASE}/api/books`);
+                if (!res.ok) {
+                    box.innerHTML = `<div class="prev-item">خطا در دریافت کتاب‌ها.</div>`;
+                    return;
+                }
+                const list = await res.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    box.innerHTML = `<div class="prev-item">کتابی ثبت نشده است.</div>`;
+                    return;
+                }
+                box.innerHTML = list.map(b => `
+                    <div class="prev-item">
+                        <b>${b.title}</b><br>
+                        ${b.level ? `<span>سطح: ${b.level}</span><br>` : ""}
+                        <span>قیمت: ${b.price} تومان</span><br>
+                        <span style="font-size:10px;opacity:.8">PDF: ${b.pdfUrl}</span>
+                    </div>
+                `).join("");
+            } catch {
+                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
+            }
+        }
+
+        // شروع
+        applyAdminUI();
+        // در JS:
+        loadBrandingPreview();
+
+    </script>
+</body>
+</html>
