@@ -1,1282 +1,266 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
-    <meta charset="utf-8" />
-    <title>پنل مدیریت - آوای زریاب (ریسپانسیو)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Vazirmatn,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
-        }
+<meta charset="UTF-8">
+<title>پنل مدیریت آوای زریاب</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: sans-serif;
+        direction: rtl;
+        background: #f5f5f5;
+        margin: 0;
+    }
 
-        body {
-            margin: 0;
-            background: radial-gradient(circle at top,#020617,#02011a 48%,#000000 100%);
-            color: #e5e7eb
-        }
+    header {
+        background: #111;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
 
-        a {
-            text-decoration: none;
-            color: inherit
-        }
+    .container {
+        max-width: 900px;
+        margin: 25px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-        .wrap {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column
-        }
+    h2 {
+        border-right: 4px solid #e6b800;
+        padding-right: 10px;
+        color: #444;
+    }
 
-        /* ====== HEADER / NAVBAR ====== */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 10px 14px;
-            border-bottom: 1px solid rgba(148,163,184,.35);
-            background: linear-gradient(90deg,#020617,#020824);
-            position: sticky;
-            top: 0;
-            z-index: 40
-        }
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
 
-        .brand {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            min-width: 0;
-        }
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #e6b800;
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #222;
+        font-weight: bold;
+    }
 
-        .logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#92400e);
-            box-shadow: 0 0 14px rgba(250,204,21,.7);
-            flex-shrink: 0;
-        }
+    button:hover {
+        background: #c89e00;
+    }
 
-        .brand-main {
-            margin: 0;
-            font-weight: 800;
-            font-size: 18px;
-            color: #facc15
-        }
+    .section {
+        margin-bottom: 35px;
+    }
 
-        .brand-sub {
-            margin: 0;
-            font-size: 11px;
-            opacity: .8;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 220px;
-        }
+    .media-item {
+        background: #fafafa;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
 
-        .admin-chip {
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.5);
-            background: rgba(15,23,42,.8);
-            white-space: nowrap
-        }
-
-        .btn {
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.45);
-            background: transparent;
-            color: #e5e7eb;
-            padding: 6px 12px;
-            font-size: 12px;
-            cursor: pointer;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            border-color: #facc15
-        }
-
-        .btn-gold {
-            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
-            color: #111827;
-            border: none;
-            box-shadow: 0 0 14px rgba(250,204,21,.7)
-        }
-
-        .btn:disabled {
-            opacity: .6;
-            cursor: default
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* دکمه منوی همبرگری (فقط موبایل) */
-        .menu-toggle {
-            display: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.6);
-            background: rgba(15,23,42,.9);
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .menu-toggle span {
-            width: 18px;
-            height: 2px;
-            background: #e5e7eb;
-            border-radius: 999px;
-            display: block;
-            transition: transform .2s ease, opacity .2s ease;
-        }
-
-        .menu-toggle span + span {
-            margin-top: 3px;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: translateY(5px) rotate(45deg);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: translateY(-5px) rotate(-45deg);
-        }
-
-        /* منوی کشویی موبایل */
-        .header-actions-panel {
-            display: none;
-        }
-
-        .header-actions-panel.open {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: rgba(15,23,42,.98);
-            border-bottom: 1px solid rgba(148,163,184,.35);
-            padding: 10px 14px 12px;
-        }
-
-        .header-nav {
-            display: flex;
-            gap: 10px;
-            font-size: 12px;
-            flex-wrap: wrap;
-        }
-
-        .header-nav a {
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.45);
-            background: rgba(15,23,42,.8);
-            font-size: 11px;
-        }
-
-        .header-nav a:hover {
-            border-color: #facc15;
-        }
-
-        main {
-            flex: 1;
-            max-width: 1050px;
-            margin: 14px auto;
-            padding: 0 12px 20px
-        }
-
-        .card {
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,.35);
-            background: radial-gradient(circle at top,rgba(30,64,175,.22),rgba(15,23,42,.98));
-            padding: 14px;
-            margin-bottom: 14px
-        }
-
-        h2 {
-            margin: 0 0 8px;
-            font-size: 18px;
-            color: #facc15
-        }
-
-        h3 {
-            margin: 10px 0 8px;
-            font-size: 15px;
-            color: #fde68a
-        }
-
-        p {
-            margin: 4px 0;
-            font-size: 13px;
-            line-height: 1.9
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 3px;
-            opacity: .9
-        }
-
-        .input, select {
-            width: 100%;
-            background: rgba(15,23,42,.95);
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.45);
-            padding: 7px 11px;
-            color: #e5e7eb;
-            font-size: 13px;
-            outline: none
-        }
-
-        .input:focus, select:focus {
-            border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250,204,21,.35)
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: repeat(2,minmax(0,1fr));
-            gap: 10px
-        }
-
-        .status {
-            font-size: 12px;
-            margin-top: 6px;
-            min-height: 16px
-        }
-
-        .status.ok {
-            color: #bbf7d0
-        }
-
-        .status.err {
-            color: #fecaca
-        }
-
-        .preview-strip {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 6px;
-            margin-top: 6px;
-            scroll-snap-type: x mandatory
-        }
-
-        .preview-strip::-webkit-scrollbar {
-            height: 6px
-        }
-
-        .preview-strip::-webkit-scrollbar-thumb {
-            background: rgba(148,163,184,.7);
-            border-radius: 999px
-        }
-
-        .prev-item {
-            min-width: 180px;
-            max-width: 220px;
-            scroll-snap-align: start;
-            border-radius: 12px;
-            border: 1px solid rgba(148,163,184,.45);
-            background: #020617;
-            padding: 6px;
-            font-size: 11px
-        }
-
-        .prev-item img, .prev-item video {
-            width: 100%;
-            border-radius: 8px;
-            display: block
-        }
-
-        footer {
-            text-align: center;
-            font-size: 11px;
-            opacity: .75;
-            padding: 10px 0 14px
-        }
-
-        /* ====== ریسپانسیو ====== */
-        @media(max-width: 800px) {
-            .row {
-                grid-template-columns: 1fr;
-            }
-
-            main {
-                padding: 0 8px 18px;
-            }
-
-            .brand-sub {
-                max-width: 160px;
-            }
-        }
-
-        @media(max-width: 640px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .header-actions {
-                display: none;
-            }
-
-            .brand-main {
-                font-size: 16px;
-            }
-        }
-
-        @media(min-width: 641px) {
-            .header-actions-panel {
-                display: none !important;
-            }
-
-            header {
-                flex-wrap: nowrap;
-            }
-
-            .header-actions-desktop {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-        }
-    </style>
+    video, img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-top: 7px;
+    }
+</style>
 </head>
 <body>
-    <div class="wrap">
 
-        <header>
-            <div class="brand">
-                <div class="logo"></div>
-                <div>
-                    <p class="brand-main">پنل مدیریت آوای زریاب</p>
-                    <p class="brand-sub">مدیریت ویدیوها، تصاویر، کتاب‌ها و محتوای آموزشی</p>
-                </div>
-            </div>
+<header>پنل مدیریت آوای زریاب</header>
 
-            <!-- دکمه منوی همبرگری برای موبایل -->
-            <button id="menuToggle" class="menu-toggle" aria-label="باز کردن منو">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+<div class="container">
 
-            <!-- اکشن‌های هدر روی دسکتاپ -->
-            <div class="header-actions header-actions-desktop">
-                <span id="adminChip" class="admin-chip">وضعیت: خارج از سیستم</span>
-                <button id="btnLogout" class="btn" style="display:none">خروج</button>
-            </div>
-        </header>
-
-        <!-- پنل کشویی موبایل -->
-        <div id="headerActionsPanel" class="header-actions-panel">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
-                <span id="adminChipMobile" class="admin-chip">وضعیت: خارج از سیستم</span>
-                <button id="btnLogoutMobile" class="btn" style="display:none">خروج</button>
-            </div>
-            <nav class="header-nav">
-                <a href="#brandingCard">لوگو و پروفایل اساتید</a>
-                <a href="#loginCard">ورود ادمین</a>
-                <a href="#introCard">ویدیو معرفی</a>
-                <a href="#teachersCard">گالری اساتید</a>
-                <a href="#studentsCard">گالری هنرجویان</a>
-                <a href="#booksCard">کتاب‌ها</a>
-                <a href="#rulesCard">۱۰ فرمان هنرجو</a>
-                <a href="#historyCard">تاریخچه گیتار</a>
-                <a href="#practiceCard">نکات تمرین</a>
-            </nav>
-        </div>
-
-        <main>
-
-            <!-- لوگو و عکس پروفایل اساتید -->
-            <div class="card" id="brandingCard">
-                <h2>🎨 لوگوی سایت و پروفایل اساتید</h2>
-                <p style="font-size:12px;opacity:.9">
-                    در این بخش می‌توانید ظاهر اصلی سایت را کنترل کنید. لوگوی آموزشگاه و عکس پروفایل هر استاد
-                    از همین‌جا تنظیم می‌شود. این تصاویر در صفحه اصلی سایت و بخش معرفی اساتید نمایش داده می‌شوند
-                    و تأثیر زیادی روی اولین برداشت مخاطب دارند.
-                </p>
-
-                <div class="row" style="margin-top:8px">
-                    <div>
-                        <label>لوگو سایت</label>
-                        <input id="logoFile" class="input" type="file" accept="image/*" />
-                        <p style="font-size:11px;opacity:.75">
-                            لوگوی مربعی یا دایره‌ای با پس‌زمینه تیره بهتر روی قالب فعلی سایت دیده می‌شود.
-                            پیشنهاد: حداقل ۵۱۲×۵۱۲ پیکسل.
-                        </p>
-                        <div style="margin-top:8px">
-                            <button id="btnUploadLogo" class="btn btn-gold">آپلود لوگو</button>
-                        </div>
-                        <div id="statusLogo" class="status"></div>
-                    </div>
-                    <div>
-                        <label>عکس پروفایل استاد</label>
-                        <select id="avatarTeacherKey" class="input">
-                            <option value="">-- انتخاب استاد --</option>
-                            <option value="manavi">استاد معنوی</option>
-                            <option value="enayati">استاد عنایتی</option>
-                            <option value="talili">استاد علی تلیلی</option>
-                        </select>
-                        <input id="avatarFile" class="input" type="file" accept="image/*" style="margin-top:6px" />
-                        <p style="font-size:11px;opacity:.75">
-                            برای هر استاد یک تصویر پرتره (Headshot) با نور مناسب و پس‌زمینه ساده انتخاب کنید تا حس حرفه‌ای بودن
-                            مجموعه بهتر منتقل شود.
-                        </p>
-                        <div style="margin-top:8px">
-                            <button id="btnUploadAvatar" class="btn btn-gold">آپلود عکس پروفایل</button>
-                        </div>
-                        <div id="statusAvatar" class="status"></div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:14px">پیش‌نمایش</h3>
-                <p style="font-size:11px;opacity:.8">
-                    در این قسمت آخرین نسخه‌ی لوگو و آواتار اساتید را می‌بینید تا مطمئن شوید روی دستگاه‌های مختلف درست
-                    نمایش داده می‌شود.
-                </p>
-                <div class="preview-strip" id="brandingPreview"></div>
-            </div>
-
-            <!-- ورود ادمین -->
-            <div class="card" id="loginCard">
-                <h2>🔐 ورود ادمین</h2>
-                <p style="font-size:12px;opacity:.85">
-                    برای امنیت اطلاعات آموزشگاه، دسترسی به این پنل فقط از طریق حساب ادمین انجام می‌شود.
-                    ایمیل و رمز عبور ادمین در فایل <code>appsettings.json</code> و بخش <code>Admin</code> تنظیم می‌گردد.
-                </p>
-                <p style="font-size:12px;opacity:.85">
-                    پس از ورود، می‌توانید ویدیوها، تصاویر، کتاب‌ها و متن‌های آموزشی را مدیریت کنید. در صورت فراموشی رمز عبور،
-                    باید آن را از سمت سرور (فایل تنظیمات) تغییر دهید.
-                </p>
-                <div class="row" style="margin-top:8px">
-                    <div>
-                        <label>ایمیل ادمین</label>
-                        <input id="adminEmail" class="input" type="email" placeholder="admin@example.com" />
-                    </div>
-                    <div>
-                        <label>رمز عبور ادمین</label>
-                        <input id="adminPass" class="input" type="password" placeholder="••••••••" />
-                    </div>
-                </div>
-                <div style="margin-top:10px">
-                    <button id="btnAdminLogin" class="btn btn-gold">ورود به پنل مدیریت</button>
-                </div>
-                <div id="statusLogin" class="status"></div>
-            </div>
-
-            <!-- پنل مدیریت -->
-            <div id="adminPanel" style="display:none">
-
-                <!-- معرفی -->
-                <div class="card" id="introCard">
-                    <h2>🎬 ویدیو و پوستر معرفی مجموعه</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        ویدیو و پوستر معرفی، ویترین آموزشگاه شماست. هنرجوی جدید معمولاً قبل از هر تصمیمی،
-                        این بخش را می‌بیند. سعی کنید در ویدیو معرفی، فضای آموزشگاه، اساتید و چند نمونه از
-                        اجرای هنرجویان را نشان دهید.
-                    </p>
-                    <p style="font-size:12px;opacity:.85">
-                        پوستر معرفی نیز در صفحه اول، شبکه‌های اجتماعی و بنرهای تبلیغاتی استفاده می‌شود.
-                        بهتر است اطلاعاتی مثل نام آموزشگاه، شعار کوتاه، و سبک‌های آموزشی (مثلاً: گیتار کلاسیک، پاپ، تئوری موسیقی)
-                        روی آن مشخص باشد.
-                    </p>
-                    <div class="row" style="margin-top:8px">
-                        <div>
-                            <label>انتخاب ویدیو معرفی (MP4, WebM,...)</label>
-                            <input id="introVideoFile" class="input" type="file" accept="video/*" />
-                            <p style="font-size:11px;opacity:.75">
-                                پیشنهاد می‌شود ویدیو بین ۳۰ تا ۹۰ ثانیه باشد تا روی موبایل هم به‌راحتی دیده شود.
-                            </p>
-                            <div style="margin-top:8px">
-                                <button id="btnUploadIntroVideo" class="btn btn-gold">آپلود ویدیو معرفی</button>
-                            </div>
-                            <div id="statusIntroVideo" class="status"></div>
-                        </div>
-                        <div>
-                            <label>انتخاب پوستر معرفی (عکس)</label>
-                            <input id="introPosterFile" class="input" type="file" accept="image/*" />
-                            <p style="font-size:11px;opacity:.75">
-                                برای وضوح مناسب روی مانیتور و موبایل، بهتر است حداقل عرض تصویر ۱۰۸۰ پیکسل باشد.
-                            </p>
-                            <div style="margin-top:8px">
-                                <button id="btnUploadIntroPoster" class="btn btn-gold">آپلود پوستر</button>
-                            </div>
-                            <div id="statusIntroPoster" class="status"></div>
-                        </div>
-                    </div>
-                    <h3 style="margin-top:14px">پیش‌نمایش فعلی</h3>
-                    <p style="font-size:11px;opacity:.8">
-                        آخرین ویدیو و پوستر ثبت‌شده در این قسمت نمایش داده می‌شوند. اگر روی موبایل به‌درستی باز نشدند،
-                        حجم یا فرمت فایل را بررسی کنید.
-                    </p>
-                    <div id="introPreview" class="preview-strip"></div>
-                </div>
-
-                <!-- مدیای اساتید -->
-                <div class="card" id="teachersCard">
-                    <h2>👩‍🏫 گالری اساتید</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        گالری اساتید جایی است که هنرجویان می‌توانند نمونه‌ی تدریس و اجراهای اساتید را ببینند.
-                        در این بخش می‌توانید برای هر استاد، ویدیوهای کوتاه، عکس از کلاس، یا اجرای صحنه‌ای اضافه کنید.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        پیشنهاد می‌شود برای هر استاد:
-                        <br/>• یک ویدیوی معرفی کوتاه (سلام و معرفی سبک کاری)
-                        <br/>• یکی دو اجرای کامل یا بخشی از اجرا
-                        <br/>• چند عکس از فضای کلاس
-                        ثبت کنید تا هنرجوی جدید راحت‌تر بتواند انتخاب کند.
-                    </p>
-
-                    <div class="row" style="margin-top:8px">
-                        <div>
-                            <label>انتخاب استاد</label>
-                            <select id="teacherName" class="input">
-                                <option value="">-- انتخاب کنید --</option>
-                                <option value="استاد معنوی" data-key="manavi">استاد معنوی</option>
-                                <option value="استاد عنایتی" data-key="enayati">استاد عنایتی</option>
-                                <option value="استاد علی تلیلی" data-key="talili">استاد علی تلیلی</option>
-                                <option value="_custom">سایر / استاد مهمان</option>
-                            </select>
-                            <input id="teacherNameCustom" class="input"
-                                   style="margin-top:6px;display:none"
-                                   placeholder="نام استاد دیگر (در صورت انتخاب گزینه سایر)" />
-                        </div>
-                        <div>
-                            <label>انتخاب فایل‌ها (تصویر یا ویدیو، چندتایی)</label>
-                            <input id="teacherFiles" class="input" type="file" multiple accept="image/*,video/*" />
-                            <p style="font-size:11px;opacity:.75">
-                                می‌توانید چند فایل را همزمان انتخاب کنید. ترتیب نمایش معمولاً بر اساس تاریخ ثبت خواهد بود.
-                            </p>
-                        </div>
-                    </div>
-                    <div style="margin-top:8px">
-                        <button id="btnUploadTeacherMedia" class="btn btn-gold">آپلود مدیای استاد</button>
-                    </div>
-                    <div id="statusTeacher" class="status"></div>
-
-                    <h3 style="margin-top:14px">آخرین مدیای ثبت‌شده اساتید</h3>
-                    <p style="font-size:11px;opacity:.8">
-                        برای هر آیتم، نام استاد و نوع مدیا (ویدیو یا تصویر) نمایش داده می‌شود. این لیست به شما کمک می‌کند
-                        بدانید آخرین‌بار چه چیزی برای هر استاد بارگذاری شده است.
-                    </p>
-                    <div id="teacherPreview" class="preview-strip"></div>
-                </div>
-
-                <!-- هنرجویان -->
-                <div class="card" id="studentsCard">
-                    <h2>👨‍🎓 گالری هنرجویان</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        گالری هنرجویان vitrinِ رشد هنرجوهاست. می‌توانید اجراهای کلاسی، ضبط‌های تمرینی، یا تصاویر
-                        از کنسرت‌ها و جشن پایان ترم را اینجا ثبت کنید. این بخش هم برای هنرجوی فعلی انگیزه‌ساز است،
-                        هم برای هنرجوی جدید الهام‌بخش.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        توضیح کوتاه (Caption) را طوری بنویسید که نام کلاس، استاد و سطح هنرجویان مشخص باشد؛
-                        مثلاً: «اجرای هنرجویان گیتار کلاسیک – سطح متوسط – استاد معنوی».
-                    </p>
-                    <div class="row" style="margin-top:8px">
-                        <div>
-                            <label>توضیح کوتاه (اختیاری)</label>
-                            <input id="studentCaption" class="input" placeholder="مثلاً: اجرای هنرجویان کلاس گیتار" />
-                        </div>
-                        <div>
-                            <label>انتخاب فایل‌ها (تصویر یا ویدیو، چندتایی)</label>
-                            <input id="studentFiles" class="input" type="file" multiple accept="image/*,video/*" />
-                        </div>
-                    </div>
-                    <div style="margin-top:8px">
-                        <button id="btnUploadStudentMedia" class="btn btn-gold">آپلود مدیای هنرجویان</button>
-                    </div>
-                    <div id="statusStudent" class="status"></div>
-                    <h3 style="margin-top:14px">آخرین مدیای ثبت‌شده هنرجویان</h3>
-                    <p style="font-size:11px;opacity:.8">
-                        در این بخش آخرین عکس‌ها و ویدیوهای هنرجویان را می‌بینید. اگر کپشن داشته باشند زیر نام آیتم نمایش داده می‌شود.
-                    </p>
-                    <div id="studentPreview" class="preview-strip"></div>
-                </div>
-
-                <!-- کتاب‌ها -->
-                <div class="card" id="booksCard">
-                    <h2>📚 ثبت کتاب‌های آموزشی</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        از این بخش می‌توانید کتاب‌های آموزشی مورد استفاده در آموزشگاه را ثبت و مدیریت کنید.
-                        هر کتاب می‌تواند شامل عنوان، سطح پیشنهادی، قیمت و لینک PDF (برای نسخه دیجیتال یا نمونه چند صفحه) باشد.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        سطح کتاب کمک می‌کند هنرجو بداند این منبع برای شروع مناسب است یا برای تکمیل مهارت.
-                        مثلاً: «مبتدی»، «متوسط»، «پیشرفته» یا «همراه با تمرین روزانه».
-                    </p>
-                    <div class="row" style="margin-top:8px">
-                        <div>
-                            <label>عنوان کتاب</label>
-                            <input id="bookTitle" class="input" placeholder="مثلاً: متد گیتار کلاسیک جلد ۱" />
-                        </div>
-                        <div>
-                            <label>سطح (اختیاری)</label>
-                            <input id="bookLevel" class="input" placeholder="مبتدی / متوسط / پیشرفته" />
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:8px">
-                        <div>
-                            <label>قیمت (تومان)</label>
-                            <input id="bookPrice" class="input" type="number" min="0" step="1000" placeholder="مثلاً: 150000" />
-                        </div>
-                        <div>
-                            <label>آدرس PDF کتاب</label>
-                            <input id="bookPdfUrl" class="input" placeholder="/uploads/books/book1.pdf یا لینک کامل https://..." />
-                        </div>
-                    </div>
-                    <div style="margin-top:8px">
-                        <button id="btnAddBook" class="btn btn-gold">ثبت کتاب</button>
-                    </div>
-                    <div id="statusBook" class="status"></div>
-                    <h3 style="margin-top:14px">کتاب‌های ثبت‌شده</h3>
-                    <p style="font-size:11px;opacity:.8">
-                        این لیست را می‌توانید در صفحه «کتابخانه» یا «منابع آموزشی» به هنرجویان نمایش دهید. لینک PDF
-                        می‌تواند نسخه کامل یا نمونه‌ی چند صفحه‌ای باشد.
-                    </p>
-                    <div id="booksPreview" class="preview-strip"></div>
-                </div>
-
-                <!-- =========  بخش‌های محتوایی (۱۰ فرمان، تاریخچه، نکات تمرین) ========= -->
-
-                <!-- ۱۰ فرمان هنرجوی گیتار -->
-                <div class="card" id="rulesCard">
-                    <h2>📜 ۱۰ فرمان هنرجوی گیتار</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        این متن را می‌توانید در صفحه‌ی «قوانین و توصیه‌ها» یا در بخش معرفی هنرجویان استفاده کنید.
-                        هدف این ۱۰ فرمان، کمک به شکل‌گیری عادت‌های درست در مسیر یادگیری موسیقی است.
-                    </p>
-                    <ol style="font-size:12px;line-height:2;padding-right:18px;margin-top:8px;">
-                        <li><b>هر روز کم‌کم تمرین کن، نه گاهی زیاد:</b> تمرین روزانه حتی ۱۵ تا ۲۰ دقیقه، از تمرین سنگین هفتگی موثرتر است.</li>
-                        <li><b>گرم کردن دست‌ها را جدی بگیر:</b> قبل از زدن قطعات، چند دقیقه تمرین تکنیک و کشش انگشتان انجام بده تا دستت آسیب نبیند.</li>
-                        <li><b>ب缓 شروع کن، بعد سرعت بگیر:</b> قطعه را اول با سرعت پایین و بدون اشتباه بزن؛ وقتی تمیز شد، کم‌کم سرعت را بالا ببر.</li>
-                        <li><b>با مترونوم دوست شو:</b> مترونوم دشمن تو نیست؛ بهترین دوست تو برای داشتن ریتم دقیق و حرفه‌ای است.</li>
-                        <li><b>کیفیت مهم‌تر از کمیت است:</b> یک تمرین درست، بهتر از ده بار تکرار اشتباه همان تمرین است.</li>
-                        <li><b>صدا و فرم بدن را گوش کن:</b> فقط به انگشت‌ها نگاه نکن؛ به صدای ساز و راحتی شانه، کمر و گردن هم توجه کن.</li>
-                        <li><b>اشتباه کردن طبیعی است:</b> تلاش کن از هر اشتباه، یک درس بگیری؛ اشتباه یعنی «نقطه‌ای که باید بیشتر روی آن کار کنی».</li>
-                        <li><b>هدفت را مشخص کن:</b> بنویس چرا می‌خواهی گیتار بزنی: برای لذت شخصی، اجرا روی صحنه، آهنگسازی یا هر هدف دیگر.</li>
-                        <li><b>از معلم سوال بپرس:</b> هر جا چیزی را متوجه نشدی، یادداشت کن و در جلسه بعد از استاد بپرس؛ سکوت، سرعت پیشرفت را کم می‌کند.</li>
-                        <li><b>از مسیر لذت ببر، نه فقط از نتیجه:</b> یادگیری موسیقی یک سفر طولانی است. هر قدم کوچک، خودش یک پیروزی است.</li>
-                    </ol>
-                </div>
-
-                <!-- تاریخچه گیتار -->
-                <div class="card" id="historyCard">
-                    <h2>🎼 تاریخچه کوتاه گیتار</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        این متن برای صفحه «درباره گیتار» یا بخش معرفی سازها مناسب است. می‌توانید آن را عیناً در سایت نمایش دهید
-                        یا بخش‌هایی از آن را در صفحات مختلف استفاده کنید.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        گیتار یکی از محبوب‌ترین سازهای زهیِ امروز دنیاست، اما ریشه‌های آن به چند هزار سال قبل برمی‌گردد.
-                        سازهایی مانند عود، لوت و ویه‌ولا در قرون مختلف، اجداد گیتار امروزی به حساب می‌آیند.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        شکل مدرن گیتار کلاسیک در قرن نوزدهم و در اسپانیا تثبیت شد؛ جایی که سازندگان بزرگی مثل
-                        «آنتونیو تورس» اندازه، فرم بدنه و ساختار سیم‌ها را به چیزی که امروز می‌شناسیم نزدیک کردند.
-                        بعد از آن، با اضافه شدن گیتار آکوستیک و الکتریک، این ساز وارد سبک‌های مختلفی مانند
-                        کلاسیک، فلامنکو، جز، بلوز، راک و پاپ شد.
-                    </p>
-                    <p style="font-size:12px;opacity:.9">
-                        امروزه گیتار نه‌تنها یک ساز همراه برای خواننده است، بلکه به‌عنوان یک ساز سولو (Solo) و اصلی
-                        در بسیاری از سبک‌ها حضور دارد. از اجرای قطعات کلاسیک روی صحنه گرفته تا بداهه‌نوازی در کافه‌ها
-                        و ضبط استودیویی، گیتار یکی از انعطاف‌پذیرترین و صمیمی‌ترین سازها برای بیان احساسات انسانی است.
-                    </p>
-                </div>
-
-                <!-- نکات تمرین -->
-                <div class="card" id="practiceCard">
-                    <h2>🎯 نکات مهم برای تمرین مؤثر گیتار</h2>
-                    <p style="font-size:12px;opacity:.9">
-                        این بخش می‌تواند به‌عنوان مقاله آموزشی در وب‌سایت قرار بگیرد یا به‌صورت PDF برای هنرجویان ارسال شود.
-                        هدف این نکات، کمک به برنامه‌ریزی تمرین روزانه است.
-                    </p>
-                    <ul style="font-size:12px;line-height:2;padding-right:18px;margin-top:8px;">
-                        <li><b>زمان تمرین را ثابت نگه دار:</b> مثلاً هر روز ساعت ۸ شب؛ مغز و عضلات کم‌کم به این عادت پاسخ بهتری می‌دهند.</li>
-                        <li><b>تمرین را به بخش‌های کوچک تقسیم کن:</b> ۵ دقیقه تکنیک، ۵ دقیقه ریتم، ۱۰ دقیقه قطعه؛ به‌جای ۲۰ دقیقه زدن یک چیز تکراری.</li>
-                        <li><b>تمرین را ضبط کن:</b> هر چند روز یک‌بار تمرینت را با موبایل ضبط کن تا پیشرفت خودت را واضح ببینی.</li>
-                        <li><b>محیط تمرین را آماده کن:</b> صندلی مناسب، نور خوب و سکوت نسبی باعث می‌شود حواس‌پرتی کمتر شود.</li>
-                        <li><b>هدف کوتاه‌مدت تعیین کن:</b> مثلاً «تا آخر این هفته این قطعه را بدون توقف تا خط ۸ تمرین می‌کنم».</li>
-                        <li><b>بدن را تحت فشار نگذار:</b> اگر احساس درد تیز یا غیرعادی در مچ، شانه یا گردن داشتی، تمرین را قطع کن و با استاد مشورت کن.</li>
-                        <li><b>استراحت‌های کوچک بین تمرین:</b> بعد از ۲۰ دقیقه، ۲–۳ دقیقه دست‌ها را رها و کمی حرکت کششی انجام بده.</li>
-                    </ul>
-                </div>
-
-            </div>
-
-        </main>
-
-        <footer>
-            © پنل مدیریت آموزشگاه موسیقی آوای زریاب
-        </footer>
+    <!-- LOGIN -->
+    <div id="loginSection">
+        <h2>ورود مدیر</h2>
+        <input id="adminEmail" type="email" placeholder="ایمیل مدیر">
+        <input id="adminPass" type="password" placeholder="رمز عبور">
+        <button onclick="adminLogin()">ورود</button>
     </div>
 
-    <script>
-        const API_BASE = window.location.origin;
-        const ADMIN_TOKEN_KEY = "adminToken";
-        const $ = s => document.querySelector(s);
+    <!-- ADMIN PANEL -->
+    <div id="adminPanel" style="display:none;">
 
-        function setStatus(el, msg, isErr) {
-            if (!el) return;
-            el.textContent = msg || "";
-            el.className = "status " + (isErr ? "err" : "ok");
-        }
+        <button onclick="logout()">خروج</button>
 
-        function getAdminToken() {
-            return localStorage.getItem(ADMIN_TOKEN_KEY) || "";
-        }
+        <!-- LOGO -->
+        <div class="section">
+            <h2>آپلود لوگوی سایت</h2>
+            <input type="file" id="logoFile">
+            <button onclick="uploadLogo()">آپلود لوگو</button>
+        </div>
 
-        // همگام‌سازی وضعیت هدر دسکتاپ و موبایل
-        function syncAdminHeaderUI(isLoggedIn) {
-            const chipDesktop = $("#adminChip");
-            const chipMobile = $("#adminChipMobile");
-            const btnLogoutDesktop = $("#btnLogout");
-            const btnLogoutMobile = $("#btnLogoutMobile");
+        <!-- INTRO -->
+        <div class="section">
+            <h2>پوستر + ویدیو معرفی سایت</h2>
+            <input type="file" id="posterFile">
+            <input type="file" id="introVideoFile">
+            <button onclick="uploadIntro()">آپلود معرفی</button>
+        </div>
 
-            if (isLoggedIn) {
-                if (chipDesktop) chipDesktop.textContent = "وضعیت: ادمین وارد شده است";
-                if (chipMobile) chipMobile.textContent = "وضعیت: ادمین وارد شده است";
-                if (btnLogoutDesktop) btnLogoutDesktop.style.display = "inline-block";
-                if (btnLogoutMobile) btnLogoutMobile.style.display = "inline-block";
-            } else {
-                if (chipDesktop) chipDesktop.textContent = "وضعیت: خارج از سیستم";
-                if (chipMobile) chipMobile.textContent = "وضعیت: خارج از سیستم";
-                if (btnLogoutDesktop) btnLogoutDesktop.style.display = "none";
-                if (btnLogoutMobile) btnLogoutMobile.style.display = "none";
+        <!-- TEACHERS -->
+        <div class="section">
+            <h2>آپلود رسانه‌های اساتید</h2>
+
+            <input id="teacherName" type="text" placeholder="نام استاد">
+
+            <input type="file" id="teacherFile">
+
+            <button onclick="uploadTeacherMedia()">آپلود فایل</button>
+
+            <div id="teacherMediaList"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const API = "https://avayezaryab.somee.com";
+
+// --------------------------------------------
+// LOGIN
+// --------------------------------------------
+async function adminLogin() {
+    let email = document.getElementById("adminEmail").value;
+    let pass = document.getElementById("adminPass").value;
+
+    let res = await fetch(API + "/api/auth/login", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ email: email, password: pass })
+    });
+
+    let data = await res.json();
+
+    if (!res.ok || !data.user.isAdmin) {
+        alert("ایمیل یا رمز اشتباه است.");
+        return;
+    }
+
+    localStorage.setItem("admin", email);
+
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+}
+
+// --------------------------------------------
+// LOGOUT
+// --------------------------------------------
+function logout() {
+    localStorage.removeItem("admin");
+    location.reload();
+}
+
+// --------------------------------------------
+// UPLOAD LOGO
+// --------------------------------------------
+async function uploadLogo() {
+    let file = document.getElementById("logoFile").files[0];
+    if (!file) return alert("فایلی انتخاب نشده");
+
+    let form = new FormData();
+    form.append("file", file);
+
+    let res = await fetch(API + "/api/logo", {
+        method: "POST",
+        body: form
+    });
+
+    let data = await res.json();
+    alert(data.message);
+}
+
+// --------------------------------------------
+// INTRO UPLOAD
+// --------------------------------------------
+async function uploadIntro() {
+    let poster = document.getElementById("posterFile").files[0];
+    let video = document.getElementById("introVideoFile").files[0];
+
+    if (!poster || !video) return alert("پوستر و ویدیو لازم است");
+
+    let form = new FormData();
+    form.append("poster", poster);
+    form.append("video", video);
+
+    let res = await fetch(API + "/api/intro", {
+        method: "POST",
+        body: form
+    });
+
+    let data = await res.json();
+    alert(data.message);
+}
+
+// --------------------------------------------
+// TEACHER UPLOAD
+// --------------------------------------------
+async function uploadTeacherMedia() {
+    let teacher = document.getElementById("teacherName").value;
+    let file = document.getElementById("teacherFile").files[0];
+
+    if (!teacher) return alert("نام استاد را وارد کنید");
+    if (!file) return alert("فایل انتخاب نشده");
+
+    let form = new FormData();
+    form.append("teacher", teacher);
+    form.append("file", file);
+
+    let res = await fetch(API + "/api/teacher/upload", {
+        method: "POST",
+        body: form
+    });
+
+    let data = await res.json();
+    alert(data.message);
+
+    loadTeacherMedia(teacher);
+}
+
+// --------------------------------------------
+// LOAD TEACHER MEDIA
+// --------------------------------------------
+async function loadTeacherMedia(name) {
+    let res = await fetch(API + "/api/teacher/" + name);
+    let data = await res.json();
+
+    let box = document.getElementById("teacherMediaList");
+    box.innerHTML = "";
+
+    data.forEach(m => {
+        let div = document.createElement("div");
+        div.className = "media-item";
+
+        div.innerHTML = `
+            <p>${m.mediaType == "video" ? "ویدیو" : "عکس"}</p>
+            ${m.mediaType == "video"
+                ? `<video controls src="${m.mediaUrl}"></video>`
+                : `<img src="${m.mediaUrl}">`
             }
-        }
+        `;
 
-        function applyAdminUI() {
-            const token = getAdminToken();
-            const loginCard = $("#loginCard");
-            const adminPanel = $("#adminPanel");
-            if (token) {
-                if (loginCard) loginCard.style.display = "none";
-                if (adminPanel) adminPanel.style.display = "block";
-                syncAdminHeaderUI(true);
-                loadIntroPreview();
-                loadTeacherPreview();
-                loadStudentPreview();
-                loadBooksPreview();
-            } else {
-                if (loginCard) loginCard.style.display = "block";
-                if (adminPanel) adminPanel.style.display = "none";
-                syncAdminHeaderUI(false);
-            }
-        }
+        box.appendChild(div);
+    });
+}
 
-        // منوی همبرگری موبایل
-        const menuToggleBtn = document.getElementById("menuToggle");
-        const headerActionsPanel = document.getElementById("headerActionsPanel");
+</script>
 
-        if (menuToggleBtn && headerActionsPanel) {
-            menuToggleBtn.addEventListener("click", () => {
-                const isOpen = headerActionsPanel.classList.toggle("open");
-                menuToggleBtn.classList.toggle("active", isOpen);
-            });
-
-            headerActionsPanel.addEventListener("click", (e) => {
-                if (e.target.tagName === "A") {
-                    headerActionsPanel.classList.remove("open");
-                    menuToggleBtn.classList.remove("active");
-                }
-            });
-        }
-
-        // logout دسکتاپ
-        $("#btnLogout")?.addEventListener("click", () => {
-            localStorage.removeItem(ADMIN_TOKEN_KEY);
-            applyAdminUI();
-        });
-
-        // logout موبایل
-        $("#btnLogoutMobile")?.addEventListener("click", () => {
-            localStorage.removeItem(ADMIN_TOKEN_KEY);
-            applyAdminUI();
-            headerActionsPanel?.classList.remove("open");
-            menuToggleBtn?.classList.remove("active");
-        });
-
-        // ورود ادمین
-        $("#btnAdminLogin").addEventListener("click", async () => {
-            const email = $("#adminEmail").value.trim();
-            const password = $("#adminPass").value;
-            const st = $("#statusLogin");
-            setStatus(st, "", false);
-            if (!email || !password) {
-                setStatus(st, "ایمیل و رمز را وارد کنید.", true);
-                return;
-            }
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/login`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "ورود ادمین ناموفق بود.", true);
-                    return;
-                }
-                localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
-                setStatus(st, "ورود موفق. پنل مدیریت فعال شد.", false);
-                applyAdminUI();
-            } catch {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        // آپلود ویدیو معرفی
-        $("#btnUploadIntroVideo").addEventListener("click", async () => {
-            const fileInput = $("#introVideoFile");
-            const st = $("#statusIntroVideo");
-            setStatus(st, "", false);
-            if (!getAdminToken()) {
-                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
-                return;
-            }
-            if (!fileInput.files || fileInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-            const fd = new FormData();
-            fd.append("file", fileInput.files[0]);
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/upload-intro-video`, {
-                    method: "POST",
-                    headers: { "X-Admin-Token": getAdminToken() },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود ویدیو.", true);
-                    return;
-                }
-                setStatus(st, data.message || "ویدیو با موفقیت ذخیره شد.", false);
-                fileInput.value = "";
-                loadIntroPreview();
-            } catch {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        // آپلود پوستر معرفی
-        $("#btnUploadIntroPoster").addEventListener("click", async () => {
-            const fileInput = $("#introPosterFile");
-            const st = $("#statusIntroPoster");
-            setStatus(st, "", false);
-            if (!getAdminToken()) {
-                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
-                return;
-            }
-            if (!fileInput.files || fileInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-            const fd = new FormData();
-            fd.append("file", fileInput.files[0]);
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/upload-intro-poster`, {
-                    method: "POST",
-                    headers: { "X-Admin-Token": getAdminToken() },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود پوستر.", true);
-                    return;
-                }
-                setStatus(st, data.message || "پوستر با موفقیت ذخیره شد.", false);
-                fileInput.value = "";
-                loadIntroPreview();
-            } catch {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        // پیش‌نمایش معرفی
-        async function loadIntroPreview() {
-            const box = $("#introPreview");
-            if (!box) return;
-            box.innerHTML = "";
-            try {
-                const res = await fetch(`${API_BASE}/api/content`);
-                if (!res.ok) return;
-                const data = await res.json();
-                const intro = data.intro || {};
-                if (!intro.videoUrl && !intro.posterUrl) {
-                    box.innerHTML = `<div class="prev-item">هنوز ویدیو یا پوستر معرفی ثبت نشده است.</div>`;
-                    return;
-                }
-                let html = "";
-                if (intro.videoUrl) {
-                    html += `
-                        <div class="prev-item">
-                            <b>ویدیو معرفی</b>
-                            <video controls preload="metadata" src="${intro.videoUrl}"></video>
-                        </div>`;
-                }
-                if (intro.posterUrl) {
-                    html += `
-                        <div class="prev-item">
-                            <b>پوستر معرفی</b>
-                            <img src="${intro.posterUrl}" alt="پوستر معرفی">
-                        </div>`;
-                }
-                box.innerHTML = html;
-            } catch {
-                box.innerHTML = `<div class="prev-item">خطا در دریافت پیش‌نمایش.</div>`;
-            }
-        }
-
-        // نمایش input دستی وقتی گزینه "سایر" انتخاب می‌شود
-        const teacherSelect = document.getElementById("teacherName");
-        const teacherCustom = document.getElementById("teacherNameCustom");
-        teacherSelect.addEventListener("change", () => {
-            if (teacherSelect.value === "_custom") {
-                teacherCustom.style.display = "block";
-            } else {
-                teacherCustom.style.display = "none";
-                teacherCustom.value = "";
-            }
-        });
-
-        // آپلود مدیای اساتید
-        document.getElementById("btnUploadTeacherMedia").addEventListener("click", async () => {
-            const select = document.getElementById("teacherName");
-            let name = select.value;
-            if (name === "_custom") {
-                name = teacherCustom.value.trim();
-            }
-
-            const filesInput = document.getElementById("teacherFiles");
-            const st = document.getElementById("statusTeacher");
-            setStatus(st, "", false);
-
-            if (!getAdminToken()) {
-                setStatus(st, "ابتدا به‌عنوان ادمین وارد شوید.", true);
-                return;
-            }
-            if (!name) {
-                setStatus(st, "نام استاد را انتخاب یا وارد کنید.", true);
-                return;
-            }
-            if (!filesInput.files || filesInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-
-            const fd = new FormData();
-            fd.append("teacherName", name);
-            for (const f of filesInput.files) {
-                fd.append("files", f);
-            }
-
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/teacher-media`, {
-                    method: "POST",
-                    headers: {
-                        "X-Admin-Token": getAdminToken()
-                    },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود مدیای استاد.", true);
-                    return;
-                }
-                setStatus(st, data.message || "مدیا با موفقیت ثبت شد.", false);
-                filesInput.value = "";
-                loadTeacherPreview();
-            } catch (e) {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        async function loadTeacherPreview() {
-            const box = $("#teacherPreview");
-            if (!box) return;
-            box.innerHTML = "";
-            try {
-                const res = await fetch(`${API_BASE}/api/media/teachers`);
-                if (!res.ok) {
-                    box.innerHTML = `<div class="prev-item">خطا در دریافت اطلاعات.</div>`;
-                    return;
-                }
-                const list = await res.json();
-                if (!Array.isArray(list) || list.length === 0) {
-                    box.innerHTML = `<div class="prev-item">مدیایی برای اساتید ثبت نشده است.</div>`;
-                    return;
-                }
-                box.innerHTML = list.map(m => `
-                    <div class="prev-item">
-                        <b>${m.teacherName || "استاد"}</b>
-                        ${m.mediaType === "video"
-                        ? `<video controls preload="metadata" src="${m.fileUrl}"></video>`
-                        : `<img src="${m.fileUrl}" alt="${m.teacherName || "استاد"}">`}
-                    </div>
-                `).join("");
-            } catch {
-                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
-            }
-        }
-
-        // آپلود هنرجویان
-        $("#btnUploadStudentMedia").addEventListener("click", async () => {
-            const caption = $("#studentCaption").value.trim();
-            const filesInput = $("#studentFiles");
-            const st = $("#statusStudent");
-            setStatus(st, "", false);
-            if (!getAdminToken()) {
-                setStatus(st, "ابتدا وارد شوید.", true);
-                return;
-            }
-            if (!filesInput.files || filesInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-            const fd = new FormData();
-            if (caption) fd.append("caption", caption);
-            for (const f of filesInput.files) {
-                fd.append("files", f);
-            }
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/student-media`, {
-                    method: "POST",
-                    headers: { "X-Admin-Token": getAdminToken() },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود مدیای هنرجویان.", true);
-                    return;
-                }
-                setStatus(st, data.message || "مدیای هنرجویان ثبت شد.", false);
-                filesInput.value = "";
-                loadStudentPreview();
-            } catch {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        async function loadStudentPreview() {
-            const box = $("#studentPreview");
-            if (!box) return;
-            box.innerHTML = "";
-            try {
-                const res = await fetch(`${API_BASE}/api/media/students`);
-                if (!res.ok) {
-                    box.innerHTML = `<div class="prev-item">خطا در دریافت اطلاعات.</div>`;
-                    return;
-                }
-                const list = await res.json();
-                if (!Array.isArray(list) || list.length === 0) {
-                    box.innerHTML = `<div class="prev-item">مدیایی برای هنرجویان ثبت نشده است.</div>`;
-                    return;
-                }
-                box.innerHTML = list.map(m => `
-                    <div class="prev-item">
-                        <b>${m.caption || "اجرای هنرجویان"}</b>
-                        ${m.mediaType === "video"
-                        ? `<video controls preload="metadata" src="${m.fileUrl}"></video>`
-                        : `<img src="${m.fileUrl}" alt="${m.caption || "هنرجو"}">`}
-                    </div>
-                `).join("");
-            } catch {
-                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
-            }
-        }
-
-        // آپلود لوگو
-        document.getElementById("btnUploadLogo").addEventListener("click", async () => {
-            const fileInput = document.getElementById("logoFile");
-            const st = document.getElementById("statusLogo");
-            setStatus(st, "", false);
-
-            if (!getAdminToken()) {
-                setStatus(st, "لطفاً ابتدا وارد پنل ادمین شوید.", true);
-                return;
-            }
-            if (!fileInput.files || fileInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-
-            const fd = new FormData();
-            fd.append("file", fileInput.files[0]);
-
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/upload-logo`, {
-                    method: "POST",
-                    headers: { "X-Admin-Token": getAdminToken() },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود لوگو.", true);
-                    return;
-                }
-                setStatus(st, data.message || "لوگو ذخیره شد.", false);
-                fileInput.value = "";
-                loadBrandingPreview();
-            } catch (e) {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        // آپلود عکس پروفایل استاد
-        document.getElementById("btnUploadAvatar").addEventListener("click", async () => {
-            const teacherKey = document.getElementById("avatarTeacherKey").value;
-            const fileInput = document.getElementById("avatarFile");
-            const st = document.getElementById("statusAvatar");
-            setStatus(st, "", false);
-
-            if (!getAdminToken()) {
-                setStatus(st, "لطفاً ابتدا وارد پنل ادمین شوید.", true);
-                return;
-            }
-            if (!teacherKey) {
-                setStatus(st, "استاد را انتخاب کنید.", true);
-                return;
-            }
-            if (!fileInput.files || fileInput.files.length === 0) {
-                setStatus(st, "هیچ فایلی انتخاب نشده است.", true);
-                return;
-            }
-
-            const fd = new FormData();
-            fd.append("teacherKey", teacherKey);
-            fd.append("file", fileInput.files[0]);
-
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/teacher-avatar`, {
-                    method: "POST",
-                    headers: { "X-Admin-Token": getAdminToken() },
-                    body: fd
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در آپلود عکس پروفایل.", true);
-                    return;
-                }
-                setStatus(st, data.message || "عکس پروفایل ذخیره شد.", false);
-                fileInput.value = "";
-                loadBrandingPreview();
-            } catch (e) {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        // پیش‌نمایش لوگو و آواتارها
-        async function loadBrandingPreview() {
-            const box = document.getElementById("brandingPreview");
-            if (!box) return;
-            box.innerHTML = "";
-
-            const items = [
-                { title: "لوگوی سایت", url: "/uploads/branding/logo.png" },
-                { title: "استاد معنوی", url: "/uploads/teachers/avatars/manavi.jpg" },
-                { title: "استاد عنایتی", url: "/uploads/teachers/avatars/enayati.jpg" },
-                { title: "استاد علی تلیلی", url: "/uploads/teachers/avatars/talili.jpg" }
-            ];
-
-            let html = "";
-            for (const it of items) {
-                html += `
-        <div class="prev-item">
-          <b>${it.title}</b>
-          <img src="${it.url}" onerror="this.style.display='none'" alt="${it.title}">
-        </div>`;
-            }
-            box.innerHTML = html;
-        }
-
-        // ثبت کتاب
-        $("#btnAddBook").addEventListener("click", async () => {
-            const title = $("#bookTitle").value.trim();
-            const level = $("#bookLevel").value.trim();
-            const priceStr = $("#bookPrice").value.trim();
-            const pdfUrl = $("#bookPdfUrl").value.trim();
-            const st = $("#statusBook");
-            setStatus(st, "", false);
-            if (!getAdminToken()) {
-                setStatus(st, "ابتدا وارد پنل ادمین شوید.", true);
-                return;
-            }
-            if (!title || !pdfUrl) {
-                setStatus(st, "عنوان و آدرس PDF را وارد کنید.", true);
-                return;
-            }
-            const price = priceStr ? Number(priceStr) : 0;
-            try {
-                const res = await fetch(`${API_BASE}/api/admin/books`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Admin-Token": getAdminToken()
-                    },
-                    body: JSON.stringify({ title, level: level || null, price, pdfUrl })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    setStatus(st, data.message || "خطا در ثبت کتاب.", true);
-                    return;
-                }
-                setStatus(st, data.message || "کتاب ثبت شد.", false);
-                $("#bookTitle").value = "";
-                $("#bookLevel").value = "";
-                $("#bookPrice").value = "";
-                $("#bookPdfUrl").value = "";
-                loadBooksPreview();
-            } catch {
-                setStatus(st, "خطا در ارتباط با سرور.", true);
-            }
-        });
-
-        async function loadBooksPreview() {
-            const box = $("#booksPreview");
-            if (!box) return;
-            box.innerHTML = "";
-            try {
-                const res = await fetch(`${API_BASE}/api/books`);
-                if (!res.ok) {
-                    box.innerHTML = `<div class="prev-item">خطا در دریافت کتاب‌ها.</div>`;
-                    return;
-                }
-                const list = await res.json();
-                if (!Array.isArray(list) || list.length === 0) {
-                    box.innerHTML = `<div class="prev-item">کتابی ثبت نشده است.</div>`;
-                    return;
-                }
-                box.innerHTML = list.map(b => `
-                    <div class="prev-item">
-                        <b>${b.title}</b><br>
-                        ${b.level ? `<span>سطح: ${b.level}</span><br>` : ""}
-                        <span>قیمت: ${b.price} تومان</span><br>
-                        <span style="font-size:10px;opacity:.8">PDF: ${b.pdfUrl}</span>
-                    </div>
-                `).join("");
-            } catch {
-                box.innerHTML = `<div class="prev-item">خطا در ارتباط با سرور.</div>`;
-            }
-        }
-
-        // شروع
-        applyAdminUI();
-        loadBrandingPreview();
-    </script>
 </body>
-                        </html>
+</html>
