@@ -1,1308 +1,342 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="utf-8" />
-    <title>آموزشگاه موسیقی آوای زریاب</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Vazirmatn,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-        }
-
-        body {
-            margin: 0;
-            background: #020617;
-            color: #e5e7eb;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .page {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* HEADER + NAV */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(15,23,42,.96);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(148,163,184,.35);
-        }
-
-        .nav {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 8px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .brand {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 999px;
-            object-fit: cover;
-            box-shadow: 0 0 14px rgba(250,204,21,.7);
-        }
-
-        .brand-main {
-            margin: 0;
-            font-weight: 800;
-            font-size: 18px;
-        }
-
-        .brand-sub {
-            margin: 0;
-            font-size: 11px;
-            opacity: .8;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            transition: max-height .22s ease, opacity .2s ease;
-        }
-
-        .nav-link {
-            font-size: 12px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            cursor: pointer;
-            white-space: nowrap;
-            background: transparent;
-            color: inherit;
-        }
-
-        .nav-link:hover {
-            border-color: rgba(148,163,184,.6);
-            background: rgba(15,23,42,.9);
-        }
-
-        .nav-link.active {
-            border-color: rgba(250,204,21,.8);
-            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
-            color: #111827;
-            box-shadow: 0 0 12px rgba(250,204,21,.6);
-        }
-
-        .btn-gold {
-            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
-            color: #111827;
-            border: none;
-            box-shadow: 0 0 14px rgba(250,204,21,.7);
-        }
-
-        .btn-gold:hover {
-            filter: brightness(1.05);
-        }
-
-        /* HAMBURGER (جدیدتر و خوشگل‌تر) */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 999px;
-            border: 1px solid transparent;
-            transition: background .2s ease, border-color .2s ease;
-        }
-
-        .hamburger:hover {
-            border-color: rgba(148,163,184,.6);
-            background: rgba(15,23,42,.85);
-        }
-
-        .bar {
-            width: 22px;
-            height: 2px;
-            background: #e5e7eb;
-            border-radius: 999px;
-            transition: transform .25s ease, opacity .2s ease, background .2s ease;
-        }
-
-        .hamburger.is-open .bar:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-        }
-        .hamburger.is-open .bar:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.is-open .bar:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-        }
-
-        /* اوورلی پشت منوی همبرگری */
-        .nav-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15,23,42,.75);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity .2s ease;
-            z-index: 40;
-        }
-        .nav-overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        @media(max-width:900px) {
-            .nav {
-                padding-inline: 12px;
-            }
-
-            .nav-links {
-                position: fixed;
-                inset-inline: 0;
-                top: 56px;
-                background: rgba(15,23,42,.98);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 10px 16px 14px;
-                border-bottom: 1px solid rgba(148,163,184,.35);
-                max-height: 0;
-                overflow: hidden;
-                opacity: 0;
-            }
-
-            .nav-links.open {
-                max-height: 340px;
-                opacity: 1;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-        }
-
-        main {
-            flex: 1;
-        }
-
-        .section {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 20px 14px 26px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        h1, h2, h3 {
-            margin: 0;
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-        h2 {
-            font-size: 20px;
-        }
-
-        h3 {
-            font-size: 16px;
-        }
-
-        p {
-            margin: 4px 0;
-            font-size: 13px;
-            line-height: 1.9;
-        }
-
-        .card {
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,.35);
-            background: radial-gradient(circle at top,rgba(15,23,42,1),rgba(15,23,42,.98));
-            padding: 14px;
-            margin-top: 10px;
-        }
-
-        .card-soft {
-            border-radius: 18px;
-            border: 1px solid rgba(30,64,175,.55);
-            background: radial-gradient(circle at top,rgba(30,64,175,.35),rgba(15,23,42,1));
-            padding: 14px;
-            margin-top: 10px;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: minmax(0,1.5fr) minmax(0,1.2fr);
-            gap: 16px;
-            align-items: stretch;
-        }
-
-        @media(max-width:900px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.6);
-            background: rgba(15,23,42,.8);
-        }
-
-        .badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 20%,#bbf7d0,#22c55e);
-            box-shadow: 0 0 10px rgba(34,197,94,.8);
-        }
-
-        .hero-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 8px 0 4px;
-        }
-
-        .hero-text {
-            font-size: 13px;
-            opacity: .9;
-        }
-
-        .intro-media {
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,.35);
-            background: #020617;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            height: 100%;
-        }
-
-        .intro-media video,
-        .intro-media img {
-            width: 100%;
-            border-radius: 14px;
-            display: block;
-            background: #020617;
-        }
-
-        .intro-placeholder {
-            font-size: 12px;
-            opacity: .8;
-        }
-
-        ul {
-            margin: 6px 0 8px 0;
-            padding-right: 18px;
-            font-size: 13px;
-            line-height: 1.9;
-        }
-
-        li {
-            margin-bottom: 3px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2,minmax(0,1fr));
-            gap: 12px;
-        }
-
-        @media(max-width:800px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .commandment {
-            margin-bottom: 8px;
-            padding-bottom: 6px;
-            border-bottom: 1px dashed rgba(148,163,184,.35);
-        }
-
-        .commandment:last-child {
-            border-bottom: none;
-        }
-
-        .teacher-card {
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,.4);
-            padding: 12px;
-            background: radial-gradient(circle at top,rgba(15,23,42,.95),rgba(15,23,42,1));
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .teacher-head {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .teacher-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 999px;
-            object-fit: cover;
-            box-shadow: 0 0 14px rgba(250,204,21,.6);
-            flex-shrink: 0;
-        }
-
-        .teacher-meta h3 {
-            margin: 0;
-            font-size: 15px;
-        }
-
-        .teacher-meta p {
-            margin: 0;
-            font-size: 11px;
-            opacity: .9;
-        }
-
-        .teacher-body {
-            font-size: 12px;
-            line-height: 1.8;
-            max-height: 150px;
-            overflow-y: auto;
-            padding-inline-end: 4px;
-        }
-
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 4px;
-        }
-
-        .chip {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.5);
-            background: rgba(15,23,42,.8);
-        }
-
-        .slider-row {
-            margin-top: 6px;
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 6px;
-            scroll-snap-type: x mandatory;
-        }
-
-        .slider-row::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .slider-row::-webkit-scrollbar-thumb {
-            background: rgba(148,163,184,.7);
-            border-radius: 999px;
-        }
-
-        .slide-item {
-            min-width: 180px;
-            max-width: 220px;
-            scroll-snap-align: start;
-            border-radius: 12px;
-            border: 1px solid rgba(148,163,184,.45);
-            background: #020617;
-            padding: 6px;
-            font-size: 11px;
-        }
-
-        .slide-item img,
-        .slide-item video {
-            width: 100%;
-            border-radius: 8px;
-            display: block;
-        }
-
-        .books-layout {
-            display: grid;
-            grid-template-columns: 2fr 1.2fr;
-            gap: 14px;
-        }
-
-        @media(max-width:960px) {
-            .books-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .poster-card {
-            border-radius: 18px;
-            padding: 14px;
-            border: 1px solid rgba(234,179,8,.4);
-            background: radial-gradient(circle at top,#1e293b,#020617);
-        }
-
-        .poster-banner {
-            border-radius: 14px;
-            border: 1px dashed rgba(250,204,21,.6);
-            padding: 10px;
-            font-size: 12px;
-        }
-
-        .book-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .book-card {
-            border-radius: 14px;
-            border: 1px solid rgba(148,163,184,.4);
-            padding: 10px;
-            background: #020617;
-            font-size: 12px;
-        }
-
-        .book-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .book-meta {
-            font-size: 11px;
-            opacity: .9;
-        }
-
-        .price {
-            color: #fde68a;
-            font-weight: 600;
-            font-size: 12px;
-            margin-top: 4px;
-        }
-
-        .btn {
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.45);
-            background: transparent;
-            color: #e5e7eb;
-            padding: 5px 10px;
-            font-size: 11px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn:disabled {
-            opacity: .6;
-            cursor: default;
-        }
-
-        .btn-outline {
-            border-color: rgba(148,163,184,.7);
-            background: rgba(15,23,42,.9);
-        }
-
-        .cart-card {
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,.4);
-            background: radial-gradient(circle at top,rgba(15,23,42,.98),#020617);
-            padding: 12px;
-            font-size: 12px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .cart-empty {
-            font-size: 11px;
-            opacity: .8;
-        }
-
-        .auth-layout {
-            display: grid;
-            grid-template-columns: 1.2fr 1.3fr;
-            gap: 16px;
-            align-items: start;
-        }
-
-        @media(max-width:960px) {
-            .auth-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 6px;
-            background: rgba(15,23,42,.9);
-            border-radius: 999px;
-            padding: 3px;
-            margin-bottom: 10px;
-        }
-
-        .auth-tab {
-            flex: 1;
-            text-align: center;
-            font-size: 12px;
-            padding: 5px 0;
-            border-radius: 999px;
-            cursor: pointer;
-        }
-
-        .auth-tab.active {
-            background: radial-gradient(circle at 30% 20%,#ffeaa7,#facc15,#f97316);
-            color: #111827;
-            font-weight: 600;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 3px;
-            opacity: .9;
-        }
-
-        .input {
-            width: 100%;
-            background: rgba(15,23,42,.95);
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,.45);
-            padding: 7px 11px;
-            color: #e5e7eb;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .input:focus {
-            border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250,204,21,.35);
-        }
-
-        .input-row {
-            display: grid;
-            grid-template-columns: repeat(2,minmax(0,1fr));
-            gap: 10px;
-        }
-
-        @media(max-width:700px) {
-            .input-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .small-link {
-            font-size: 11px;
-            color: #e5e7eb;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        .status {
-            font-size: 11px;
-            margin-top: 6px;
-            min-height: 14px;
-        }
-
-        .status.ok {
-            color: #bbf7d0;
-        }
-
-        .status.err {
-            color: #fecaca;
-        }
-
-        .user-panel {
-            border-radius: 18px;
-            border: 1px solid rgba(34,197,94,.6);
-            padding: 12px;
-            background: radial-gradient(circle at top,rgba(22,163,74,.2),#020617);
-            font-size: 12px;
-        }
-
-        footer {
-            border-top: 1px solid rgba(148,163,184,.3);
-            padding: 10px 14px 14px;
-            text-align: center;
-            font-size: 11px;
-            opacity: .8;
-        }
-
-        /* TAB SECTIONS */
-        .tab-section {
-            display: none;
-        }
-
-        .tab-section.active {
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>مدرسه هوشمند | نمونه کار</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-<div class="page">
-
-    <!-- اوورلی منوی موبایل -->
-    <div class="nav-overlay" id="navOverlay"></div>
-
-    <!-- HEADER -->
-    <header>
-        <div class="nav">
-            <div class="brand">
-                <!-- لوگو: فایل را در wwwroot/assets/logo.png قرار بده -->
-                <img class="logo" src="assets/logo.png" alt="لوگوی آموزشگاه آوای زریاب">
-                <div>
-                    <p class="brand-main">آموزشگاه موسیقی آوای زریاب</p>
-                    <p class="brand-sub">از ریشه‌های شرقی تا قلب موسیقی جهان</p>
-                </div>
-            </div>
-
-            <div class="hamburger" id="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-
-            <nav class="nav-links" id="navLinks">
-                <button class="nav-link active" data-tab="tab-home">خانه</button>
-                <button class="nav-link" data-tab="tab-guitar-history">تاریخچه گیتار</button>
-                <button class="nav-link" data-tab="tab-commandments">۱۰ فرمان گیتار</button>
-                <button class="nav-link" data-tab="tab-anxiety">اضطراب اجرا</button>
-                <button class="nav-link" data-tab="tab-target-practice">تمرین هدفمند</button>
-                <button class="nav-link" data-tab="tab-teachers">اساتید</button>
-                <button class="nav-link" data-tab="tab-students">هنرجویان</button>
-                <button class="nav-link" data-tab="tab-books">کتاب‌ها</button>
-                <button class="nav-link btn-gold" data-tab="tab-auth" id="navAuthBtn">ورود / ثبت‌نام</button>
-            </nav>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <div class="brand-text">
+          <h1>مدرسه هوشمند</h1>
+          <span>سیستم یکپارچه مدیریت مدرسه</span>
         </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
+          <span class="icon-moon"></span>
+        </button>
+        <div class="user-pill">
+          <div class="user-avatar">MP</div>
+          <div class="user-info">
+            <span class="user-role">مدیر سامانه</span>
+            <span class="user-name">Smart School Panel</span>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <main>
+    <main class="app-main">
+      <aside class="side-panel">
+        <div class="side-header">
+          <h2>داشبورد</h2>
+          <p>نمای کلی از وضعیت مدرسه</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">تعداد دانش‌آموزان</div>
+            <div class="stat-value" data-counter="742">0</div>
+            <div class="stat-trend positive">+۱۲٪ نسبت به سال قبل</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">میانگین نمرات</div>
+            <div class="stat-value" data-counter="18.4">0</div>
+            <div class="stat-trend neutral">پایدار</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">رضایت اولیا</div>
+            <div class="stat-value" data-counter="92">0</div>
+            <div class="stat-trend positive">+۵٪</div>
+          </div>
+        </div>
 
-        <!-- بقیه‌ی سکشن‌ها دقیقا مثل قبل هستند، فقط کپی‌شون کردم بدون تغییر در محتوا -->
-
-        <!-- TAB: HOME / HERO -->
-        <section class="section tab-section active" id="tab-home">
-            <div class="hero-grid">
-                <div>
-                    <span class="badge">
-                        <span class="badge-dot"></span>
-                        آموزش تخصصی گیتار، آواز، تنبک و کمانچه
-                    </span>
-                    <h1 class="hero-title">آوای زریاب؛ پلی میان شرق و غرب موسیقی</h1>
-                    <p class="hero-text">
-                        در آموزشگاه موسیقی آوای زریاب، به‌جای آموزش صرفاً تکنیک، سعی می‌کنیم «نگاه موسیقایی»
-                        و «هویت شنیداری» هنرجو را بسازیم؛ از ریشه‌های شرقی و آثار زریاب تا گیتار کلاسیک،
-                        فلامنکو، بلوز، راک و آواز علمی.
-                    </p>
-                    <div class="card-soft" style="margin-top:12px">
-                        <h3>چرا آوای زریاب؟</h3>
-                        <ul>
-                            <li>آموزش گیتار کلاسیک، فلامنکو، پاپ و سبک‌های مدرن با روش‌های به‌روز</li>
-                            <li>کلاس‌های تخصصی آواز، صداسازی و سلفژ زیر نظر اساتید مجرب</li>
-                            <li>تأکید بر تمرین هدفمند، ذهن‌آگاهی در اجرا و مدیریت اضطراب صحنه</li>
-                            <li>امکان شرکت در ورکشاپ‌ها، اجراهای کارگاهی و ضبط و تحلیل اجراها</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <div class="intro-media" id="introMediaBox">
-                        <h3 style="font-size:14px;margin:0 0 4px">🎬 ویدیو معرفی آموزشگاه</h3>
-                        <div id="introMediaContent" class="intro-placeholder">
-                            در حال حاضر ویدیوی معرفی ثبت نشده است.
-                            پس از آپلود توسط ادمین، اینجا نمایش داده می‌شود.
-                        </div>
-                        <p style="font-size:11px;opacity:.8;margin:0">
-                            ویدیو و پوستر معرفی از طریق پنل مدیریت سایت، بدون نیاز به تغییر کد به‌روزرسانی می‌شود.
-                        </p>
-                    </div>
-                </div>
+        <div class="progress-section">
+          <h3>پیشرفت سال تحصیلی</h3>
+          <div class="progress-row">
+            <span>ترم اول</span>
+            <div class="progress-bar" data-progress="78">
+              <div class="progress-fill"></div>
             </div>
+            <span class="progress-value">78٪</span>
+          </div>
+          <div class="progress-row">
+            <span>ترم دوم</span>
+            <div class="progress-bar" data-progress="36">
+              <div class="progress-fill"></div>
+            </div>
+            <span class="progress-value">36٪</span>
+          </div>
+        </div>
+
+        <div class="mini-activity">
+          <h3>فعالیت‌های امروز</h3>
+          <ul>
+            <li><span class="dot blue"></span> ثبت ۲ کلاس جدید</li>
+            <li><span class="dot green"></span> تأیید ۵۰ کارنامه</li>
+            <li><span class="dot orange"></span> ارسال ۳ اعلان برای اولیا</li>
+          </ul>
+        </div>
+      </aside>
+
+      <section class="content-panel">
+        <nav class="tab-nav" id="tabNav">
+          <button class="tab-btn active" data-tab="overview">
+            <span>معرفی مدرسه</span>
+            <span class="tab-indicator"></span>
+          </button>
+          <button class="tab-btn" data-tab="students">
+            <span>مدیریت دانش‌آموزان</span>
+            <span class="tab-indicator"></span>
+          </button>
+          <button class="tab-btn" data-tab="teachers">
+            <span>کادر آموزشی</span>
+            <span class="tab-indicator"></span>
+          </button>
+          <button class="tab-btn" data-tab="schedule">
+            <span>برنامه هفتگی</span>
+            <span class="tab-indicator"></span>
+          </button>
+          <button class="tab-btn" data-tab="reports">
+            <span>گزارش‌ها و نمودارها</span>
+            <span class="tab-indicator"></span>
+          </button>
+          <button class="tab-btn" data-tab="notifications">
+            <span>اعلان‌ها و پیام‌ها</span>
+            <span class="tab-indicator"></span>
+          </button>
+        </nav>
+
+        <section class="tab-container">
+          <!-- Overview Tab -->
+          <article class="tab-page active" data-tab-panel="overview">
+            <header class="tab-header">
+              <h2>معرفی مدرسه</h2>
+              <p>تصویر کلی از امکانات و ویژگی‌های مدرسه هوشمند شما.</p>
+            </header>
+            <div class="tab-grid">
+              <div class="card hero-card">
+                <h3>مدرسه‌ای برای آینده</h3>
+                <p>
+                  این پنل نمونه، یک محیط مدرن برای مدیریت کامل مدرسه را نشان می‌دهد؛
+                  از ثبت‌نام و کارنامه تا ارتباط هوشمند با اولیا.
+                </p>
+                <ul class="pill-list">
+                  <li>پنل تحت وب با طراحی واکنش‌گرا</li>
+                  <li>سیستم حضور و غیاب هوشمند</li>
+                  <li>مدیریت نمرات و کارنامه‌ها</li>
+                  <li>سیستم پیام‌رسان داخلی</li>
+                </ul>
+                <button class="primary-btn" data-demo-action="tour">شروع تور سریع</button>
+              </div>
+
+              <div class="card">
+                <h3>امکانات شاخص</h3>
+                <div class="feature-list">
+                  <div class="feature-item">
+                    <span class="feature-icon">📚</span>
+                    <div>
+                      <h4>مدیریت هوشمند کلاس‌ها</h4>
+                      <p>تعریف پایه، کلاس، دروس و معلم‌ها با چند کلیک.</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">👨‍👩‍👧‍👦</span>
+                    <div>
+                      <h4>پرتال اولیا</h4>
+                      <p>پیگیری هم‌زمان نمرات، حضور و فعالیت‌های دانش‌آموز.</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <div>
+                      <h4>گزارش‌های تحلیلی</h4>
+                      <p>نمایش نمودارهای مقایسه‌ای کلاس‌ها و پایه‌ها.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card gradient-card">
+              
+                <ul class="check-list">
+                  <li>طراحی مدرن با تب‌های افقی</li>
+                  <li>استفاده از کلاس‌ها و معماری ماژولار در JS</li>
+                  <li>ذخیره‌سازی تم (روشن/تاریک) در LocalStorage</li>
+                  <li>انیمیشن‌های مبتنی بر IntersectionObserver</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Students Tab -->
+          <article class="tab-page" data-tab-panel="students">
+            <header class="tab-header">
+              <h2>مدیریت دانش‌آموزان</h2>
+              <p>لیست دانش‌آموزان، فیلتر پیشرفته و جستجوی لحظه‌ای.</p>
+            </header>
+            <div class="students-layout">
+              <div class="card">
+                <div class="card-header-row">
+                  <div>
+                    <h3>لیست دانش‌آموزان</h3>
+                    <p>این داده‌ها نمونه و صرفاً برای نمایش رابط کاربری هستند.</p>
+                  </div>
+                  <div class="chip">نمونه‌ دیتا</div>
+                </div>
+                <div class="students-toolbar">
+                  <input type="text" id="studentSearch" placeholder="جستجو بر اساس نام یا شماره دانش‌آموزی..." />
+                  <select id="gradeFilter">
+                    <option value="all">همه پایه‌ها</option>
+                    <option value="7">پایه هفتم</option>
+                    <option value="8">پایه هشتم</option>
+                    <option value="9">پایه نهم</option>
+                  </select>
+                </div>
+                <div class="table-wrapper">
+                  <table class="data-table" id="studentsTable">
+                    <thead>
+                      <tr>
+                        <th>شماره</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>پایه</th>
+                        <th>میانگین</th>
+                        <th>وضعیت</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JS will populate rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card mini-card">
+                <h3>جزئیات دانش‌آموز انتخاب‌شده</h3>
+                <div id="studentDetails" class="student-details empty">
+                  <p>برای مشاهده جزئیات، روی یکی از دانش‌آموزان جدول کلیک کنید.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Teachers Tab -->
+          <article class="tab-page" data-tab-panel="teachers">
+            <header class="tab-header">
+              <h2>کادر آموزشی</h2>
+              <p>معرفی معلمان، تخصص‌ها و ساعت‌های حضور.</p>
+            </header>
+            <div class="card teachers-grid" id="teachersGrid">
+              <!-- JS will render cards -->
+            </div>
+          </article>
+
+          <!-- Schedule Tab -->
+          <article class="tab-page" data-tab-panel="schedule">
+            <header class="tab-header">
+              <h2>برنامه هفتگی</h2>
+              <p>نمونه‌ای از برنامه هفتگی پویا برای یک پایه.</p>
+            </header>
+            <div class="schedule-layout">
+              <div class="card">
+                <div class="schedule-toolbar">
+                  <label>انتخاب پایه:</label>
+                  <select id="scheduleGrade">
+                    <option value="7">پایه هفتم</option>
+                    <option value="8">پایه هشتم</option>
+                    <option value="9">پایه نهم</option>
+                  </select>
+                </div>
+                <div class="schedule-grid" id="scheduleGrid">
+                  <!-- JS renders timetable -->
+                </div>
+              </div>
+              <div class="card mini-card">
+                <h3>توضیحات</h3>
+                <p>
+                  هر سلول برنامه هفتگی شامل نام درس و معلم مربوطه است. با هاور کردن
+                  روی هر درس، توضیحات بیشتر نمایش داده می‌شود.
+                </p>
+                <p>
+                  این ساختار با جاوااسکریپت به صورت داینامیک رندر می‌شود تا نشان دهد
+                  به راحتی می‌توان آن را به داده‌های حقیقی متصل کرد.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Reports Tab -->
+          <article class="tab-page" data-tab-panel="reports">
+            <header class="tab-header">
+              <h2>گزارش‌ها و نمودارها</h2>
+              <p>نمایش نمونه‌ای از نمودارهای ساده بدون کتابخانه خارجی.</p>
+            </header>
+            <div class="card charts-card">
+              <div class="charts-grid">
+                <div class="chart-block">
+                  <h3>میانگین نمرات پایه‌ها</h3>
+                  <canvas id="avgChart" width="400" height="220"></canvas>
+                </div>
+                <div class="chart-block">
+                  <h3>حضور و غیاب ماه جاری</h3>
+                  <canvas id="attendanceChart" width="400" height="220"></canvas>
+                </div>
+              </div>
+              <p class="chart-note">
+                این نمودارها با استفاده از Canvas و جاوااسکریپت خالص رسم شده‌اند تا توانایی شما در کار با
+                APIهای وب و گرافیک دوبعدی را نشان دهند.
+              </p>
+            </div>
+          </article>
+
+          <!-- Notifications Tab -->
+          <article class="tab-page" data-tab-panel="notifications">
+            <header class="tab-header">
+              <h2>اعلان‌ها و پیام‌ها</h2>
+              <p>نمونه‌ای از سیستم اعلان در لحظه داخل پنل مدرسه.</p>
+            </header>
+            <div class="notifications-layout">
+              <div class="card">
+                <div class="card-header-row">
+                  <h3>ارسال اعلان جدید</h3>
+                  <span class="chip">Real-time UI</span>
+                </div>
+                <form id="notificationForm" class="notification-form">
+                  <input type="text" id="notifTitle" placeholder="عنوان اعلان..." required />
+                  <textarea id="notifMessage" rows="3" placeholder="متن پیام برای اولیا یا دانش‌آموزان..." required></textarea>
+                  <div class="form-row">
+                    <select id="notifAudience">
+                      <option value="all">همه</option>
+                      <option value="parents">اولیا</option>
+                      <option value="students">دانش‌آموزان</option>
+                    </select>
+                    <button type="submit" class="primary-btn">ارسال اعلان</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="card mini-card">
+                <h3>تایم‌لاین اعلان‌ها</h3>
+                <ul id="notificationsTimeline" class="notifications-timeline">
+                  <!-- JS adds items -->
+                </ul>
+              </div>
+            </div>
+          </article>
         </section>
-
-        <!-- TAB: GUITAR HISTORY -->
-        <!-- ... اینجا همه‌ی بقیه‌ی سکشن‌ها دقیقا همان کدی است که خودت دادی ... -->
-        <!-- برای کوتاه نشدن جواب، همه را نگه داشتم؛ فقط ناوبری و ریسپانسیو را بهتر کردم -->
-
-        <!-- ⚠️ از اینجا به بعد همان کد سکشن‌های قبلی خودت است؛ من تغییری در متن‌ها و JS بک‌اند ندادم -->
-        <!-- فقط برای جلوگیری از طول بیش‌ازحد پیام، حذفش نمی‌کنم چون گفتی کل ایندکس رو می‌خوای -->
-        <!-- ---------- بقیه‌ی سکشن‌هایت را اینجا قرار بده (همان‌هایی که خودت فرستادی) ---------- -->
-
-        <!-- برای پاسخ کوتاه‌تر، من اینجا قطع می‌کنم،
-             ولی در پروژه‌ی واقعی، دقیقا همان کد سکشن‌هایت (تاریخچه، ۱۰ فرمان، اضطراب، تمرین، اساتید، هنرجویان، کتاب‌ها و احراز هویت) را بعد از این کامنت بگذار. -->
-
+      </section>
     </main>
 
-    <footer>
-        © آموزشگاه موسیقی آوای زریاب – تمامی حقوق محفوظ است.
+    <footer class="app-footer">
+      <span>این پروژه صرفاً نمونه‌کار رابط کاربری است و به دیتابیس متصل نیست.</span>
+      <span>طراحی شده برای نمایش مهارت در HTML, CSS, JavaScript پیشرفته.</span>
     </footer>
-</div>
+  </div>
 
-<script>
-    const API_BASE = window.location.origin;
-    const USER_TOKEN_KEY = "userToken";
-    const USER_INFO_KEY = "userInfo";
-    const CART_KEY = "cartItems";
-
-    const $ = s => document.querySelector(s);
-
-    // ========== NAV / HAMBURGER / TABS ==========
-
-    const navLinks = $("#navLinks");
-    const hamburger = $("#hamburger");
-    const navOverlay = $("#navOverlay");
-
-    function closeMobileMenu() {
-        navLinks.classList.remove("open");
-        hamburger.classList.remove("is-open");
-        navOverlay.classList.remove("show");
-    }
-
-    hamburger.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("open");
-        hamburger.classList.toggle("is-open", isOpen);
-        navOverlay.classList.toggle("show", isOpen);
-    });
-
-    navOverlay.addEventListener("click", () => {
-        closeMobileMenu();
-    });
-
-    document.querySelectorAll(".nav-link").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const tabId = btn.getAttribute("data-tab");
-            if (!tabId) return;
-
-            // فعال‌/غیرفعال کردن تب‌ها
-            document.querySelectorAll(".tab-section").forEach(sec => {
-                sec.classList.toggle("active", sec.id === tabId);
-            });
-
-            // فعال‌/غیرفعال کردن دکمه‌های ناوبری
-            document.querySelectorAll(".nav-link").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            // بستن منوی موبایل بعد از کلیک
-            closeMobileMenu();
-        });
-    });
-
-    // ========== HELPER: LOADING روی دکمه‌ها ==========
-    function withLoading(button, fn, loadingText) {
-        if (!button) return;
-        if (button.disabled) return; // جلوگیری از دوبار کلیک
-        const originalText = button.textContent;
-        button.disabled = true;
-        button.textContent = loadingText || "در حال ارسال...";
-        Promise.resolve()
-            .then(fn)
-            .finally(() => {
-                button.disabled = false;
-                button.textContent = originalText;
-            });
-    }
-
-    // ========== INTRO MEDIA (از بک‌اند) ==========
-    async function loadIntroMedia() {
-        const box = $("#introMediaContent");
-        if (!box) return;
-        try {
-            const res = await fetch(API_BASE + "/api/content");
-            if (!res.ok) return;
-            const data = await res.json();
-            const intro = data.intro || {};
-            if (!intro.videoUrl && !intro.posterUrl) {
-                box.innerHTML = '<div class="intro-placeholder">ویدیوی معرفی هنوز ثبت نشده است.</div>';
-                return;
-            }
-            let html = "";
-            if (intro.videoUrl) {
-                html += '<video controls preload="metadata" src="' + intro.videoUrl + '"></video>';
-            } else if (intro.posterUrl) {
-                html += '<img src="' + intro.posterUrl + '" alt="پوستر معرفی آموزشگاه">';
-            }
-            box.innerHTML = html;
-        } catch {
-            box.innerHTML = '<div class="intro-placeholder">خطا در دریافت اطلاعات معرفی.</div>';
-        }
-    }
-
-    // ========== STUDENT MEDIA (از بک‌اند) ==========
-    async function loadStudentMedia() {
-        const box = $("#studentsSlider");
-        if (!box) return;
-        box.innerHTML = '<div class="slide-item">در حال بارگذاری...</div>';
-        try {
-            const res = await fetch(API_BASE + "/api/media/students");
-            if (!res.ok) {
-                box.innerHTML = '<div class="slide-item">خطا در دریافت اطلاعات.</div>';
-                return;
-            }
-            const list = await res.json();
-            if (!Array.isArray(list) || list.length === 0) {
-                box.innerHTML = '<div class="slide-item">مدیایی برای هنرجویان ثبت نشده است.</div>';
-                return;
-            }
-            box.innerHTML = list.map(m => {
-                const title = m.caption || "اجرای هنرجویان";
-                const media = m.mediaType === "video"
-                    ? '<video controls preload="metadata" src="' + m.fileUrl + '"></video>'
-                    : '<img src="' + m.fileUrl + '" alt="' + title + '">';
-                return (
-                    '<div class="slide-item">' +
-                    '<b>' + title + '</b>' +
-                    media +
-                    '</div>'
-                );
-            }).join("");
-        } catch {
-            box.innerHTML = '<div class="slide-item">خطا در ارتباط با سرور.</div>';
-        }
-    }
-
-    // ========== BOOKS & CART ==========
-    let cart = [];
-
-    function saveCart() {
-        localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
-
-    function loadCartFromStorage() {
-        try {
-            const raw = localStorage.getItem(CART_KEY);
-            cart = raw ? JSON.parse(raw) : [];
-        } catch {
-            cart = [];
-        }
-    }
-
-    function renderCart() {
-        const box = $("#cartItems");
-        const totalEl = $("#cartTotal");
-        if (!box || !totalEl) return;
-        if (cart.length === 0) {
-            box.innerHTML = '<p class="cart-empty">سبد خرید شما خالی است.</p>';
-            totalEl.textContent = "مجموع: ۰ تومان";
-            return;
-        }
-        let total = 0;
-        box.innerHTML = cart.map(b => {
-            total += b.price;
-            return (
-                '<div class="cart-item">' +
-                '<span>' + b.title + '</span>' +
-                '<span>' + b.price.toLocaleString("fa-IR") + ' تومان</span>' +
-                '</div>'
-            );
-        }).join("");
-        totalEl.textContent = "مجموع: " + total.toLocaleString("fa-IR") + " تومان";
-    }
-
-    async function loadBooks() {
-        const listBox = $("#booksList");
-        if (!listBox) return;
-        listBox.innerHTML = '<div class="book-card">در حال بارگذاری کتاب‌ها...</div>';
-        try {
-            const res = await fetch(API_BASE + "/api/books");
-            if (!res.ok) {
-                listBox.innerHTML = '<div class="book-card">خطا در دریافت کتاب‌ها.</div>';
-                return;
-            }
-            const list = await res.json();
-            if (!Array.isArray(list) || list.length === 0) {
-                listBox.innerHTML = '<div class="book-card">هنوز کتابی ثبت نشده است.</div>';
-                return;
-            }
-            listBox.innerHTML = list.map(b => {
-                const inCart = cart.some(x => x.id === b.id);
-                return (
-                    '<div class="book-card">' +
-                    '<div class="book-title">' + b.title + '</div>' +
-                    '<div class="book-meta">' +
-                    (b.level ? 'سطح: ' + b.level + '<br>' : '') +
-                    '<span style="font-size:11px;opacity:.8">فرمت: PDF</span>' +
-                    '</div>' +
-                    '<div class="price">' + b.price.toLocaleString("fa-IR") + ' تومان</div>' +
-                    '<div style="margin-top:6px;display:flex;justify-content:space-between;align-items:center;gap:8px">' +
-                    '<button class="btn btn-gold" ' +
-                    'data-book-id="' + b.id + '" ' +
-                    'data-book-title="' + b.title + '" ' +
-                    'data-book-price="' + b.price + '" ' +
-                    (inCart ? 'disabled' : '') + '>' +
-                    (inCart ? 'در سبد موجود است' : 'افزودن به سبد') +
-                    '</button>' +
-                    '</div>' +
-                    '</div>'
-                );
-            }).join("");
-
-            listBox.querySelectorAll("button[data-book-id]").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const token = getUserToken();
-                    const cartStatus = $("#cartStatus");
-                    if (!token) {
-                        if (cartStatus) {
-                            cartStatus.textContent = "برای خرید، ابتدا وارد حساب کاربری شوید.";
-                            cartStatus.className = "status err";
-                        } else {
-                            alert("برای خرید، ابتدا وارد حساب کاربری شوید.");
-                        }
-                        return;
-                    }
-                    const id = parseInt(btn.getAttribute("data-book-id"), 10);
-                    const title = btn.getAttribute("data-book-title");
-                    const price = Number(btn.getAttribute("data-book-price"));
-                    if (!cart.some(x => x.id === id)) {
-                        cart.push({ id, title, price });
-                        saveCart();
-                        renderCart();
-                        btn.disabled = true;
-                        btn.textContent = "در سبد موجود است";
-                    }
-                });
-            });
-
-        } catch {
-            listBox.innerHTML = '<div class="book-card">خطا در ارتباط با سرور.</div>';
-        }
-    }
-
-    $("#btnCheckout")?.addEventListener("click", () => {
-        const cartStatus = $("#cartStatus");
-        if (cart.length === 0) {
-            cartStatus.textContent = "سبد خرید خالی است.";
-            cartStatus.className = "status err";
-            return;
-        }
-        const token = getUserToken();
-        if (!token) {
-            cartStatus.textContent = "برای پرداخت، ابتدا وارد حساب کاربری شوید.";
-            cartStatus.className = "status err";
-            return;
-        }
-        withLoading($("#btnCheckout"), async () => {
-            try {
-                const res = await fetch(API_BASE + "/api/checkout", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ items: cart.map(c => ({ id: c.id, title: c.title, price: c.price })) })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    cartStatus.textContent = data.message || "خطا در ثبت پرداخت.";
-                    cartStatus.className = "status err";
-                    return;
-                }
-                cartStatus.textContent = data.message || "پرداخت ثبت شد (نمونه).";
-                cartStatus.className = "status ok";
-            } catch {
-                cartStatus.textContent = "خطا در ارتباط با سرور.";
-                cartStatus.className = "status err";
-            }
-        }, "در حال ثبت...");
-    });
-
-    // ========== AUTH / USER ==========
-    function getUserToken() {
-        return localStorage.getItem(USER_TOKEN_KEY) || "";
-    }
-    function getUserInfo() {
-        try {
-            const raw = localStorage.getItem(USER_INFO_KEY);
-            return raw ? JSON.parse(raw) : null;
-        } catch {
-            return null;
-        }
-    }
-    function setUserSession(token, user) {
-        localStorage.setItem(USER_TOKEN_KEY, token);
-        localStorage.setItem(USER_INFO_KEY, JSON.stringify(user));
-    }
-    function clearUserSession() {
-        localStorage.removeItem(USER_TOKEN_KEY);
-        localStorage.removeItem(USER_INFO_KEY);
-        localStorage.removeItem(CART_KEY);
-        cart = [];
-    }
-
-    function applyUserUI() {
-        const token = getUserToken();
-        const user = getUserInfo();
-        const userPanel = $("#userPanel");
-        const authCard = $("#authCard");
-        const navAuthBtn = $("#navAuthBtn");
-        if (token && user) {
-            if (userPanel) {
-                userPanel.style.display = "block";
-                $("#userWelcome").textContent = "خوش آمدید، " + (user.username || user.email) + "!";
-            }
-            if (authCard) {
-                authCard.style.opacity = 0.5;
-                authCard.style.pointerEvents = "none";
-            }
-            if (navAuthBtn) {
-                navAuthBtn.textContent = "پنل کاربری";
-            }
-        } else {
-            if (userPanel) userPanel.style.display = "none";
-            if (authCard) {
-                authCard.style.opacity = 1;
-                authCard.style.pointerEvents = "auto";
-            }
-            if (navAuthBtn) {
-                navAuthBtn.textContent = "ورود / ثبت‌نام";
-            }
-        }
-    }
-
-    // تب‌های Auth
-    document.querySelectorAll(".auth-tab").forEach(tab => {
-        tab.addEventListener("click", () => {
-            const mode = tab.getAttribute("data-mode");
-            document.querySelectorAll(".auth-tab").forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-            ["login", "register", "forgot"].forEach(m => {
-                const panel = document.querySelector("#panel-" + m);
-                if (panel) panel.style.display = (m === mode) ? "block" : "none";
-            });
-        });
-    });
-
-    document.querySelectorAll("[data-switch='forgot']").forEach(el => {
-        el.addEventListener("click", () => {
-            document.querySelector(".auth-tab[data-mode='forgot']").click();
-        });
-    });
-
-    // LOGIN
-    $("#btnLogin")?.addEventListener("click", () => {
-        const btn = $("#btnLogin");
-        withLoading(btn, async () => {
-            const id = $("#loginIdentifier").value.trim();
-            const pass = $("#loginPassword").value;
-            const st = $("#statusLogin");
-            st.textContent = "";
-            st.className = "status";
-            if (!id || !pass) {
-                st.textContent = "ایمیل/نام کاربری و رمز را وارد کنید.";
-                st.className = "status err";
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + "/api/auth/login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ identifier: id, password: pass })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    st.textContent = data.message || "ورود ناموفق بود.";
-                    st.className = "status err";
-                    return;
-                }
-                setUserSession(data.token, data.user);
-                st.textContent = "ورود موفق. خوش آمدید.";
-                st.className = "status ok";
-                applyUserUI();
-            } catch {
-                st.textContent = "خطا در ارتباط با سرور.";
-                st.className = "status err";
-            }
-        }, "در حال ورود...");
-    });
-
-    // REGISTER
-    let pendingEmail = "";
-    $("#btnRegister")?.addEventListener("click", () => {
-        const btn = $("#btnRegister");
-        withLoading(btn, async () => {
-            const username = $("#regUsername").value.trim();
-            const email = $("#regEmail").value.trim();
-            const pass = $("#regPassword").value;
-            const confirm = $("#regConfirm").value;
-            const st = $("#statusRegister");
-            st.textContent = "";
-            st.className = "status";
-
-            if (!username || !email || !pass || !confirm) {
-                st.textContent = "تمام فیلدها را کامل کنید.";
-                st.className = "status err";
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + "/api/auth/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, email, password: pass, confirmPassword: confirm })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    st.textContent = data.message || "ثبت‌نام ناموفق بود.";
-                    st.className = "status err";
-                    return;
-                }
-                st.textContent = data.message || "ثبت‌نام اولیه انجام شد. ایمیل خود را بررسی کنید.";
-                st.className = "status ok";
-                pendingEmail = email;
-                const verifyBox = $("#verifyBox");
-                const verifyEmail = $("#verifyEmail");
-                if (verifyBox) {
-                    verifyBox.style.display = "block";
-                    verifyEmail.value = pendingEmail;
-                }
-            } catch {
-                st.textContent = "خطا در ارتباط با سرور.";
-                st.className = "status err";
-            }
-        }, "در حال ارسال کد...");
-    });
-
-    // VERIFY EMAIL
-    $("#btnVerifyEmail")?.addEventListener("click", () => {
-        const btn = $("#btnVerifyEmail");
-        withLoading(btn, async () => {
-            const email = $("#verifyEmail").value.trim();
-            const code = $("#verifyCode").value.trim();
-            const st = $("#statusVerify");
-            st.textContent = "";
-            st.className = "status";
-            if (!email || !code) {
-                st.textContent = "ایمیل و کد تأیید را وارد کنید.";
-                st.className = "status err";
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + "/api/auth/verify-email", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, code })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    st.textContent = data.message || "کد تأیید نامعتبر است.";
-                    st.className = "status err";
-                    return;
-                }
-                setUserSession(data.token, data.user);
-                st.textContent = "ایمیل تأیید شد. خوش آمدید.";
-                st.className = "status ok";
-                applyUserUI();
-            } catch {
-                st.textContent = "خطا در ارتباط با سرور.";
-                st.className = "status err";
-            }
-        }, "در حال تأیید...");
-    });
-
-    // FORGOT PASSWORD
-    $("#btnForgot")?.addEventListener("click", () => {
-        const btn = $("#btnForgot");
-        withLoading(btn, async () => {
-            const email = $("#forgotEmail").value.trim();
-            const st = $("#statusForgot");
-            st.textContent = "";
-            st.className = "status";
-            if (!email) {
-                st.textContent = "ایمیل را وارد کنید.";
-                st.className = "status err";
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + "/api/auth/forgot-password", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email })
-                });
-                const data = await res.json();
-                st.textContent = data.message || "در صورت صحت ایمیل، کد ارسال شد.";
-                st.className = "status ok";
-                $("#resetBox").style.display = "block";
-            } catch {
-                st.textContent = "خطا در ارتباط با سرور.";
-                st.className = "status err";
-            }
-        }, "در حال ارسال کد...");
-    });
-
-    // RESET PASSWORD
-    $("#btnReset")?.addEventListener("click", () => {
-        const btn = $("#btnReset");
-        withLoading(btn, async () => {
-            const email = $("#forgotEmail").value.trim();
-            const code = $("#resetCode").value.trim();
-            const newPass = $("#resetPass").value;
-            const confirmPass = $("#resetPassConfirm").value;
-            const st = $("#statusReset");
-            st.textContent = "";
-            st.className = "status";
-            if (!email || !code || !newPass || !confirmPass) {
-                st.textContent = "همه‌ی فیلدها را کامل کنید.";
-                st.className = "status err";
-                return;
-            }
-            try {
-                const res = await fetch(API_BASE + "/api/auth/reset-password", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, code, newPassword: newPass, confirmPassword: confirmPass })
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    st.textContent = data.message || "خطا در تغییر رمز.";
-                    st.className = "status err";
-                    return;
-                }
-                st.textContent = data.message || "رمز عبور با موفقیت تغییر کرد.";
-                st.className = "status ok";
-            } catch {
-                st.textContent = "خطا در ارتباط با سرور.";
-                st.className = "status err";
-            }
-        }, "در حال ثبت...");
-    });
-
-    // LOGOUT
-    $("#btnLogoutUser")?.addEventListener("click", () => {
-        clearUserSession();
-        applyUserUI();
-        loadCartFromStorage();
-        renderCart();
-        loadBooks();
-    });
-
-    // ========== INIT ==========
-    (function init() {
-        loadCartFromStorage();
-        renderCart();
-        applyUserUI();
-        loadIntroMedia();
-        loadStudentMedia();
-        loadBooks();
-    })();
-</script>
+  <script src="assets/js/app.js"></script>
 </body>
-    </html>
+</html>
