@@ -1,1384 +1,830 @@
-<!-- index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>آوای زریاب | آکادمی موسیقی</title>
-  <meta name="description" content="آکادمی موسیقی آوای زریاب - آموزش تخصصی گیتار کلاسیک، دوره‌ها، کتاب‌ها، اساتید و هنرجویان.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="keywords" content="آموزش گیتار کلاسیک, آوای زریاب, آکادمی موسیقی, کتاب موسیقی, اضطراب اجرا">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark">
+  <title>صفحه معرفی فرد | سبک ویکی‌پدیا</title>
   <style>
-    :root {
-      --bg-dark: #020617;
-      --bg-dark-soft: #0f172a;
-      --gold: #fbbf24;
-      --gold-deep: #d4af37;
-      --text-light: #e5e7eb;
-      --accent: #38bdf8;
-      --danger: #f97373;
-      --success: #22c55e;
-      --radius-xl: 18px;
-      --transition: 0.25s ease;
+    :root{
+      --bg:#0b1020;
+      --card:#0f1731;
+      --card2:#0c142c;
+      --text:#eaf0ff;
+      --muted:#b9c3e6;
+      --line:rgba(255,255,255,.10);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:22px;
+      --container: 1120px;
+      --serif: ui-serif, "Noto Naskh Arabic", "Vazirmatn", "IranNastaliq", "Times New Roman", serif;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Vazirmatn", "Noto Sans Arabic", Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    [data-theme="light"]{
+      --bg:#f6f8ff;
+      --card:#ffffff;
+      --card2:#f3f6ff;
+      --text:#0b1020;
+      --muted:#40507a;
+      --line:rgba(10,16,32,.10);
+      --shadow: 0 18px 60px rgba(20,30,60,.12);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(900px 420px at 80% -10%, rgba(124,92,255,.25), transparent 60%),
+        radial-gradient(700px 380px at 20% 10%, rgba(34,197,94,.16), transparent 55%),
+        radial-gradient(900px 420px at 50% 110%, rgba(124,92,255,.16), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.85;
+      letter-spacing:.1px;
+    }
+
+    a{color:inherit}
+    .container{max-width:var(--container); margin:0 auto; padding:22px 16px 60px;}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,0));
+      padding: 10px 0 12px;
+    }
+    [data-theme="light"] header{
+      background: linear-gradient(to bottom, rgba(255,255,255,.75), rgba(255,255,255,0));
+    }
+
+    .topbar{
+      max-width:var(--container); margin:0 auto; padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.22), transparent 55%),
+                  linear-gradient(135deg, var(--accent), rgba(34,197,94,.9));
+      box-shadow: 0 10px 28px rgba(124,92,255,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.25), transparent 35%, rgba(255,255,255,.18), transparent 70%);
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .brand h1{
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brand small{
+      display:block;
+      color:var(--muted);
+      font-weight:600;
+      font-size:12px;
+      margin-top:-2px;
+    }
+
+    .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .pill{
+      display:flex; align-items:center; gap:10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      padding: 9px 12px;
+      border-radius: 999px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.14);
+    }
+    [data-theme="light"] .pill{background: rgba(10,16,32,.03)}
+    .pill input{
+      width:min(360px, 52vw);
+      border:0; outline:0;
+      background:transparent;
+      color:var(--text);
+      font-size:13px;
+    }
+    .pill input::placeholder{color:color-mix(in oklab, var(--muted), transparent 20%)}
+    .btn{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding: 9px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+      display:inline-flex; align-items:center; gap:8px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: color-mix(in oklab, var(--line), var(--accent) 40%)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent), white 10%), color-mix(in oklab, var(--accent2), white 6%));
+      border-color: transparent;
+      box-shadow: 0 16px 45px rgba(124,92,255,.22);
+    }
+    .btn svg{width:16px; height:16px}
+
+    .layout{
+      display:grid;
+      grid-template-columns: 1.6fr .9fr;
+      gap: 18px;
+      align-items:start;
+      margin-top: 18px;
+    }
+    @media (max-width: 980px){
+      .layout{grid-template-columns: 1fr; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    [data-theme="light"] .card{
+      background: linear-gradient(180deg, rgba(10,16,32,.02), rgba(10,16,32,.01));
+    }
+    .card .inner{padding: 18px 18px 16px;}
+    .hero{
+      padding: 18px 18px 4px;
+      display:flex; gap:14px; align-items:flex-start;
+    }
+    .avatar{
+      width:84px; height:84px; border-radius:22px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 55%),
+        linear-gradient(135deg, rgba(124,92,255,.9), rgba(34,197,94,.65));
+      border:1px solid var(--line);
+      box-shadow: 0 18px 50px rgba(0,0,0,.22);
+      position:relative;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .avatar::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle, rgba(255,255,255,.25), transparent 55%);
+      transform: rotate(25deg);
+      opacity:.8;
+    }
+    .title h2{
+      margin:0;
+      font-size: 26px;
+      line-height:1.25;
+      letter-spacing:.2px;
+      font-weight:900;
+    }
+    .title .subtitle{
+      margin-top:6px;
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+    }
+    .badges{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .badge{
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size:12px;
+      font-weight:800;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+    }
+    .badge.accent{border-color: color-mix(in oklab, var(--accent), var(--line) 55%);}
+
+    .toc{
+      margin: 12px 18px 16px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      border:1px dashed color-mix(in oklab, var(--line), var(--muted) 25%);
+    }
+    [data-theme="light"] .toc{background: rgba(10,16,32,.02)}
+    .toc h3{
+      margin:0 0 6px;
+      font-size:13px;
+      letter-spacing:.2px;
+      color: var(--muted);
+    }
+    .toc ol{
+      margin:0; padding:0 18px 0 0;
+      display:grid; gap:4px;
+      font-size:13px;
+    }
+    .toc a{color: color-mix(in oklab, var(--text), var(--accent) 15%); text-decoration:none}
+    .toc a:hover{text-decoration:underline}
+    .section{padding: 0 18px 18px;}
+    .section h3{
+      font-size:18px;
+      margin: 16px 0 8px;
+      font-weight:900;
+      display:flex; align-items:center; gap:10px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:99px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 22px rgba(124,92,255,.25);
+      flex:0 0 auto;
+    }
+    .muted{color:var(--muted)}
+    .lead{
+      font-family: var(--serif);
+      font-size: 16px;
+      margin: 10px 0 0;
+    }
+
+    /* Infobox */
+    .infobox .cover{
+      height: 120px;
+      background:
+        radial-gradient(800px 180px at 50% 0%, rgba(255,255,255,.20), transparent 60%),
+        linear-gradient(135deg, rgba(124,92,255,.85), rgba(34,197,94,.55));
+      border-bottom:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+    }
+    .infobox .cover::after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: conic-gradient(from 0deg, rgba(255,255,255,.22), transparent 35%, rgba(255,255,255,.18), transparent 70%);
+      animation: spin 18s linear infinite;
+      opacity:.7;
+    }
+    .infobox .box{
+      padding: 14px;
+    }
+    .ibox-title{
+      margin: 0 0 8px;
+      font-weight: 950;
+      font-size: 15px;
+      letter-spacing:.2px;
+    }
+    .kv{
+      width:100%;
+      border-collapse: collapse;
+      overflow:hidden;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    [data-theme="light"] .kv{background: rgba(10,16,32,.02)}
+    .kv th, .kv td{
+      padding: 10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .kv th{
+      text-align:right;
+      width: 34%;
+      color: var(--muted);
+      font-weight: 900;
+      letter-spacing:.1px;
+    }
+    .kv tr:last-child th, .kv tr:last-child td{border-bottom:0}
+    .chips{display:flex; flex-wrap:wrap; gap:6px}
+    .chip{
+      font-size:12px; font-weight:800;
+      padding: 5px 9px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+    }
+
+    /* Timeline */
+    .timeline{
+      display:grid; gap:12px; margin-top:10px;
+    }
+    .titem{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      position:relative;
+    }
+    .titem::before{
+      content:"";
+      position:absolute;
+      inset-inline-end: 12px;
+      top: 12px;
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 22px rgba(124,92,255,.20);
+    }
+    .titem .when{
+      font-family: var(--mono);
+      font-size:12px;
+      color: var(--muted);
+      font-weight:900;
+    }
+    .titem .what{
+      margin:6px 0 0;
+      font-weight: 900;
+    }
+    .titem .desc{
+      margin:6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Gallery */
+    .grid{
+      display:grid; gap:10px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top:10px;
+    }
+    @media (max-width: 520px){ .grid{grid-template-columns: repeat(2, 1fr);} }
+    .ph{
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.16), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      aspect-ratio: 4/3;
+      overflow:hidden;
+      position:relative;
+      cursor:pointer;
+    }
+    .ph::after{
+      content:"تصویر";
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 950; color: color-mix(in oklab, var(--muted), transparent 20%);
+      letter-spacing:.3px;
+    }
+
+    blockquote{
+      margin: 12px 0 0;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      border:1px solid color-mix(in oklab, var(--line), var(--accent) 28%);
+      background: rgba(124,92,255,.10);
+    }
+    blockquote p{margin:0; font-family: var(--serif)}
+    blockquote footer{
+      margin-top:8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .refs{
+      margin-top: 10px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border:1px solid var(--line);
+    }
+    .refs summary{
+      cursor:pointer;
+      padding: 12px 14px;
+      font-weight: 950;
+      background: rgba(255,255,255,.04);
+      list-style:none;
+    }
+    .refs summary::-webkit-details-marker{display:none}
+    .refs .content{
+      padding: 12px 14px 14px;
+      background: rgba(255,255,255,.02);
+      border-top:1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .refs ol{margin:0; padding:0 18px 0 0; display:grid; gap:8px}
+    .k{
+      font-family: var(--mono);
+      color: color-mix(in oklab, var(--text), var(--accent) 20%);
+      font-weight: 900;
+      font-size: 12px;
+      direction:ltr;
+      unicode-bidi: plaintext;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center; justify-content:center;
+      padding: 18px;
+      z-index: 200;
+    }
+    .modal.open{display:flex}
+    .modal .sheet{
+      max-width: 820px;
+      width:100%;
+      border-radius: 22px;
+      border:1px solid var(--line);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal .sheet header{
+      position:unset;
+      background: transparent;
       padding: 0;
     }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "IRANSans", sans-serif;
-      background: radial-gradient(circle at top, #0b1120, #020617);
-      color: var(--text-light);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.25rem 3rem;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(90deg, rgba(15,23,42,0.96), rgba(15,23,42,0.5));
-      border-bottom: 1px solid rgba(148,163,184,0.25);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: .75rem 1.25rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: .75rem;
-    }
-
-    .logo-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border: 1px solid rgba(250,204,21,0.7);
-      background: radial-gradient(circle at 30% 30%, #facc15, #7c2d12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1.1rem;
-      box-shadow: 0 0 25px rgba(250,204,21,0.45);
-    }
-
-    .logo-text-main {
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: .04em;
-      color: var(--gold);
-    }
-
-    .logo-text-sub {
-      font-size: .75rem;
-      color: #9ca3af;
-    }
-
-    /* nav */
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-
-    .nav-tab-btn {
-      border: none;
-      outline: none;
-      background: transparent;
-      color: #cbd5f5;
-      padding: .45rem .9rem;
-      border-radius: 999px;
-      font-size: .85rem;
-      cursor: pointer;
-      position: relative;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-
-    .nav-tab-btn:hover {
-      color: var(--gold);
-      background: rgba(15,23,42,0.8);
-    }
-
-    .nav-tab-btn.active {
-      background: radial-gradient(circle at top, rgba(250,204,21,0.14), rgba(15,23,42,0.95));
-      color: var(--gold);
-      box-shadow: 0 0 0 1px rgba(250,204,21,0.45), 0 0 20px rgba(250,204,21,0.4);
-    }
-
-    .nav-auth {
-      display: flex;
-      gap: .5rem;
-      align-items: center;
-    }
-
-    .btn {
-      border-radius: 999px;
-      padding: .45rem 1rem;
-      font-size: .8rem;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-light);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-primary {
-      border-color: transparent;
-      background: linear-gradient(90deg, #fbbf24, #d97706);
-      color: #111827;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 25px rgba(250,204,21,0.35);
-    }
-
-    .btn-outline {
-      background: transparent;
-    }
-
-    .btn-outline:hover {
-      background: rgba(15,23,42,0.9);
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    .user-chip {
-      font-size: .8rem;
-      padding: .35rem .75rem;
-      border-radius: 999px;
-      background: rgba(22,163,74,0.12);
-      border: 1px solid rgba(22,163,74,0.4);
-      color: #bbf7d0;
-    }
-
-    /* hamburger */
-    .hamburger {
-      display: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.9);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 16px;
-      height: 2px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      position: relative;
-    }
-
-    .hamburger span::before,
-    .hamburger span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 16px;
-      height: 2px;
-      border-radius: 999px;
-      background: #e5e7eb;
-    }
-
-    .hamburger span::before { top: -5px; }
-    .hamburger span::after { top: 5px; }
-
-    .mobile-nav {
-      display: none;
-      flex-direction: column;
-      gap: .5rem;
-      padding: .75rem 1.25rem 1rem;
-      border-top: 1px solid rgba(148,163,184,0.3);
-      background: rgba(15,23,42,0.98);
-    }
-
-    .mobile-nav.show {
-      display: flex;
-    }
-
-    /* main layout */
-    main {
-      flex: 1;
-    }
-
-    .hero {
-      margin: 1.5rem 0;
-      display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
-      color: var(--gold);
-      margin-bottom: .75rem;
-      line-height: 1.4;
-    }
-
-    .hero-text h1 span {
-      color: var(--gold-deep);
-    }
-
-    .hero-text p {
-      font-size: .9rem;
-      color: #cbd5f5;
-      line-height: 1.8;
-      max-width: 32rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero-tag {
-      font-size: .7rem;
-      padding: .25rem .6rem;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.4);
-      color: #e5e7eb;
-    }
-
-    .hero-video {
-      border-radius: 24px;
-      padding: .7rem;
-      background: radial-gradient(circle at top, rgba(250,204,21,0.12), rgba(15,23,42,1));
-      border: 1px solid rgba(148,163,184,0.5);
-      box-shadow: 0 24px 70px rgba(15,23,42,0.9);
-    }
-
-    .hero-video-inner {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #020617;
-      aspect-ratio: 16/9;
-    }
-
-    .hero-video-inner video,
-    .hero-video-inner iframe {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border: 0;
-    }
-
-    .hero-video-badge {
-      position: absolute;
-      left: 1rem;
-      bottom: 1rem;
-      background: rgba(15,23,42,0.9);
-      border-radius: 999px;
-      padding: .25rem .75rem;
-      font-size: .7rem;
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      border: 1px solid rgba(156,163,175,0.7);
-    }
-
-    .hero-video-badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34,197,94,0.8);
-    }
-
-    /* Tabs */
-    .tabs-wrapper {
-      margin-top: 1.5rem;
-      background: rgba(15,23,42,0.95);
-      border-radius: 24px;
-      padding: 1rem;
-      border: 1px solid rgba(148,163,184,0.3);
-      box-shadow: 0 20px 60px rgba(15,23,42,0.9);
-    }
-
-    .tabs-header {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid rgba(30,64,175,0.6);
-      padding-bottom: .75rem;
-    }
-
-    .tab-pill {
-      font-size: .8rem;
-      padding: .35rem .9rem;
-      border-radius: 999px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      color: #c7d2fe;
-      background: transparent;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-
-    .tab-pill:hover {
-      background: rgba(15,23,42,1);
-      border-color: rgba(129,140,248,0.7);
-    }
-
-    .tab-pill.active {
-      background: linear-gradient(90deg, rgba(30,64,175,1), rgba(129,140,248,0.9));
-      color: #e5e7eb;
-      box-shadow: 0 14px 30px rgba(55,65,194,0.55);
-    }
-
-    .tab-content {
-      display: none;
-      padding-top: .75rem;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      color: var(--gold);
-      margin-bottom: .6rem;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-    }
-
-    .section-title span.bullet {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(250,204,21,0.9);
-    }
-
-    .section-desc {
-      font-size: .9rem;
-      color: #cbd5f5;
-      line-height: 1.9;
-      margin-bottom: .9rem;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 1.25rem;
-      margin-top: .75rem;
-    }
-
-    .card {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(30,64,175,0.9), #020617);
-      padding: .85rem .9rem;
-      border: 1px solid rgba(129,140,248,0.65);
-      font-size: .85rem;
-      line-height: 1.85;
-      color: #e5e7eb;
-    }
-
-    .card-soft {
-      background: rgba(15,23,42,0.96);
-      border-color: rgba(55,65,81,0.9);
-    }
-
-    .card-list {
-      margin-top: .4rem;
-      padding-left: 1rem;
-    }
-
-    .card-list li {
-      margin-bottom: .35rem;
-    }
-
-    .pill-label {
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-      font-size: .75rem;
-      padding: .15rem .55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.95);
-      color: #e5e7eb;
-    }
-
-    .pill-label-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
-    }
-
-    /* کتاب‌ها */
-    .books-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: .75rem;
-    }
-
-    .book-card {
-      border-radius: var(--radius-xl);
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(30,64,175,0.7);
-      padding: .75rem;
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-    }
-
-    .book-cover {
-      border-radius: 14px;
-      background: radial-gradient(circle at center, rgba(250,204,21,0.18), #020617);
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .8rem;
-      color: #e5e7eb;
-    }
-
-    .book-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .price {
-      font-size: .8rem;
-    }
-
-    .price-free {
-      color: var(--success);
-      font-weight: 600;
-    }
-
-    .price-number {
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .book-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: .25rem;
-    }
-
-    /* اساتید */
-    .teachers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-top: .75rem;
-    }
-
-    .teacher-card {
-      border-radius: var(--radius-xl);
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(75,85,99,0.9);
-      padding: .8rem;
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: .75rem;
-      align-items: flex-start;
-    }
-
-    .teacher-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: radial-gradient(circle at top, rgba(250,204,21,0.25), #020617);
-      border: 1px solid rgba(250,204,21,0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-    }
-
-    .teacher-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .teacher-name {
-      font-size: .95rem;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .teacher-specialty {
-      font-size: .75rem;
-      color: #a5b4fc;
-      margin-bottom: .3rem;
-    }
-
-    .teacher-bio {
-      font-size: .8rem;
-      color: #cbd5f5;
-      line-height: 1.6;
-      margin-bottom: .35rem;
-    }
-
-    .teacher-media-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .3rem;
-    }
-
-    .media-chip {
-      font-size: .7rem;
-      padding: .2rem .45rem;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(55,65,81,0.9);
-      color: #e5e7eb;
-    }
-
-    /* هنرجویان */
-    .students-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: .75rem;
-      margin-top: .75rem;
-    }
-
-    .student-media-card {
-      border-radius: var(--radius-xl);
-      background: rgba(15,23,42,0.98);
-      border: 1px solid rgba(55,65,81,0.9);
-      padding: .65rem;
-    }
-
-    .thumb {
-      border-radius: 14px;
-      overflow: hidden;
-      background: #020617;
-      aspect-ratio: 16/9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .8rem;
-      color: #9ca3af;
-    }
-
-    .thumb img,
-    .thumb video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* تمرین هدفمند/اضطراب اجرا/۱۰ فرمان */
-    .prose {
-      font-size: .9rem;
-      color: #e5e7eb;
-      line-height: 1.9;
-    }
-
-    .prose h3 {
-      font-size: .95rem;
-      margin: .5rem 0 .25rem;
-      color: var(--gold);
-    }
-
-    .prose p {
-      margin-bottom: .35rem;
-    }
-
-    .prose ul {
-      margin: .35rem 1rem .35rem 0;
-      padding-right: .7rem;
-    }
-
-    .prose li {
-      margin-bottom: .25rem;
-    }
-
-    /* پنل کاربری */
-    .dashboard {
-      margin-top: 1rem;
-    }
-
-    .dashboard h2 {
-      font-size: 1.05rem;
-      color: var(--gold);
-      margin-bottom: .6rem;
-    }
-
-    .purchases-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: .6rem;
-    }
-
-    .purchase-card {
-      border-radius: var(--radius-xl);
-      background: rgba(15,23,42,0.96);
-      border: 1px solid rgba(55,65,81,0.9);
-      padding: .6rem;
-      font-size: .8rem;
-    }
-
-    /* مودال‌ها (لاگین/ثبت‌نام) */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.75);
-      backdrop-filter: blur(14px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 420px;
-      background: radial-gradient(circle at top, rgba(30,64,175,0.8), #020617);
-      border-radius: 24px;
-      border: 1px solid rgba(129,140,248,0.8);
-      padding: 1rem;
-      box-shadow: 0 28px 70px rgba(15,23,42,1);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: .5rem;
-    }
-
-    .modal-header h2 {
-      font-size: 1rem;
-      color: var(--gold);
-    }
-
-    .modal-close {
-      border: none;
-      background: transparent;
-      color: #9ca3af;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-
-    .form-group {
-      margin-bottom: .6rem;
-    }
-
-    .form-label {
-      font-size: .8rem;
-      margin-bottom: .2rem;
-      display: block;
-      color: #e5e7eb;
-    }
-
-    .form-input {
-      width: 100%;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: rgba(15,23,42,0.98);
-      color: #e5e7eb;
-      padding: .4rem .8rem;
-      font-size: .8rem;
-      outline: none;
-      transition: var(--transition);
-    }
-
-    .form-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 1px rgba(250,204,21,0.5);
-    }
-
-    .form-hint {
-      font-size: .7rem;
-      color: #9ca3af;
-      margin-top: .15rem;
-    }
-
-    .link {
-      font-size: .75rem;
-      color: var(--accent);
-      cursor: pointer;
-    }
-
-    .alerts {
-      margin: .5rem 0;
-    }
-
-    .alert {
-      font-size: .75rem;
-      border-radius: 999px;
-      padding: .3rem .7rem;
-      margin-bottom: .35rem;
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-    }
-
-    .alert-success {
-      background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.5);
-      color: #bbf7d0;
-    }
-
-    .alert-error {
-      background: rgba(248,113,113,0.12);
-      border: 1px solid rgba(248,113,113,0.5);
-      color: #fecaca;
-    }
-
-    footer {
-      border-top: 1px solid rgba(30,64,175,0.7);
-      padding: 1rem 1.25rem 1.5rem;
-      margin-top: auto;
-      font-size: .75rem;
-      color: #9ca3af;
-      background: radial-gradient(circle at top, #020617, #020617);
-    }
-
-    footer .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      gap: .75rem;
-      flex-wrap: wrap;
-    }
-
-    /* ریسپانسیو */
-    @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-video {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links,
-      .nav-auth {
-        display: none;
-      }
-
-      .hamburger {
-        display: inline-flex;
-      }
-
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-
-      .tabs-wrapper {
-        padding: .8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-text h1 {
-        font-size: 1.3rem;
-      }
-      .hero {
-        margin-top: 1rem;
-      }
+    .modal .sheet .bar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom:1px solid var(--line);
+    }
+    .modal .sheet .bar strong{font-weight:950}
+    .modal .sheet .body{
+      padding: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer.page{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      opacity:.95;
+    }
+    .sep{opacity:.6}
+
+    /* Print */
+    @media print{
+      header{display:none}
+      body{background:white}
+      .card{box-shadow:none}
+      .btn{display:none}
+      .ph::after{content:""}
+      .modal{display:none !important}
     }
   </style>
 </head>
+
 <body>
-
 <header>
-  <div class="nav-inner">
-    <div class="logo">
-      <div class="logo-icon">AZ</div>
+  <div class="topbar">
+    <a class="brand" href="#" aria-label="صفحه اصلی">
+      <div class="logo" aria-hidden="true"></div>
       <div>
-        <div class="logo-text-main">آوای زریاب</div>
-        <div class="logo-text-sub">آکادمی تخصصی گیتار کلاسیک</div>
+        <h1>دانشنامه‌ی شخصی</h1>
+        <small>صفحه معرفی فرد • تک‌فایل</small>
       </div>
-    </div>
+    </a>
 
-    <nav class="nav-links">
-      <button class="nav-tab-btn active" data-tab="home">خانه</button>
-      <button class="nav-tab-btn" data-tab="ten-commandments">۱۰ فرمان طلایی</button>
-      <button class="nav-tab-btn" data-tab="performance-anxiety">اضطراب اجرا</button>
-      <button class="nav-tab-btn" data-tab="books">کتاب‌ها</button>
-      <button class="nav-tab-btn" data-tab="teachers">اساتید</button>
-      <button class="nav-tab-btn" data-tab="students">هنرجویان</button>
-      <button class="nav-tab-btn" data-tab="practice">تمرین هدفمند</button>
-    </nav>
+    <div class="controls">
+      <div class="pill" role="search">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+          <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="search" type="search" placeholder="جستجو در صفحه (مثلاً: آثار، زندگی، جوایز)..." />
+      </div>
 
-    <div class="nav-auth">
-      {% if user %}
-        <div class="user-chip">ورود کرده‌اید: {{ user["email"] }}</div>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-outline" style="font-size:.75rem;">پنل کاربری</a>
-        <a href="{{ url_for('logout') }}" class="btn btn-outline" style="font-size:.75rem;">خروج</a>
-      {% else %}
-        <button class="btn btn-outline" data-open-modal="login">ورود</button>
-        <button class="btn btn-primary" data-open-modal="register">ثبت‌نام</button>
-      {% endif %}
-    </div>
+      <button class="btn" id="toggleTheme" title="تغییر حالت">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 3v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 19v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4.22 4.22l1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18.36 18.36l1.42 1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M3 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M19 12h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4.22 19.78l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        تم
+      </button>
 
-    <button class="hamburger" id="hamburgerBtn" aria-label="منوی موبایل">
-      <span></span>
-    </button>
-  </div>
-
-  <div class="mobile-nav" id="mobileNav">
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;">
-      <button class="nav-tab-btn active" data-tab="home">خانه</button>
-      <button class="nav-tab-btn" data-tab="ten-commandments">۱۰ فرمان طلایی</button>
-      <button class="nav-tab-btn" data-tab="performance-anxiety">اضطراب اجرا</button>
-      <button class="nav-tab-btn" data-tab="books">کتاب‌ها</button>
-      <button class="nav-tab-btn" data-tab="teachers">اساتید</button>
-      <button class="nav-tab-btn" data-tab="students">هنرجویان</button>
-      <button class="nav-tab-btn" data-tab="practice">تمرین هدفمند</button>
-    </div>
-    <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-      {% if user %}
-        <div class="user-chip" style="flex:1 1 100%;">{{ user["email"] }}</div>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-outline" style="flex:1;">پنل کاربری</a>
-        <a href="{{ url_for('logout') }}" class="btn btn-outline" style="flex:1;">خروج</a>
-      {% else %}
-        <button class="btn btn-outline" style="flex:1;" data-open-modal="login">ورود</button>
-        <button class="btn btn-primary" style="flex:1;" data-open-modal="register">ثبت‌نام</button>
-      {% endif %}
+      <button class="btn primary" id="printBtn" title="چاپ / ذخیره PDF">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 8V3h10v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 17h10v4H7v-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M6 13H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        چاپ
+      </button>
     </div>
   </div>
 </header>
 
-<main>
-  <div class="container">
-
-    <!-- پیام‌ها -->
-    <div class="alerts">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class="alert alert-{{ 'success' if category=='success' else 'error' }}">
-              <span>●</span> <span>{{ message }}</span>
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-    </div>
-
-    <!-- هدر اصلی + ویدیو معرفی -->
-    {% if not dashboard_mode %}
-    <section class="hero">
-      <div class="hero-text">
-        <h1>آکادمی موسیقی <span>آوای زریاب</span>؛ جایی برای ساختن صدای منحصر‌به‌فرد تو.</h1>
-        <p>
-          در آوای زریاب، یادگیری گیتار کلاسیک فقط حفظ نت‌ها نیست؛
-          اینجا یاد می‌گیری چطور تکنیک، ذهن و احساس را کنار هم قرار بدهی تا موسیقی «زندگی» کند.
-        </p>
-        <div class="hero-tags">
-          <span class="hero-tag">۱۰ فرمان طلایی نوازندگی</span>
-          <span class="hero-tag">مدیریت اضطراب اجرا</span>
-          <span class="hero-tag">تمرین هدفمند و حرفه‌ای</span>
-          <span class="hero-tag">اساتید منتخب و هنرجویان درخشان</span>
-        </div>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
-          <button class="btn btn-primary" data-tab-jump="books">مشاهده کتاب‌ها</button>
-          <button class="btn btn-outline" data-tab-jump="teachers">معرفی اساتید</button>
-        </div>
-      </div>
-
-      <div class="hero-video">
-        <div class="hero-video-inner">
-          <!-- اینجا ویدیو معرفی را از طریق پنل ادمین در آینده می‌توانی بگذاری.
-               فعلاً یک ویدیو نمونه از فایل استاتیک یا لینک یوتیوب/آپارات -->
-          <!-- اگر ویدیو آپلود شده داری، می‌توانی از <video> استفاده کنی -->
-          <iframe
-            src="https://www.youtube.com/embed/5Zt01NqWQJY"
-            title="معرفی آوای زریاب"
-            allowfullscreen
-            loading="lazy"
-          ></iframe>
-          <div class="hero-video-badge">
-            <span class="hero-video-badge-dot"></span>
-            <span style="font-size:.75rem;">ویدیو معرفی آکادمی</span>
+<main class="container">
+  <div class="layout">
+    <!-- Main content -->
+    <article class="card" id="article">
+      <div class="hero">
+        <div class="avatar" title="تصویر/آواتار" aria-hidden="true"></div>
+        <div class="title">
+          <h2 data-search="نام و عنوان">نام فرد (نمونه: محمد پارسا میانه‌ساز)</h2>
+          <div class="subtitle" data-search="خلاصه">پژوهشگر • نویسنده • کارآفرین (نمونه متن) — خلاصه‌ای یک‌خطی شبیه ویکی‌پدیا</div>
+          <div class="badges">
+            <span class="badge accent" data-search="ملیت">ملیت: ایرانی</span>
+            <span class="badge" data-search="حوزه">حوزه: فناوری / هنر / علم</span>
+            <span class="badge" data-search="فعالیت">سال‌های فعالیت: ۲۰۱۸–اکنون</span>
           </div>
+          <p class="lead" data-search="معرفی کوتاه">
+            <b>نام فرد</b> (زادهٔ ۱۳۷X) فردی در حوزهٔ «...»
+            است که بیشتر به‌خاطر <span class="muted">دستاورد اصلی/اثر شاخص</span> شناخته می‌شود.
+            این متن را مثل لید ویکی‌پدیا کوتاه و دقیق بنویس.
+          </p>
         </div>
       </div>
-    </section>
-    {% endif %}
 
-    {% if dashboard_mode %}
-      <section class="dashboard">
-        <h2>پنل کاربری - فایل‌های خریداری شده</h2>
-        <p class="section-desc">هر فایلی که از سایت خریداری کنی، از اینجا همیشه در دسترس خواهد بود.</p>
-        <div class="purchases-list">
-          {% if purchases %}
-            {% for p in purchases %}
-              <div class="purchase-card">
-                <div style="font-weight:600;margin-bottom:.2rem;">{{ p["title"] }}</div>
-                <div style="font-size:.75rem;color:#9ca3af;margin-bottom:.3rem;">
-                  تاریخ خرید: {{ p["created_at"] }}
-                </div>
-                {% if p["file_path"] %}
-                  <a class="btn btn-primary" style="font-size:.75rem;padding:.3rem .8rem;"
-                     href="{{ url_for('download_book', book_id=p['book_id']) }}">دانلود</a>
-                {% else %}
-                  <span style="font-size:.75rem;color:#fca5a5;">فایل هنوز در سیستم ثبت نشده است.</span>
-                {% endif %}
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="card card-soft">
-              هنوز خریدی ثبت نشده است. به‌زودی دوره‌ها و کتاب‌های بیشتری اینجا در دسترس قرار خواهند گرفت.
-            </div>
-          {% endif %}
+      <nav class="toc" aria-label="فهرست مطالب">
+        <h3>فهرست مطالب</h3>
+        <ol id="toc"></ol>
+      </nav>
+
+      <section class="section" id="bio" data-title="زندگی‌نامه">
+        <h3><span class="dot"></span>زندگی‌نامه</h3>
+        <p data-search="زندگی‌نامه">
+          اینجا دربارهٔ پیشینه، محل تولد، تحصیلات و مسیر کلی زندگی فرد بنویس.
+          متن پیشنهادی: از کودکی/نوجوانی شروع کن، بعد تحصیلات، بعد ورود به حرفه.
+          بهتره ۲ تا ۳ پاراگراف جمع‌وجور باشه.
+        </p>
+
+        <blockquote data-search="نقل قول">
+          <p>«یک نقل‌قول کوتاه و الهام‌بخش از فرد یا دربارهٔ او.»</p>
+          <footer>— منبع / سال (اختیاری)</footer>
+        </blockquote>
+      </section>
+
+      <section class="section" id="career" data-title="فعالیت حرفه‌ای">
+        <h3><span class="dot"></span>فعالیت حرفه‌ای</h3>
+        <p data-search="حرفه">
+          مهم‌ترین نقش‌ها، شرکت‌ها/پروژه‌ها، مسئولیت‌ها و نقطه‌های عطف کاری را بنویس.
+          اگر لازم داری زیرعنوان بساز: «پروژه‌ها»، «سمت‌ها»، «همکاری‌ها».
+        </p>
+
+        <div class="timeline" aria-label="تایم‌لاین">
+          <div class="titem" data-search="تایم‌لاین 2020">
+            <div class="when">2020</div>
+            <div class="what">شروع پروژه / ورود به حوزه</div>
+            <div class="desc">توضیح یک‌خطی دربارهٔ اینکه چه شد و چرا مهم بود.</div>
+          </div>
+          <div class="titem" data-search="تایم‌لاین 2022">
+            <div class="when">2022</div>
+            <div class="what">دستاورد کلیدی / محصول</div>
+            <div class="desc">نتیجه، اثرگذاری، مخاطب یا عدد مهم (اگر داری).</div>
+          </div>
+          <div class="titem" data-search="تایم‌لاین 2025">
+            <div class="when">2025</div>
+            <div class="what">گسترش / جایزه / همکاری مهم</div>
+            <div class="desc">شرح کوتاه از اهمیت رویداد.</div>
+          </div>
         </div>
       </section>
-    {% else %}
-    <!-- تب‌ها -->
-    <section class="tabs-wrapper">
-      <div class="tabs-header">
-        <button class="tab-pill active" data-tab="home">خانه</button>
-        <button class="tab-pill" data-tab="ten-commandments">۱۰ فرمان طلایی</button>
-        <button class="tab-pill" data-tab="performance-anxiety">اضطراب اجرا</button>
-        <button class="tab-pill" data-tab="books">کتاب‌ها</button>
-        <button class="tab-pill" data-tab="teachers">اساتید</button>
-        <button class="tab-pill" data-tab="students">هنرجویان</button>
-        <button class="tab-pill" data-tab="practice">تمرین هدفمند</button>
-      </div>
 
-      <!-- خانه -->
-      <div class="tab-content active" id="tab-home">
-        <h2 class="section-title"><span class="bullet"></span> {{ pages["home"]["title"] if pages and "home" in pages else "خانه" }}</h2>
-        <p class="section-desc">
-          {% if pages and "home" in pages %}
-            {{ pages["home"]["content"] }}
-          {% else %}
-            این متن را می‌توانی از پنل ادمین ویرایش کنی و توضیح زیبایی درباره آکادمی بنویسی.
-          {% endif %}
-        </p>
-        <div class="two-col">
-          <div class="card">
-            <span class="pill-label"><span class="pill-label-dot"></span> مسیر آموزشی در آوای زریاب</span>
-            <p style="margin-top:.45rem;">
-              از اولین تماس انگشتان با سیم تا اجرای روی صحنه، همراهت هستیم. ساختار آموزشی آوای زریاب
-              بر اصول تکنیکی، شناخت تئوری، و پرورش بیان موسیقایی بنا شده است.
-            </p>
-            <ul class="card-list">
-              <li>سطوح مختلف از مبتدی تا پیشرفته</li>
-              <li>تمرکز ویژه روی گیتار کلاسیک</li>
-              <li>بازخوردهای منظم و ضبط پیشرفت هنرجو</li>
-            </ul>
+      <section class="section" id="works" data-title="آثار و دستاوردها">
+        <h3><span class="dot"></span>آثار و دستاوردها</h3>
+        <ul>
+          <li data-search="اثر 1"><b>اثر/کتاب/محصول ۱</b> — توضیح کوتاه (سال)</li>
+          <li data-search="اثر 2"><b>اثر/کتاب/محصول ۲</b> — توضیح کوتاه (سال)</li>
+          <li data-search="اثر 3"><b>اثر/کتاب/محصول ۳</b> — توضیح کوتاه (سال)</li>
+        </ul>
+
+        <details class="refs" data-search="منابع">
+          <summary>منابع (نمونه)</summary>
+          <div class="content">
+            <ol>
+              <li><span class="k">[1]</span> لینک/کتاب/مقاله معتبر — توضیح کوتاه</li>
+              <li><span class="k">[2]</span> وب‌سایت رسمی/مصاحبه — تاریخ</li>
+              <li><span class="k">[3]</span> گزارش/پایگاه داده — شناسه/شماره</li>
+            </ol>
           </div>
-          <div class="card card-soft">
-            <span class="pill-label"><span class="pill-label-dot"></span> آنچه در آکادمی تجربه می‌کنی</span>
-            <ul class="card-list" style="margin-top:.4rem;">
-              <li>فضای حمایتی و بدون قضاوت برای اجرا</li>
-              <li>کار روی مدیریت اضطراب صحنه و ذهن‌آگاهی</li>
-              <li>مسیر تمرین هدفمند مخصوص هر هنرجو</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        </details>
+      </section>
 
-      <!-- ۱۰ فرمان طلایی -->
-      <div class="tab-content" id="tab-ten-commandments">
-        <h2 class="section-title"><span class="bullet"></span> {{ pages["ten-commandments"]["title"] if pages and "ten-commandments" in pages else "۱۰ فرمان طلایی در نوازندگی گیتار کلاسیک" }}</h2>
-        <div class="prose">
-          {% if pages and "ten-commandments" in pages %}
-            {{ pages["ten-commandments"]["content"] | safe }}
-          {% else %}
-            <!-- متن اصلی که دادی (می‌توانی بعداً در پنل ادمین به‌صورت Rich Text ذخیره‌اش کنی) -->
-            <h3>۱. انتخاب ساز مناسب</h3>
-            <p>اولین قدم داشتن سازی با کیفیت و صدای مناسب است. حتی مبتدیان هم باید سازی انتخاب کنند که صدای قابل قبول و دسته راحت داشته باشد...</p>
-            <h3>۲. وضعیت بدنی و نشستن صحیح</h3>
-            <p>وضعیت بدن تأثیر مستقیمی بر کیفیت نوازندگی دارد. نوازنده خوب کسی است که بدنش با ساز در تعادل باشد...</p>
-            <h3>۳. تمرین روزانه و منظم</h3>
-            <p>در ژاپن روش کایزن (Kaizen) یا پیشرفت تدریجی یکی از خصلت‌های رایج میان مردم است...</p>
-            <!-- با توجه به طول متن، توصیه می‌کنم آن را کامل در پنل ادمین ذخیره و مدیریت کنی -->
-          {% endif %}
+      <section class="section" id="gallery" data-title="گالری">
+        <h3><span class="dot"></span>گالری</h3>
+        <p class="muted">روی هر کارت بزن تا توضیح نمونه باز شود. (به‌جای این‌ها می‌تونی عکس واقعی بذاری.)</p>
+        <div class="grid">
+          <div class="ph" data-caption="تصویر/رویداد ۱"></div>
+          <div class="ph" data-caption="تصویر/رویداد ۲"></div>
+          <div class="ph" data-caption="تصویر/رویداد ۳"></div>
+          <div class="ph" data-caption="تصویر/رویداد ۴"></div>
+          <div class="ph" data-caption="تصویر/رویداد ۵"></div>
+          <div class="ph" data-caption="تصویر/رویداد ۶"></div>
         </div>
-      </div>
+      </section>
 
-      <!-- اضطراب اجرا -->
-      <div class="tab-content" id="tab-performance-anxiety">
-        <h2 class="section-title"><span class="bullet"></span> {{ pages["performance-anxiety"]["title"] if pages and "performance-anxiety" in pages else "اضطراب اجرا" }}</h2>
-        <div class="prose">
-          {% if pages and "performance-anxiety" in pages %}
-            {{ pages["performance-anxiety"]["content"] | safe }}
-          {% else %}
-            <p>اضطراب اجرا (Performance Anxiety) یکی از طبیعی‌ترین و رایج‌ترین حالت‌ها در بین نوازندگان و خوانندگان است، حتی در سطح حرفه‌ای؛ اما کنترلش کاملاً ممکن است.</p>
-            <h3>۱. تغییر نگرش ذهنی</h3>
-            <ul>
-              <li>اضطراب دشمن نیست؛ انرژی هیجان است.</li>
-              <li>قبل از اجرا: «من اینجا هستم تا موسیقی را تقسیم کنم، نه برای قضاوت شدن.»</li>
-            </ul>
-            <h3>۲. آماده‌سازی ذهنی (Mental Training)</h3>
-            <p>تصویرسازی مثبت، گوش دادن به اجرای موفق خودت و تبدیل اضطراب به تمرکز، از ابزارهای مهم هستند.</p>
-            <h3>۳. کنترل بدن و تنفس</h3>
-            <p>تنفس ۴-۷-۸، ریلکس کردن عضلات، و حالت بدنی باز، پایه‌ی کنترل استرس صحنه است.</p>
-          {% endif %}
-        </div>
-      </div>
+      <section class="section" id="seeAlso" data-title="جستارهای وابسته">
+        <h3><span class="dot"></span>جستارهای وابسته</h3>
+        <ul>
+          <li data-search="وابسته 1">حوزهٔ مرتبط ۱</li>
+          <li data-search="وابسته 2">پروژه/سازمان ۲</li>
+          <li data-search="وابسته 3">افراد/موضوعات مشابه ۳</li>
+        </ul>
+      </section>
 
-      <!-- کتاب‌ها -->
-      <div class="tab-content" id="tab-books">
-        <h2 class="section-title"><span class="bullet"></span> کتاب‌ها و منابع آموزشی</h2>
-        <p class="section-desc">
-          در این بخش می‌توانی کتاب‌های تخصصی گیتار کلاسیک، تئوری موسیقی و تمرین‌های هدفمند را تهیه کنی.
-          بعضی از کتاب‌ها رایگان و بعضی با پرداخت در دسترس خواهند بود.
-        </p>
-        <div class="books-grid">
-          {% if books %}
-            {% for book in books %}
-              <article class="book-card">
-                <div class="book-cover">
-                  {% if book["cover_path"] %}
-                    <img src="{{ url_for('static', filename='uploads/' + book['cover_path']) }}" alt="{{ book['title'] }}">
-                  {% else %}
-                    پوستر کتاب
-                  {% endif %}
-                </div>
-                <div style="margin-top:.5rem;">
-                  <div style="font-size:.9rem;font-weight:600;margin-bottom:.15rem;">
-                    {{ book["title"] }}
-                  </div>
-                  <div style="font-size:.8rem;color:#9ca3af;max-height:4.3rem;overflow:hidden;">
-                    {{ book["description"] }}
-                  </div>
-                </div>
-                <div class="book-footer">
-                  <div class="price">
-                    {% if book["is_free"] %}
-                      <span class="price-free">رایگان</span>
-                    {% else %}
-                      <span class="price-number">{{ "%.0f"|format(book["price"] or 0) }}</span>
-                      <span style="font-size:.7rem;color:#9ca3af;">تومان</span>
-                    {% endif %}
-                  </div>
-                  {% if book["is_free"] and book["file_path"] %}
-                    <a class="btn btn-outline" style="font-size:.75rem;padding:.25rem .7rem;"
-                       href="{{ url_for('download_book', book_id=book['id']) }}">دانلود</a>
-                  {% else %}
-                    <a class="btn btn-primary" style="font-size:.75rem;padding:.25rem .7rem;"
-                       href="{{ url_for('buy_book', book_id=book['id']) }}">خرید</a>
-                  {% endif %}
-                </div>
-              </article>
-            {% endfor %}
-          {% else %}
-            <div class="card card-soft">
-              هنوز کتابی ثبت نشده است. به‌زودی کتاب‌ها و منابع آموزشی از طریق پنل ادمین اضافه می‌شوند.
-            </div>
-          {% endif %}
-        </div>
+      <div class="inner">
+        <footer class="page">
+          <span>© <span id="year"></span> • قالب تک‌فایل معرفی فرد</span>
+          <span class="sep">|</span>
+          <span class="muted">می‌تونی متن‌ها رو مستقیم همین‌جا ادیت کنی و ذخیره بگیری.</span>
+        </footer>
       </div>
+    </article>
 
-      <!-- اساتید -->
-      <div class="tab-content" id="tab-teachers">
-        <h2 class="section-title"><span class="bullet"></span> اساتید آوای زریاب</h2>
-        <p class="section-desc">
-          در آوای زریاب، اساتید بر اساس تجربه‌ی اجرایی، دانش تئوریک و توانایی ارتباط با هنرجو انتخاب می‌شوند.
-        </p>
-        <div class="teachers-grid">
-          {% if teachers %}
-            {% for teacher in teachers %}
-              <article class="teacher-card">
-                <div class="teacher-avatar">
-                  {% if teacher["photo_path"] %}
-                    <img src="{{ url_for('static', filename='uploads/' + teacher['photo_path']) }}" alt="{{ teacher['name'] }}">
-                  {% else %}
-                    <span>♪</span>
-                  {% endif %}
-                </div>
-                <div>
-                  <div class="teacher-name">{{ teacher["name"] }}</div>
-                  <div class="teacher-specialty">{{ teacher["specialty"] }}</div>
-                  <div class="teacher-bio">{{ teacher["bio"] }}</div>
-                  <div class="teacher-media-strip">
-                    {% for media in teacher_media %}
-                      {% if media["teacher_id"] == teacher["id"] %}
-                        <span class="media-chip">
-                          {{ "ویدیو" if media["media_type"] == "video" else "تصویر" }} - {{ media["title"] }}
-                        </span>
-                      {% endif %}
-                    {% endfor %}
-                  </div>
-                </div>
-              </article>
-            {% endfor %}
-          {% else %}
-            <div class="card card-soft">
-              اساتید به‌زودی از طریق پنل ادمین معرفی خواهند شد.
-            </div>
-          {% endif %}
-        </div>
-      </div>
+    <!-- Sidebar / Infobox -->
+    <aside class="card infobox">
+      <div class="cover" aria-hidden="true"></div>
+      <div class="box">
+        <div class="ibox-title">اطلاعات کلی</div>
+        <table class="kv" aria-label="جعبه اطلاعات">
+          <tr>
+            <th>نام کامل</th>
+            <td data-search="نام کامل">نام و نام خانوادگی</td>
+          </tr>
+          <tr>
+            <th>زادروز</th>
+            <td data-search="زادروز">۱۳۷X / 19XX</td>
+          </tr>
+          <tr>
+            <th>محل تولد</th>
+            <td data-search="محل تولد">شهر، کشور</td>
+          </tr>
+          <tr>
+            <th>حرفه</th>
+            <td data-search="حرفه">پژوهشگر، نویسنده، …</td>
+          </tr>
+          <tr>
+            <th>شناخته‌شده برای</th>
+            <td data-search="شناخته‌شده">
+              <div class="chips">
+                <span class="chip">اثر شاخص</span>
+                <span class="chip">پروژه مهم</span>
+                <span class="chip">دستاورد</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>وب‌سایت</th>
+            <td data-search="وب‌سایت"><a href="#" onclick="return false;">example.com</a></td>
+          </tr>
+        </table>
 
-      <!-- هنرجویان -->
-      <div class="tab-content" id="tab-students">
-        <h2 class="section-title"><span class="bullet"></span> گالری هنرجویان</h2>
-        <p class="section-desc">
-          اینجا جایی است برای نمایش مسیر رشد هنرجویان: از تمرین‌های اولیه تا اجراهای صحنه.
-          ویدیوها و تصاویر توسط مدیریت از طریق پنل ادمین اضافه می‌شوند.
-        </p>
-        <div class="students-grid">
-          {% if student_media %}
-            {% for m in student_media %}
-              <article class="student-media-card">
-                <div class="thumb">
-                  {% if m["media_type"] == "video" %}
-                    <video controls preload="metadata">
-                      <source src="{{ url_for('static', filename='uploads/' + m['file_path']) }}">
-                    </video>
-                  {% else %}
-                    <img src="{{ url_for('static', filename='uploads/' + m['file_path']) }}" alt="{{ m['title'] }}">
-                  {% endif %}
-                </div>
-                <div style="margin-top:.35rem;font-size:.8rem;">
-                  {{ m["title"] }}
-                </div>
-              </article>
-            {% endfor %}
-          {% else %}
-            <div class="card card-soft">
-              هنوز رسانه‌ای برای هنرجویان ثبت نشده است.
-            </div>
-          {% endif %}
-        </div>
-      </div>
+        <div style="height:12px"></div>
 
-      <!-- تمرین هدفمند -->
-      <div class="tab-content" id="tab-practice">
-        <h2 class="section-title"><span class="bullet"></span> {{ pages["targeted-practice"]["title"] if pages and "targeted-practice" in pages else "تمرین هدفمند" }}</h2>
-        <div class="two-col">
-          <div class="card card-soft">
-            <div class="prose">
-              {% if pages and "targeted-practice" in pages %}
-                {{ pages["targeted-practice"]["content"] | safe }}
-              {% else %}
-                <p>بدون تمرین‌های منظم و هدفمند، نمی‌توان به اجرای باکیفیت و با احساس روی ساز رسید...</p>
-                <p>با احساس نواختن، یعنی چیزی فراتر از اجرای نت‌ها؛ یعنی نواختن با ذهن و قلب.</p>
-              {% endif %}
-            </div>
-          </div>
-          <div class="card">
-            <span class="pill-label"><span class="pill-label-dot"></span> ساختار یک تمرین هدفمند</span>
-            <ul class="card-list">
-              <li>گرم‌کردن تکنیکی (۵–۱۰ دقیقه)</li>
-              <li>کار روی تکنیک‌های مشخص (اسلر، آرپژ، ترمولو...)</li>
-              <li>تمرین روی قطعه اصلی با تمرکز روی بخش‌های چالشی</li>
-              <li>ضبط یک اجرای کوتاه در انتهای تمرین</li>
-              <li>نوشتن نکات جلسه تمرینی در یک دفترچه مخصوص</li>
-            </ul>
-          </div>
+        <div class="ibox-title">لینک‌های سریع</div>
+        <div class="chips" aria-label="لینک های سریع">
+          <a class="chip" href="#bio">زندگی‌نامه</a>
+          <a class="chip" href="#career">فعالیت‌ها</a>
+          <a class="chip" href="#works">آثار</a>
+          <a class="chip" href="#gallery">گالری</a>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="ibox-title">یادداشت</div>
+        <div class="muted" style="font-size:13px">
+          این قالب کاملاً آفلاین کار می‌کند. اگر عکس واقعی می‌خواهی:
+          <span class="k">img src="data:image/..."</span> بگذار یا فایل را کنار HTML قرار بده و آدرس بده.
         </div>
       </div>
-    </section>
-    {% endif %}
+    </aside>
   </div>
 </main>
 
-<footer>
-  <div class="footer-inner">
-    <div>© {{ 2025 }} آوای زریاب - همه حقوق محفوظ است.</div>
-    <div>طراحی شده با تمرکز بر تجربه کاربری، سرعت و سئو.</div>
-  </div>
-</footer>
-
-<!-- مودال‌ها: ورود / ثبت‌نام / فراموشی رمز -->
-<div class="modal-backdrop" id="modal-login">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>ورود به حساب کاربری</h2>
-      <button class="modal-close" data-close-modal>&times;</button>
-    </div>
-    <form method="post" action="{{ url_for('login') }}">
-      <div class="form-group">
-        <label class="form-label">ایمیل</label>
-        <input type="email" name="email" class="form-input" required>
+<!-- Modal -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header>
+      <div class="bar">
+        <strong id="modalTitle">جزئیات</strong>
+        <button class="btn" id="closeModal" type="button" aria-label="بستن">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          بستن
+        </button>
       </div>
-      <div class="form-group">
-        <label class="form-label">رمز عبور</label>
-        <input type="password" name="password" class="form-input" required>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
-        <span class="link" data-open-modal="forgot" data-close-current>فراموشی رمز عبور</span>
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">ورود</button>
-      <p class="form-hint" style="margin-top:.6rem;text-align:center;">
-        حساب کاربری ندارید؟
-        <span class="link" data-open-modal="register" data-close-current>ثبت‌نام</span>
-      </p>
-    </form>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-register">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>ثبت‌نام در آوای زریاب</h2>
-      <button class="modal-close" data-close-modal>&times;</button>
-    </div>
-    <form method="post" action="{{ url_for('register') }}">
-      <div class="form-group">
-        <label class="form-label">ایمیل</label>
-        <input type="email" name="email" class="form-input" required>
-        <div class="form-hint">کد تأیید برای این ایمیل ارسال خواهد شد.</div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">رمز عبور</label>
-        <input type="password" name="password" class="form-input" required minlength="6">
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">ثبت‌نام</button>
-      <p class="form-hint" style="margin-top:.6rem;text-align:center;">
-        قبلاً ثبت‌نام کرده‌اید؟
-        <span class="link" data-open-modal="login" data-close-current>ورود</span>
-      </p>
-    </form>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-forgot">
-  <div class="modal">
-    <div class="modal-header">
-      <h2>بازیابی رمز عبور</h2>
-      <button class="modal-close" data-close-modal>&times;</button>
-    </div>
-    <form method="post" action="{{ url_for('forgot_password') }}">
-      <div class="form-group">
-        <label class="form-label">ایمیل ثبت‌شده</label>
-        <input type="email" name="email" class="form-input" required>
-      </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">ارسال لینک بازیابی</button>
-    </form>
+    </header>
+    <div class="body" id="modalBody">…</div>
   </div>
 </div>
 
 <script>
-  // تب‌ها
-  const tabPills = document.querySelectorAll(".tab-pill");
-  const tabContents = document.querySelectorAll(".tab-content");
-  const navTabBtns = document.querySelectorAll(".nav-tab-btn");
+  // ====== Theme ======
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem("theme");
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
 
-  function activateTab(name) {
-    tabPills.forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.tab === name);
-    });
-    navTabBtns.forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.tab === name);
-    });
-    tabContents.forEach(content => {
-      content.classList.toggle("active", content.id === "tab-" + name);
-    });
+  function setTheme(t){
+    if(t === "light") root.setAttribute("data-theme","light");
+    else root.removeAttribute("data-theme");
+    localStorage.setItem("theme", t);
   }
+  if(savedTheme) setTheme(savedTheme);
+  else setTheme(prefersLight ? "light" : "dark");
 
-  tabPills.forEach(btn => {
-    btn.addEventListener("click", () => {
-      activateTab(btn.dataset.tab);
-    });
+  document.getElementById("toggleTheme").addEventListener("click", () => {
+    const isLight = root.getAttribute("data-theme") === "light";
+    setTheme(isLight ? "dark" : "light");
   });
 
-  navTabBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      activateTab(btn.dataset.tab);
-      // بستن منوی موبایل
-      mobileNav.classList.remove("show");
-    });
+  // ====== Print ======
+  document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+  // ====== Year ======
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // ====== Build TOC ======
+  const toc = document.getElementById("toc");
+  const sections = [...document.querySelectorAll("section.section")];
+  sections.forEach(sec => {
+    const title = sec.getAttribute("data-title") || sec.querySelector("h3")?.innerText?.trim() || "بخش";
+    const id = sec.id || ("sec-" + Math.random().toString(16).slice(2));
+    sec.id = id;
+
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#" + id;
+    a.textContent = title;
+    li.appendChild(a);
+    toc.appendChild(li);
   });
 
-  // پرش از دکمه‌های Hero به تب‌ها
-  document.querySelectorAll("[data-tab-jump]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-tab-jump");
-      activateTab(target);
-      window.scrollTo({ top: document.querySelector(".tabs-wrapper").offsetTop - 80, behavior: "smooth" });
+  // ====== Simple in-page search highlight ======
+  const searchInput = document.getElementById("search");
+  const searchable = [...document.querySelectorAll("[data-search]")];
+
+  function clearMarks(){
+    searchable.forEach(el => {
+      el.style.outline = "";
+      el.style.boxShadow = "";
+      el.style.scrollMarginTop = "";
     });
+  }
+
+  function findFirstMatch(q){
+    const query = q.trim().toLowerCase();
+    if(!query) return null;
+
+    return searchable.find(el => {
+      const hay = (el.getAttribute("data-search") + " " + el.textContent).toLowerCase();
+      return hay.includes(query);
+    });
+  }
+
+  let lastQuery = "";
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value;
+    clearMarks();
+
+    if(!q.trim()){
+      lastQuery = "";
+      return;
+    }
+
+    const hit = findFirstMatch(q);
+    if(hit){
+      hit.style.outline = "2px solid rgba(124,92,255,.55)";
+      hit.style.boxShadow = "0 0 0 6px rgba(124,92,255,.12)";
+      hit.style.scrollMarginTop = "90px";
+      hit.scrollIntoView({behavior:"smooth", block:"center"});
+    }
+    lastQuery = q;
   });
 
-  // منوی همبرگری
-  const hamburgerBtn = document.getElementById("hamburgerBtn");
-  const mobileNav = document.getElementById("mobileNav");
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener("click", () => {
-      mobileNav.classList.toggle("show");
-    });
+  // ====== Gallery modal ======
+  const modal = document.getElementById("modal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalBody = document.getElementById("modalBody");
+  const closeModalBtn = document.getElementById("closeModal");
+
+  function openModal(title, body){
+    modalTitle.textContent = title;
+    modalBody.textContent = body;
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
   }
-
-  // مودال‌ها
-  const modals = document.querySelectorAll(".modal-backdrop");
-
-  function openModal(name) {
-    document.getElementById("modal-" + name).classList.add("show");
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
   }
+  closeModalBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+  window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
 
-  function closeModals() {
-    modals.forEach(m => m.classList.remove("show"));
-  }
-
-  document.querySelectorAll("[data-open-modal]").forEach(el => {
+  document.querySelectorAll(".ph").forEach((el, idx) => {
     el.addEventListener("click", () => {
-      const target = el.getAttribute("data-open-modal");
-      const closeCurrent = el.hasAttribute("data-close-current");
-      if (closeCurrent) closeModals();
-      openModal(target);
+      const cap = el.getAttribute("data-caption") || ("تصویر " + (idx+1));
+      openModal(cap, "اینجا می‌تونی توضیح عکس، تاریخ، مکان، یا داستان کوتاه مرتبط رو بنویسی.");
     });
   });
-
-  document.querySelectorAll("[data-close-modal]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      closeModals();
-    });
-  });
-
-  modals.forEach(m => {
-    m.addEventListener("click", e => {
-      if (e.target === m) closeModals();
-    });
-  });
-
 </script>
 </body>
-  </html>
+            </html>
