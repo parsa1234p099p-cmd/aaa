@@ -2,1089 +2,893 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#1B4DFF" />
-  <title>علیرضا پورعسگری | پروفایل حرفه‌ای</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>علیرضا پورعسگری — صفحه معرفی</title>
+  <meta name="description" content="صفحه معرفی حرفه‌ای و سبک برای علیرضا پورعسگری، با ساختار شبیه ویکی‌پدیا." />
   <style>
-    /* =========================
-       تک‌رنگ سازمانی (فقط این را تغییر بده)
-       ========================= */
+    /* ====== Lightweight, professional, Wikipedia-ish (single file) ====== */
     :root{
-      --brand: #1B4DFF; /* رنگ سازمانی */
-      --bg: #070A12;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.03);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --line: rgba(255,255,255,.10);
-      --shadow: 0 28px 80px rgba(0,0,0,.55);
-      --r1: 18px;
-      --r2: 24px;
-      --container: 1120px;
-      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Vazirmatn", "Noto Sans Arabic", Arial, sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --bg: #ffffff;
+      --panel: #f6f7f8;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --link: #2563eb;
+      --linkHover: #1d4ed8;
+      --shadow: 0 8px 24px rgba(0,0,0,.06);
+      --radius: 16px;
+      --contentW: 1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Arabic", "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1220;
+        --panel:#0f172a;
+        --text:#e5e7eb;
+        --muted:#9ca3af;
+        --border:#1f2937;
+        --link:#60a5fa;
+        --linkHover:#93c5fd;
+        --shadow: 0 10px 28px rgba(0,0,0,.35);
+      }
+    }
+    [data-theme="light"]{
+      --bg: #ffffff;
+      --panel: #f6f7f8;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --link: #2563eb;
+      --linkHover: #1d4ed8;
+      --shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    [data-theme="dark"]{
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#1f2937;
+      --link:#60a5fa;
+      --linkHover:#93c5fd;
+      --shadow: 0 10px 28px rgba(0,0,0,.35);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: var(--font);
+      font-family: var(--sans);
+      background: var(--bg);
       color: var(--text);
-      background:
-        radial-gradient(900px 420px at 80% -10%, color-mix(in oklab, var(--brand), transparent 75%), transparent 60%),
-        radial-gradient(700px 380px at 10% 10%, color-mix(in oklab, var(--brand), transparent 85%), transparent 55%),
-        radial-gradient(900px 420px at 50% 110%, color-mix(in oklab, var(--brand), transparent 86%), transparent 60%),
-        linear-gradient(180deg, #050713, var(--bg));
-      overflow-x:hidden;
+      line-height: 1.75;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+    a{ color: var(--link); text-decoration:none; }
+    a:hover{ color: var(--linkHover); text-decoration:underline; }
 
-    a{color:inherit; text-decoration:none}
-    button{font-family:inherit}
-
-    .container{max-width:var(--container); margin:0 auto; padding: 0 16px;}
-    .spacer{height:34px}
-
-    /* ===== Top Nav ===== */
-    .nav{
+    /* Top bar */
+    .topbar{
       position: sticky;
       top: 0;
       z-index: 50;
-      padding: 12px 0;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(7,10,18,.80), rgba(7,10,18,.35), rgba(7,10,18,0));
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: saturate(180%) blur(10px);
+      background: color-mix(in oklab, var(--bg) 78%, transparent);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-wrap{
-      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+    .topbar-inner{
+      max-width: var(--contentW);
+      margin: 0 auto;
+      padding: 10px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
     .brand{
-      display:flex; align-items:center; gap: 12px;
+      display:flex; align-items:center; gap:10px;
       min-width: 190px;
+      user-select:none;
     }
     .logo{
-      width: 40px; height: 40px;
-      border-radius: 14px;
-      position:relative;
-      border: 1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.20), transparent 60%),
-        linear-gradient(135deg,
-          color-mix(in oklab, var(--brand), white 12%),
-          color-mix(in oklab, var(--brand), black 18%));
-      box-shadow: 0 18px 50px color-mix(in oklab, var(--brand), transparent 72%);
-      overflow:hidden;
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, color-mix(in oklab, var(--link) 85%, #ffffff), color-mix(in oklab, var(--linkHover) 85%, #000000));
+      box-shadow: var(--shadow);
     }
-    .logo::after{
-      content:"";
-      position:absolute; inset:-60%;
-      background: conic-gradient(from 180deg,
-        rgba(255,255,255,.20),
-        transparent 35%,
-        rgba(255,255,255,.12),
-        transparent 70%);
-      animation: spin 11s linear infinite;
-      opacity:.8;
+    .brand strong{ font-size: 14px; letter-spacing: -.2px; }
+    .brand span{ display:block; font-size: 12px; color: var(--muted); margin-top: -2px; }
+
+    .search{
+      flex:1;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
     }
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .brand .t{
-      display:flex; flex-direction:column; gap:2px;
-    }
-    .brand .name{
-      font-weight: 950;
-      letter-spacing:.2px;
+    .search svg{ width:18px; height:18px; opacity:.7; }
+    .search input{
+      width:100%;
+      border:0;
+      outline:none;
+      background: transparent;
+      color: var(--text);
       font-size: 14px;
-      line-height:1.2;
     }
-    .brand .tag{
-      color: var(--muted);
-      font-weight: 750;
-      font-size: 12px;
-      letter-spacing:.1px;
-    }
-
-    .nav-links{
-      display:flex; align-items:center; gap: 6px; flex-wrap:wrap;
-      justify-content:center;
-    }
-    .nav-links a{
-      padding: 8px 11px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      font-weight: 800;
-      font-size: 13px;
-      transition: .18s ease;
-    }
-    .nav-links a:hover{
-      color: var(--text);
-      border-color: rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-    }
-    .nav-links a.active{
-      color: var(--text);
-      border-color: color-mix(in oklab, var(--brand), transparent 65%);
-      background: color-mix(in oklab, var(--brand), transparent 88%);
-      box-shadow: 0 18px 55px color-mix(in oklab, var(--brand), transparent 78%);
-    }
-
-    .nav-actions{display:flex; align-items:center; gap: 10px; justify-content:flex-end; min-width: 190px;}
+    .actions{ display:flex; gap:8px; align-items:center; }
     .btn{
-      cursor:pointer;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      background: var(--panel);
       color: var(--text);
-      padding: 9px 12px;
       border-radius: 999px;
-      font-weight: 900;
-      font-size: 13px;
-      display:inline-flex; align-items:center; gap: 8px;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      padding: 8px 10px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      cursor:pointer;
       user-select:none;
-      white-space:nowrap;
+      font-size: 13px;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: color-mix(in oklab, var(--brand), rgba(255,255,255,.10) 55%);
-      background: rgba(255,255,255,.06);
-    }
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg,
-        color-mix(in oklab, var(--brand), white 12%),
-        color-mix(in oklab, var(--brand), black 14%));
-      box-shadow: 0 22px 70px color-mix(in oklab, var(--brand), transparent 72%);
-    }
-    .btn svg{width:16px; height:16px}
-
-    @media (max-width: 900px){
-      .nav-links{display:none}
-      .brand{min-width:auto}
-      .nav-actions{min-width:auto}
+    .btn:hover{ filter: brightness(1.03); }
+    .btn svg{ width:18px; height:18px; opacity:.85; }
+    .kbd{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 8px;
+      background: color-mix(in oklab, var(--panel) 60%, transparent);
     }
 
-    /* ===== Hero ===== */
-    .hero{
-      padding: 42px 0 22px;
-      position:relative;
-    }
-    .hero-grid{
+    /* Layout */
+    .wrap{
+      max-width: var(--contentW);
+      margin: 0 auto;
+      padding: 18px 16px 56px;
       display:grid;
-      grid-template-columns: 1.3fr .7fr;
+      grid-template-columns: 300px minmax(0, 1fr);
       gap: 18px;
-      align-items:stretch;
+      align-items:start;
     }
     @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr}
+      .wrap{ grid-template-columns: 1fr; }
+      .brand{ min-width: auto; }
+    }
+
+    /* Side */
+    .side{
+      position: sticky;
+      top: 70px;
+      align-self: start;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .side{ position: static; }
     }
 
     .card{
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow:hidden;
-      position:relative;
     }
-    .card::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background:
-        radial-gradient(900px 240px at 70% -20%, color-mix(in oklab, var(--brand), transparent 78%), transparent 60%),
-        radial-gradient(600px 210px at 10% 10%, color-mix(in oklab, var(--brand), transparent 86%), transparent 55%);
-      pointer-events:none;
-      opacity: .9;
+    .card .hd{
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
     }
-    .card > *{position:relative}
+    .card .hd h3{
+      margin:0;
+      font-size: 13px;
+      letter-spacing: -.2px;
+    }
+    .card .bd{ padding: 14px; }
 
-    .hero-main{padding: 22px 20px 18px;}
-    .kicker{
-      display:inline-flex; gap:10px; align-items:center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: color-mix(in oklab, var(--brand), transparent 90%);
-      border: 1px solid color-mix(in oklab, var(--brand), transparent 70%);
-      color: var(--text);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing:.2px;
+    /* Infobox */
+    .infobox{
+      padding: 14px;
     }
-    .kdot{
-      width:9px; height:9px; border-radius: 99px;
-      background: linear-gradient(135deg,
-        color-mix(in oklab, var(--brand), white 14%),
-        color-mix(in oklab, var(--brand), black 14%));
-      box-shadow: 0 14px 40px color-mix(in oklab, var(--brand), transparent 70%);
-    }
-    h1{
-      margin: 14px 0 8px;
-      font-weight: 1000;
-      font-size: clamp(28px, 3.4vw, 44px);
-      line-height: 1.15;
-      letter-spacing:.2px;
-    }
-    .lead{
-      margin: 0;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 15px;
-      max-width: 62ch;
-    }
-    .hero-actions{
-      margin-top: 16px;
-      display:flex; gap: 10px; flex-wrap:wrap;
-    }
-
-    .hero-side{padding: 18px 18px 14px;}
-    .profile{
-      display:flex; gap: 14px; align-items:center;
-      padding: 12px;
-      border-radius: var(--r1);
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+    .hero{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      margin-bottom: 12px;
     }
     .avatar{
-      width: 58px; height: 58px;
+      width: 66px; height: 66px;
       border-radius: 18px;
       background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg,
-          color-mix(in oklab, var(--brand), white 12%),
-          color-mix(in oklab, var(--brand), black 18%));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 22px 80px color-mix(in oklab, var(--brand), transparent 75%);
-      position:relative;
-      overflow:hidden;
-      flex:0 0 auto;
+        radial-gradient(120px 80px at 25% 25%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, color-mix(in oklab, var(--link) 55%, #10b981), color-mix(in oklab, var(--linkHover) 65%, #8b5cf6));
+      border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+      box-shadow: var(--shadow);
+      display:grid;
+      place-items:center;
+      font-weight: 700;
+      letter-spacing: -.4px;
     }
-    .avatar::after{
-      content:"";
-      position:absolute; inset:-45%;
-      background: conic-gradient(from 20deg, rgba(255,255,255,.16), transparent 35%, rgba(255,255,255,.10), transparent 70%);
-      animation: spin 16s linear infinite;
-      opacity:.8;
+    .avatar span{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.2)); }
+    .hero .title{
+      min-width:0;
     }
-    .pname{font-weight: 1000; margin:0; font-size: 16px;}
-    .prole{margin:2px 0 0; color: var(--muted); font-weight: 800; font-size: 12px;}
-
-    .mini{
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .mini .box{
-      padding: 12px;
-      border-radius: var(--r1);
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-      min-height: 76px;
-    }
-    .mini .box .label{
-      color: var(--muted);
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing:.2px;
-    }
-    .mini .box .value{
-      margin-top: 7px;
-      font-family: var(--mono);
-      font-size: 20px;
-      font-weight: 1000;
-      letter-spacing:.4px;
-    }
-
-    /* ===== Sections ===== */
-    section{
-      padding: 18px 0;
-    }
-    .section-head{
-      display:flex; align-items:flex-end; justify-content:space-between; gap: 12px;
-      margin-bottom: 10px;
-    }
-    .section-head h2{
+    .hero h1{
       margin:0;
       font-size: 18px;
-      font-weight: 1000;
-      letter-spacing:.2px;
-      display:flex; gap:10px; align-items:center;
+      line-height:1.3;
+      letter-spacing: -.4px;
     }
-    .section-head p{
-      margin:0;
+    .hero p{
+      margin:4px 0 0;
       color: var(--muted);
-      font-weight: 700;
       font-size: 13px;
-      max-width: 60ch;
+      line-height:1.6;
+    }
+    .meta{
+      margin-top: 10px;
+      display:grid;
+      gap: 10px;
+    }
+    .meta-row{
+      display:grid;
+      grid-template-columns: 90px 1fr;
+      gap: 10px;
+      font-size: 13px;
+      padding: 10px 10px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: color-mix(in oklab, var(--bg) 40%, transparent);
+    }
+    .meta-row b{ color: var(--muted); font-weight: 600; }
+
+    /* TOC */
+    .toc a{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: var(--text);
+      font-size: 13px;
+      text-decoration:none;
+    }
+    .toc a small{
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+    .toc a:hover{
+      background: color-mix(in oklab, var(--bg) 35%, transparent);
+      border-color: var(--border);
+    }
+    .toc a[aria-current="true"]{
+      background: color-mix(in oklab, var(--link) 12%, var(--panel));
+      border-color: color-mix(in oklab, var(--link) 25%, var(--border));
+    }
+
+    /* Main content */
+    .main{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .page{
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .page-head{
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 55%, transparent), transparent);
+    }
+    .page-head h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing: -.5px;
+      line-height:1.3;
+    }
+    .page-head .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .content{
+      padding: 18px;
+    }
+    .content section{
+      padding: 14px 0;
+      border-top: 1px dashed color-mix(in oklab, var(--border) 80%, transparent);
+    }
+    .content section:first-child{ border-top: 0; padding-top: 0; }
+
+    h3.sec-title{
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -.3px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .anchor{
+      opacity:.5;
+      font-size: 12px;
+      font-family: var(--mono);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 10px;
+      background: var(--panel);
+    }
+
+    p{ margin: 8px 0; color: color-mix(in oklab, var(--text) 92%, transparent); }
+    .note{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border: 1px solid color-mix(in oklab, var(--link) 28%, var(--border));
+      background: color-mix(in oklab, var(--link) 10%, var(--panel));
+      border-radius: 14px;
+      color: color-mix(in oklab, var(--text) 92%, transparent);
+      font-size: 13px;
+    }
+    .pillrow{
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin-top: 10px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      font-size: 12px;
+      color: var(--text);
     }
     .dot{
-      width: 10px; height:10px; border-radius: 99px;
-      background: linear-gradient(135deg,
-        color-mix(in oklab, var(--brand), white 12%),
-        color-mix(in oklab, var(--brand), black 14%));
-      box-shadow: 0 18px 60px color-mix(in oklab, var(--brand), transparent 72%);
+      width: 8px; height: 8px; border-radius: 99px;
+      background: color-mix(in oklab, var(--link) 80%, #10b981);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--link) 18%, transparent);
     }
 
-    .grid{
-      display:grid; gap: 12px;
-      grid-template-columns: repeat(12, 1fr);
-    }
-    .col-7{grid-column: span 7}
-    .col-5{grid-column: span 5}
-    .col-6{grid-column: span 6}
-    .col-4{grid-column: span 4}
-    .col-12{grid-column: span 12}
-    @media (max-width: 980px){
-      .col-7,.col-5,.col-6,.col-4{grid-column: span 12}
-    }
-
-    .panel{
-      padding: 16px;
-      border-radius: var(--r2);
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      position:relative;
-      overflow:hidden;
-    }
-    .panel::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(700px 200px at 85% -10%, color-mix(in oklab, var(--brand), transparent 84%), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .panel > *{position:relative}
-
-    .panel h3{
-      margin:0 0 10px;
-      font-size: 14px;
-      font-weight: 1000;
-      letter-spacing:.2px;
-    }
-    .panel p{margin:0; color: var(--muted); font-weight: 700; font-size: 13px}
-
-    .list{
-      margin: 10px 0 0;
-      padding: 0;
-      list-style: none;
-      display:grid;
-      gap: 9px;
-    }
-    .li{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 10px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-    }
-    .li .b{
-      width: 10px; height: 10px; margin-top: 6px; border-radius: 99px;
-      background: color-mix(in oklab, var(--brand), white 10%);
-      box-shadow: 0 18px 55px color-mix(in oklab, var(--brand), transparent 74%);
-      flex:0 0 auto;
-    }
-    .li .t{
-      font-weight: 900; font-size: 13px;
-    }
-    .li .d{
-      margin-top: 2px;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12.5px;
-    }
-
-    /* ===== Skills ===== */
-    .skill{
-      display:grid; gap: 10px;
-    }
-    .bar{
-      height: 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-    }
-    .fill{
-      height:100%;
-      width:0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg,
-        color-mix(in oklab, var(--brand), white 12%),
-        color-mix(in oklab, var(--brand), black 10%));
-      box-shadow: 0 18px 65px color-mix(in oklab, var(--brand), transparent 74%);
-      transition: width 1.25s cubic-bezier(.2,.9,.2,1);
-    }
-    .skill-row{
-      display:flex; justify-content:space-between; align-items:center; gap: 12px;
-      font-weight: 900;
-      font-size: 13px;
-    }
-    .skill-row span:last-child{font-family: var(--mono); color: var(--muted); font-weight: 900}
-
-    /* ===== Timeline ===== */
+    /* Timeline */
     .timeline{
-      display:grid; gap: 10px;
+      display:grid;
+      gap: 10px;
       margin-top: 10px;
     }
-    .event{
-      padding: 12px;
-      border-radius: var(--r1);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      position:relative;
+    .t-item{
+      border: 1px solid var(--border);
+      background: color-mix(in oklab, var(--panel) 85%, var(--bg));
+      border-radius: 14px;
+      padding: 12px 12px;
+      display:grid;
+      grid-template-columns: 110px 1fr;
+      gap: 12px;
     }
-    .event::after{
-      content:"";
-      position:absolute;
-      inset-inline-end: 12px;
-      top: 12px;
-      width: 10px; height: 10px; border-radius: 99px;
-      background: color-mix(in oklab, var(--brand), white 10%);
-      box-shadow: 0 18px 65px color-mix(in oklab, var(--brand), transparent 70%);
+    @media (max-width: 520px){
+      .t-item{ grid-template-columns: 1fr; }
     }
-    .event .when{
+    .t-year{
       font-family: var(--mono);
       color: var(--muted);
-      font-weight: 1000;
       font-size: 12px;
-      direction:ltr;
-      unicode-bidi: plaintext;
+      white-space:nowrap;
     }
-    .event .what{margin-top:6px; font-weight: 1000; font-size: 13px}
-    .event .desc{margin-top:6px; color: var(--muted); font-weight: 700; font-size: 12.5px}
+    .t-body b{ display:block; margin-bottom: 4px; }
+    .t-body span{ color: var(--muted); font-size: 13px; }
 
-    /* ===== Contact ===== */
-    .form{
-      display:grid; gap: 10px;
-      margin-top: 10px;
-    }
-    .input{
+    /* Tables */
+    table{
       width:100%;
-      padding: 12px 12px;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow:hidden;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      outline:none;
-      font-weight: 800;
-    }
-    .input::placeholder{color: rgba(255,255,255,.55)}
-    .input:focus{
-      border-color: color-mix(in oklab, var(--brand), transparent 55%);
-      box-shadow: 0 0 0 6px color-mix(in oklab, var(--brand), transparent 86%);
-    }
-    textarea.input{min-height: 110px; resize: vertical}
-
-    /* ===== Animations on scroll ===== */
-    .reveal{
-      opacity: 0;
-      transform: translateY(10px);
-      filter: blur(2px);
-      transition: opacity .6s ease, transform .6s ease, filter .6s ease;
-    }
-    .reveal.show{
-      opacity: 1;
-      transform: translateY(0);
-      filter: blur(0);
-    }
-
-    /* ===== Footer ===== */
-    footer{
-      padding: 28px 0 50px;
-      color: var(--muted);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      margin-top: 10px;
       font-size: 13px;
-      font-weight: 750;
     }
-    .foot{
-      display:flex; justify-content:space-between; gap: 10px; flex-wrap:wrap; align-items:center;
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 14px;
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
     }
+    th{
+      text-align:right;
+      background: var(--panel);
+      font-weight: 600;
+      color: color-mix(in oklab, var(--text) 92%, transparent);
+    }
+    tr:last-child td{ border-bottom:0; }
+    .muted{ color: var(--muted); }
 
-    /* ===== Floating gradient ornament ===== */
-    .orb{
-      position:absolute;
-      width: 680px; height: 680px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%,
-        color-mix(in oklab, var(--brand), transparent 72%),
-        transparent 60%);
-      filter: blur(30px);
-      opacity: .55;
-      pointer-events:none;
-      inset-inline-start: -220px;
-      top: -220px;
-      animation: float 10s ease-in-out infinite;
-    }
-    @keyframes float{
-      0%,100%{transform: translate(0,0)}
-      50%{transform: translate(30px, 22px)}
-    }
-
-    /* ===== Toast ===== */
-    .toast{
-      position: fixed;
-      inset-inline: 16px;
-      bottom: 16px;
-      max-width: 520px;
+    /* Footer */
+    footer{
+      max-width: var(--contentW);
       margin: 0 auto;
-      z-index: 200;
-      display:none;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,12,22,.75);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      color: var(--text);
-      font-weight: 850;
+      padding: 18px 16px 40px;
+      color: var(--muted);
+      font-size: 12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
     }
-    .toast b{color: color-mix(in oklab, var(--brand), white 14%)}
+    .foot-left{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .badge{
+      font-family: var(--mono);
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    /* Print */
+    @media print{
+      .topbar, .side, .btn, .search { display:none !important; }
+      .wrap{ grid-template-columns: 1fr; }
+      .page, .card{ box-shadow:none; }
+      body{ background:#fff; color:#000; }
+      a{ color:#000; text-decoration:underline; }
+    }
   </style>
 </head>
-
 <body>
-  <div class="orb" aria-hidden="true"></div>
-
-  <!-- NAV -->
-  <div class="nav">
-    <div class="container">
-      <div class="nav-wrap">
-        <a class="brand" href="#top">
-          <div class="logo" aria-hidden="true"></div>
-          <div class="t">
-            <div class="name">علیرضا پورعسگری</div>
-            <div class="tag">پروفایل حرفه‌ای • تک‌فایل</div>
-          </div>
-        </a>
-
-        <nav class="nav-links" aria-label="ناوبری">
-          <a href="#about">درباره</a>
-          <a href="#highlights">هایلایت‌ها</a>
-          <a href="#skills">مهارت‌ها</a>
-          <a href="#timeline">مسیر حرفه‌ای</a>
-          <a href="#contact">تماس</a>
-        </nav>
-
-        <div class="nav-actions">
-          <button class="btn" id="copyLink" type="button" title="کپی لینک همین صفحه">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M10 13a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M14 11a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            لینک
-          </button>
-
-          <button class="btn primary" id="downloadCV" type="button" title="دانلود رزومه (دمو)">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            رزومه
-          </button>
+  <!-- Top bar -->
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="برند">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>دانش‌نامهٔ شخصی</strong>
+          <span>صفحه معرفی سبک و حرفه‌ای</span>
         </div>
       </div>
+
+      <div class="search" role="search" aria-label="جستجو در صفحه">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="q" type="search" placeholder="جستجو در این صفحه… (مثلاً «زندگی‌نامه»)" autocomplete="off" />
+        <span class="kbd" title="میانبر">/</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="themeBtn" type="button" aria-label="تغییر حالت روشن/تاریک">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v2m0 14v2M5 12H3m18 0h-2M6.2 6.2l-1.4-1.4m14.4 14.4l-1.4-1.4M17.8 6.2l1.4-1.4M4.8 19.2l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 18a6 6 0 100-12 6 6 0 000 12z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>حالت</span>
+        </button>
+
+        <button class="btn" id="printBtn" type="button" aria-label="چاپ یا خروجی PDF">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9V3h12v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M6 18H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M7 14h10v7H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>چاپ</span>
+        </button>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <main id="top">
-    <!-- HERO -->
-    <div class="container hero">
-      <div class="hero-grid">
-        <div class="card hero-main reveal">
-          <div class="hero-main">
-            <span class="kicker"><span class="kdot"></span> معرفی حرفه‌ای و سازمانی</span>
-            <h1>علیرضا پورعسگری</h1>
-            <p class="lead">
-              این صفحه یک قالب حرفه‌ای برای معرفی فرد است (سبک مدرن/سازمانی).
-              متن زیر را با یک معرفی دقیق جایگزین کن: حوزه فعالیت، تخصص‌ها، دستاوردهای شاخص و ارزش پیشنهادی.
-            </p>
-
-            <div class="hero-actions">
-              <a class="btn primary" href="#contact">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M21 8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="m21 8-9 6L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                همکاری و تماس
-              </a>
-
-              <a class="btn" href="#timeline">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                مسیر حرفه‌ای
-              </a>
-
-              <button class="btn" id="printBtn" type="button">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 8V3h10v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M7 17h10v4H7v-4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M6 13H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                چاپ / PDF
-              </button>
+  <main class="wrap" role="main">
+    <!-- Sidebar -->
+    <aside class="side" aria-label="ستون کناری">
+      <div class="card">
+        <div class="infobox" aria-label="جعبه اطلاعات">
+          <div class="hero">
+            <div class="avatar" aria-hidden="true"><span>ع‌پ</span></div>
+            <div class="title">
+              <h1>علیرضا پورعسگری</h1>
+              <p>صفحهٔ معرفی با ساختار دانش‌نامه‌ای</p>
             </div>
           </div>
-        </div>
 
-        <div class="card hero-side reveal">
-          <div class="hero-side">
-            <div class="profile">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <p class="pname">علیرضا پورعسگری</p>
-                <p class="prole">عنوان حرفه‌ای • موقعیت / حوزه (نمونه)</p>
-              </div>
+          <!-- شما می‌تونید اطلاعات زیر رو با داده‌های واقعی پر کنید -->
+          <div class="meta">
+            <div class="meta-row">
+              <b>حوزه</b>
+              <div>— (مثلاً: فناوری، کسب‌وکار، پژوهش، هنر)</div>
             </div>
-
-            <div class="mini" aria-label="آمار سریع">
-              <div class="box">
-                <div class="label">پروژه‌ها</div>
-                <div class="value" data-counter="24">0</div>
-              </div>
-              <div class="box">
-                <div class="label">سال تجربه</div>
-                <div class="value" data-counter="7">0</div>
-              </div>
-              <div class="box">
-                <div class="label">همکاری‌ها</div>
-                <div class="value" data-counter="18">0</div>
-              </div>
-              <div class="box">
-                <div class="label">دستاوردها</div>
-                <div class="value" data-counter="12">0</div>
-              </div>
+            <div class="meta-row">
+              <b>ملیت</b>
+              <div>ایرانی</div>
             </div>
-
-            <div class="spacer"></div>
-
-            <div class="panel">
-              <h3>خلاصه یک‌خطی (سازمانی)</h3>
-              <p>
-                «تمرکز بر نتیجه، نظم در اجرا، و کیفیت در تحویل» — این متن را با جمله‌ی واقعی خودت جایگزین کن.
-              </p>
+            <div class="meta-row">
+              <b>فعالیت</b>
+              <div>— (مثلاً: ۱۳۹۰ تا کنون)</div>
             </div>
+            <div class="meta-row">
+              <b>شناخته‌شده برای</b>
+              <div>— (۲–۳ مورد کلیدی)</div>
+            </div>
+          </div>
 
+          <div class="note" role="note">
+            این قالب «سبک» طراحی شده: بدون کتابخانه خارجی، فقط یک فایل HTML + CSS + JS کم‌حجم.
+          </div>
+
+          <div class="pillrow" aria-label="برچسب‌ها">
+            <span class="pill"><span class="dot" aria-hidden="true"></span> ویرایش‌پذیر</span>
+            <span class="pill"><span class="dot" aria-hidden="true"></span> واکنش‌گرا</span>
+            <span class="pill"><span class="dot" aria-hidden="true"></span> آماده چاپ</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ABOUT + HIGHLIGHTS -->
-    <section id="about">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2><span class="dot"></span> درباره</h2>
-          <p>یک معرفی دقیق و کوتاه در مورد مسیر، تخصص‌ها و نوع همکاری‌ها.</p>
+      <div class="card toc" aria-label="فهرست">
+        <div class="hd">
+          <h3>فهرست</h3>
+          <span class="muted" style="font-size:12px">Scroll</span>
+        </div>
+        <div class="bd" id="toc">
+          <a href="#intro"><span>خلاصه</span><small>01</small></a>
+          <a href="#bio"><span>زندگی‌نامه</span><small>02</small></a>
+          <a href="#career"><span>مسیر حرفه‌ای</span><small>03</small></a>
+          <a href="#works"><span>آثار و پروژه‌ها</span><small>04</small></a>
+          <a href="#awards"><span>جوایز و افتخارات</span><small>05</small></a>
+          <a href="#media"><span>رسانه و حضور عمومی</span><small>06</small></a>
+          <a href="#refs"><span>منابع</span><small>07</small></a>
+        </div>
+      </div>
+
+      <div class="card" aria-label="میانبرها">
+        <div class="hd"><h3>میانبرها</h3></div>
+        <div class="bd">
+          <div style="display:grid; gap:8px; font-size:13px;">
+            <div><span class="kbd">/</span> رفتن به جستجو</div>
+            <div><span class="kbd">Esc</span> بستن جستجو</div>
+            <div><span class="kbd">Ctrl</span> + <span class="kbd">P</span> چاپ/خروجی PDF</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <section class="main" aria-label="محتوا">
+      <article class="page">
+        <div class="page-head">
+          <h2>علیرضا پورعسگری</h2>
+          <div class="subtitle">
+            نمونهٔ صفحه معرفی «در حد ویکی‌پدیا»، اما مدرن، حرفه‌ای، و کم‌حجم.
+          </div>
         </div>
 
-        <div class="grid">
-          <div class="panel col-7 reveal">
-            <h3>بیوگرافی حرفه‌ای</h3>
+        <div class="content" id="content">
+          <!-- INTRO -->
+          <section id="intro" data-title="خلاصه">
+            <h3 class="sec-title">خلاصه <span class="anchor">#intro</span></h3>
             <p>
-              علیرضا پورعسگری — (نمونه متن) متخصص در حوزه‌ی «…» با تمرکز بر «…».
-              تجربه در طراحی/تحلیل/توسعه/مدیریت محصول و ارائه راه‌حل‌های قابل اندازه‌گیری.
-              این بخش را طوری بنویس که شفاف، کوتاه، و مناسب لینکدین/رزومه باشد.
+              <b>علیرضا پورعسگری</b> — (یک معرفی کوتاه ۲ تا ۴ خطی اینجا بنویسید: حوزهٔ فعالیت، مهم‌ترین دستاوردها، جایگاه یا نقش فعلی).
+              این بخش مثل لیدِ ویکی‌پدیا عمل می‌کند و مهم‌ترین اطلاعات را سریع منتقل می‌کند.
+            </p>
+            <div class="note">
+              نکته: هرجا «—» دیدید یعنی جایگزینِ اطلاعات واقعی است. اگر اطلاعات واقعی را بدهید، من همین صفحه را دقیق و کامل برایتان پر می‌کنم.
+            </div>
+          </section>
+
+          <!-- BIO -->
+          <section id="bio" data-title="زندگی‌نامه">
+            <h3 class="sec-title">زندگی‌نامه <span class="anchor">#bio</span></h3>
+            <p>
+              در این بخش می‌توانید دربارهٔ <b>زادگاه</b>، <b>تحصیلات</b>، مسیر شکل‌گیری علاقه‌ها و نقاط عطف اولیه بنویسید.
+              متن را کوتاه، دقیق و قابل استناد نگه دارید.
             </p>
 
-            <ul class="list" style="margin-top:12px">
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">تمرکز بر خروجی قابل سنجش</div>
-                  <div class="d">KPI، کیفیت، زمان تحویل، و پایداری</div>
+            <table aria-label="اطلاعات کلیدی زندگی‌نامه">
+              <thead>
+                <tr>
+                  <th>موضوع</th>
+                  <th>جزئیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>تولد</td>
+                  <td class="muted">— (مثلاً: ۱۳۶۸، تهران)</td>
+                </tr>
+                <tr>
+                  <td>تحصیلات</td>
+                  <td class="muted">— (مثلاً: کارشناسی/ارشد …)</td>
+                </tr>
+                <tr>
+                  <td>زمینه‌ها</td>
+                  <td class="muted">— (مثلاً: مدیریت محصول، مهندسی نرم‌افزار، پژوهش)</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- CAREER -->
+          <section id="career" data-title="مسیر حرفه‌ای">
+            <h3 class="sec-title">مسیر حرفه‌ای <span class="anchor">#career</span></h3>
+            <p>
+              مسیر حرفه‌ای را با یک روایت کوتاه شروع کنید، سپس تایم‌لاین شفاف ارائه دهید. برای حرفه‌ای‌تر شدن،
+              هر آیتم را با «نقش + سازمان + اثرگذاری/نتیجه» تکمیل کنید.
+            </p>
+
+            <div class="timeline" aria-label="تایم‌لاین">
+              <div class="t-item">
+                <div class="t-year">۱۴۰۲ — اکنون</div>
+                <div class="t-body">
+                  <b>— (عنوان نقش / مسئولیت)</b>
+                  <span>— (سازمان/پروژه) · نتیجه: — (مثلاً: رشد، بهبود، راه‌اندازی محصول)</span>
                 </div>
-              </li>
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">استانداردهای حرفه‌ای</div>
-                  <div class="d">مستندسازی، بازبینی، و بهینه‌سازی مستمر</div>
+              </div>
+              <div class="t-item">
+                <div class="t-year">۱۳۹۹ — ۱۴۰۲</div>
+                <div class="t-body">
+                  <b>— (عنوان نقش)</b>
+                  <span>— (توضیح کوتاه، ۱ خط)</span>
                 </div>
-              </li>
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">همکاری تیمی</div>
-                  <div class="d">ارتباط شفاف و تحویل مرحله‌ای</div>
+              </div>
+              <div class="t-item">
+                <div class="t-year">۱۳۹۵ — ۱۳۹۹</div>
+                <div class="t-body">
+                  <b>— (عنوان نقش)</b>
+                  <span>— (توضیح کوتاه، ۱ خط)</span>
                 </div>
-              </li>
+              </div>
+            </div>
+          </section>
+
+          <!-- WORKS -->
+          <section id="works" data-title="آثار و پروژه‌ها">
+            <h3 class="sec-title">آثار و پروژه‌ها <span class="anchor">#works</span></h3>
+            <p>
+              فهرست پروژه‌ها/آثار را با داده‌های قابل اندازه‌گیری جذاب‌تر کنید (سال، نقش، وضعیت، دستاورد).
+              اگر لینک وب‌سایت/گیت‌هاب/مقاله دارید، اضافه کنید.
+            </p>
+
+            <table aria-label="پروژه‌ها و آثار">
+              <thead>
+                <tr>
+                  <th style="width:26%">عنوان</th>
+                  <th style="width:14%">سال</th>
+                  <th style="width:20%">نقش</th>
+                  <th>توضیح</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>—</td>
+                  <td class="muted">—</td>
+                  <td class="muted">—</td>
+                  <td class="muted">— (یک جمله دقیق از ماهیت و خروجی)</td>
+                </tr>
+                <tr>
+                  <td>—</td>
+                  <td class="muted">—</td>
+                  <td class="muted">—</td>
+                  <td class="muted">—</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- AWARDS -->
+          <section id="awards" data-title="جوایز و افتخارات">
+            <h3 class="sec-title">جوایز و افتخارات <span class="anchor">#awards</span></h3>
+            <p>
+              اگر جایزه/رتبه/تقدیرنامه دارید، با ذکر سال و مرجع رسمی ثبت کنید.
+              بهتر است هر مورد به منبع یا خبر رسمی لینک داشته باشد.
+            </p>
+
+            <div class="timeline" aria-label="جوایز">
+              <div class="t-item">
+                <div class="t-year">۱۴۰۱</div>
+                <div class="t-body">
+                  <b>— (عنوان جایزه/افتخار)</b>
+                  <span>— (مرجع/رویداد) · دلیل: —</span>
+                </div>
+              </div>
+              <div class="t-item">
+                <div class="t-year">۱۳۹۸</div>
+                <div class="t-body">
+                  <b>—</b>
+                  <span>—</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- MEDIA -->
+          <section id="media" data-title="رسانه و حضور عمومی">
+            <h3 class="sec-title">رسانه و حضور عمومی <span class="anchor">#media</span></h3>
+            <p>
+              اینجا می‌توانید گفتگوها، سخنرانی‌ها، مصاحبه‌ها، کتاب‌ها یا حضور در رویدادها را فهرست کنید.
+              اگر لینک دارید، مثل نمونه زیر اضافه کنید.
+            </p>
+
+            <ul style="margin:10px 0 0; padding:0 18px; color:color-mix(in oklab, var(--text) 92%, transparent);">
+              <li class="muted">— سخنرانی/ارائه در رویداد … (سال …)</li>
+              <li class="muted">— مصاحبه با … (سال …) — لینک: <a href="#" onclick="return false;">نمونه</a></li>
             </ul>
-          </div>
+          </section>
 
-          <div class="panel col-5 reveal" id="highlights">
-            <h3>هایلایت‌های کلیدی</h3>
-            <p>چند مورد از مهم‌ترین نقاط قوت/دستاوردها را اینجا لیست کن.</p>
-
-            <div class="timeline">
-              <div class="event reveal">
-                <div class="when">2022</div>
-                <div class="what">پروژه شاخص / محصول</div>
-                <div class="desc">یک توضیح کوتاه درباره اثرگذاری و نتیجه.</div>
-              </div>
-              <div class="event reveal">
-                <div class="when">2024</div>
-                <div class="what">بهبود عملکرد / رشد</div>
-                <div class="desc">مثلاً کاهش هزینه، افزایش سرعت، افزایش رضایت مشتری.</div>
-              </div>
-              <div class="event reveal">
-                <div class="when">2025</div>
-                <div class="what">همکاری مهم / جایزه</div>
-                <div class="desc">مقیاس، تیم، یا خروجی قابل ارائه.</div>
-              </div>
-            </div>
-
-          </div>
+          <!-- REFERENCES -->
+          <section id="refs" data-title="منابع">
+            <h3 class="sec-title">منابع <span class="anchor">#refs</span></h3>
+            <p>
+              برای حالت «ویکی‌پدیایی»، منابع را شماره‌گذاری کنید. اگر بعداً منابع واقعی را بدهید، همینجا به‌صورت استاندارد می‌چینم.
+            </p>
+            <ol style="margin:10px 0 0; padding:0 18px; color:var(--muted);">
+              <li>— منبع ۱ (لینک/نام)</li>
+              <li>— منبع ۲</li>
+            </ol>
+          </section>
         </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2><span class="dot"></span> مهارت‌ها</h2>
-          <p>درصدها را می‌توانی تغییر بدهی؛ با اسکرول، نوارها انیمیشن می‌گیرند.</p>
-        </div>
-
-        <div class="grid">
-          <div class="panel col-6 reveal">
-            <h3>مهارت‌های فنی</h3>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>تحلیل و حل مسئله</span><span>92%</span></div>
-              <div class="bar"><div class="fill" data-fill="92"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>توسعه و پیاده‌سازی</span><span>88%</span></div>
-              <div class="bar"><div class="fill" data-fill="88"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>معماری / طراحی سیستم</span><span>80%</span></div>
-              <div class="bar"><div class="fill" data-fill="80"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>مستندسازی و استانداردسازی</span><span>86%</span></div>
-              <div class="bar"><div class="fill" data-fill="86"></div></div>
-            </div>
-          </div>
-
-          <div class="panel col-6 reveal">
-            <h3>مهارت‌های نرم</h3>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>مدیریت زمان</span><span>90%</span></div>
-              <div class="bar"><div class="fill" data-fill="90"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>ارتباط موثر</span><span>87%</span></div>
-              <div class="bar"><div class="fill" data-fill="87"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>رهبری و هدایت تیم</span><span>82%</span></div>
-              <div class="bar"><div class="fill" data-fill="82"></div></div>
-            </div>
-            <div class="skill" data-skill>
-              <div class="skill-row"><span>تفکر محصول</span><span>84%</span></div>
-              <div class="bar"><div class="fill" data-fill="84"></div></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section id="timeline">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2><span class="dot"></span> مسیر حرفه‌ای</h2>
-          <p>تایم‌لاین را با تاریخ‌ها و نقاط عطف واقعی خودت جایگزین کن.</p>
-        </div>
-
-        <div class="grid">
-          <div class="panel col-12 reveal">
-            <div class="timeline">
-              <div class="event reveal">
-                <div class="when">2018 — 2020</div>
-                <div class="what">آغاز مسیر / ورود به حوزه</div>
-                <div class="desc">شرح کوتاه: از کجا شروع شد، چه یادگیری مهم بود.</div>
-              </div>
-              <div class="event reveal">
-                <div class="when">2020 — 2022</div>
-                <div class="what">پروژه‌های جدی‌تر و تخصصی‌تر</div>
-                <div class="desc">خروجی، تیم، یا مسئولیت کلیدی.</div>
-              </div>
-              <div class="event reveal">
-                <div class="when">2022 — 2024</div>
-                <div class="what">رشد، اثرگذاری، و تثبیت</div>
-                <div class="desc">دستاورد قابل اندازه‌گیری یا بهبود ملموس.</div>
-              </div>
-              <div class="event reveal">
-                <div class="when">2025 — اکنون</div>
-                <div class="what">تمرکز بر کیفیت سازمانی و مقیاس</div>
-                <div class="desc">تمرکز بر مقیاس‌پذیری، استانداردها، و خروجی سطح بالا.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2><span class="dot"></span> تماس</h2>
-          <p>فرم زیر دمو است و با JS پیام موفقیت نشان می‌دهد. اگر خواستی ارسال واقعی هم می‌ذارم.</p>
-        </div>
-
-        <div class="grid">
-          <div class="panel col-7 reveal">
-            <h3>ارسال پیام</h3>
-            <form class="form" id="contactForm">
-              <input class="input" name="name" placeholder="نام و نام خانوادگی" required />
-              <input class="input" name="email" placeholder="ایمیل" type="email" required />
-              <textarea class="input" name="message" placeholder="پیام شما..." required></textarea>
-              <button class="btn primary" type="submit">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-                ارسال پیام
-              </button>
-            </form>
-          </div>
-
-          <div class="panel col-5 reveal">
-            <h3>اطلاعات سریع</h3>
-            <ul class="list">
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">نام</div>
-                  <div class="d">علیرضا پورعسگری</div>
-                </div>
-              </li>
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">ایمیل</div>
-                  <div class="d">your@email.com</div>
-                </div>
-              </li>
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">لینکدین</div>
-                  <div class="d">linkedin.com/in/your-id</div>
-                </div>
-              </li>
-              <li class="li reveal">
-                <span class="b"></span>
-                <div>
-                  <div class="t">موقعیت</div>
-                  <div class="d">Tehran / Remote</div>
-                </div>
-              </li>
-            </ul>
-
-            <div class="spacer"></div>
-            <button class="btn" id="copyEmail" type="button" style="width:100%; justify-content:center;">
-              کپی ایمیل
-            </button>
-          </div>
-        </div>
-
-        <footer class="container">
-          <div class="foot">
-            <div>© <span id="year"></span> • علیرضا پورعسگری</div>
-            <div>طراحی تک‌فایل • رنگ سازمانی: <span style="font-family:var(--mono); color:color-mix(in oklab, var(--brand), white 18%)">--brand</span></div>
-          </div>
-        </footer>
-      </div>
+      </article>
     </section>
   </main>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <footer>
+    <div class="foot-left">
+      <span class="badge">Single-file</span>
+      <span class="badge">No external libs</span>
+      <span class="badge">RTL-ready</span>
+      <span>© <span id="year"></span> — صفحه معرفی علیرضا پورعسگری</span>
+    </div>
+    <div>ساخته‌شده برای سرعت، خوانایی و چاپ‌پذیری.</div>
+  </footer>
 
   <script>
-    // =======================
-    // Utilities
-    // =======================
-    const $ = (q, root=document) => root.querySelector(q);
-    const $$ = (q, root=document) => [...root.querySelectorAll(q)];
+    // ====== Tiny JS (fast) ======
+    (function(){
+      const root = document.documentElement;
+      const themeBtn = document.getElementById('themeBtn');
+      const printBtn = document.getElementById('printBtn');
+      const q = document.getElementById('q');
+      const toc = document.getElementById('toc');
+      const year = document.getElementById('year');
 
-    const toast = $("#toast");
-    let toastTimer = null;
-    function showToast(html){
-      toast.innerHTML = html;
-      toast.style.display = "block";
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=> toast.style.display="none", 2800);
-    }
+      year.textContent = new Date().getFullYear();
 
-    // =======================
-    // Year
-    // =======================
-    $("#year").textContent = new Date().getFullYear();
+      // Theme: respects system by default, but user can override
+      const storedTheme = localStorage.getItem('theme');
+      if(storedTheme === 'light' || storedTheme === 'dark'){
+        root.setAttribute('data-theme', storedTheme);
+      }
 
-    // =======================
-    // Smooth scroll (with offset)
-    // =======================
-    const navHeight = document.querySelector(".nav")?.offsetHeight || 70;
-    function smoothTo(hash){
-      const el = document.querySelector(hash);
-      if(!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - (navHeight + 10);
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-    $$('a[href^="#"]').forEach(a=>{
-      a.addEventListener("click", (e)=>{
-        const href = a.getAttribute("href");
-        if(href && href.length > 1){
-          e.preventDefault();
-          smoothTo(href);
-          history.replaceState(null, "", href);
+      function currentTheme(){
+        return root.getAttribute('data-theme') || 'system';
+      }
+
+      themeBtn.addEventListener('click', () => {
+        const t = currentTheme();
+        const next = (t === 'dark') ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+
+      printBtn.addEventListener('click', () => window.print());
+
+      // Focus search with "/"
+      window.addEventListener('keydown', (e) => {
+        if(e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey){
+          // prevent typing "/" in inputs
+          const tag = (document.activeElement && document.activeElement.tagName) || '';
+          if(tag !== 'INPUT' && tag !== 'TEXTAREA'){
+            e.preventDefault();
+            q.focus();
+          }
+        }
+        if(e.key === 'Escape'){
+          if(document.activeElement === q){
+            q.value = '';
+            q.blur();
+            clearHighlights();
+          }
+        }
+        if((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')){
+          // allow default print
         }
       });
-    });
 
-    // =======================
-    // Active nav link on scroll
-    // =======================
-    const sections = ["#about","#highlights","#skills","#timeline","#contact"]
-      .map(id => document.querySelector(id))
-      .filter(Boolean);
-
-    const navLinks = $$(".nav-links a");
-    const sectionObserver = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          const id = "#" + entry.target.id;
-          navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === id));
-        }
-      });
-    }, { root: null, threshold: 0.35 });
-
-    sections.forEach(sec => sectionObserver.observe(sec));
-
-    // =======================
-    // Reveal on scroll
-    // =======================
-    const revealObserver = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("show");
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    $$(".reveal").forEach(el => revealObserver.observe(el));
-
-    // =======================
-    // Counters (stats)
-    // =======================
-    function animateCounter(el, to){
-      const start = 0;
-      const duration = 1100;
-      const t0 = performance.now();
-      function tick(t){
-        const p = Math.min(1, (t - t0)/duration);
-        const val = Math.floor(start + (to - start) * (1 - Math.pow(1 - p, 3)));
-        el.textContent = val.toString();
-        if(p < 1) requestAnimationFrame(tick);
+      // Simple in-page search: highlights matches in visible text nodes
+      let marks = [];
+      function clearHighlights(){
+        marks.forEach(m => {
+          const parent = m.parentNode;
+          parent.replaceChild(document.createTextNode(m.textContent), m);
+          parent.normalize();
+        });
+        marks = [];
       }
-      requestAnimationFrame(tick);
-    }
 
-    const counterEls = $$("[data-counter]");
-    let countersDone = false;
-    const counterObs = new IntersectionObserver((entries)=>{
-      if(countersDone) return;
-      if(entries.some(e=>e.isIntersecting)){
-        countersDone = true;
-        counterEls.forEach(el => animateCounter(el, Number(el.getAttribute("data-counter")) || 0));
-        counterObs.disconnect();
+      function highlight(term){
+        clearHighlights();
+        if(!term || term.length < 2) return;
+
+        const walker = document.createTreeWalker(
+          document.getElementById('content'),
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: (node) => {
+              if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+              const p = node.parentElement;
+              if(!p) return NodeFilter.FILTER_REJECT;
+              // skip scripts/styles/anchors/buttons
+              if(['SCRIPT','STYLE','A','BUTTON','INPUT','TEXTAREA'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+
+        const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+        const nodes = [];
+        while(walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(node => {
+          const text = node.nodeValue;
+          if(!re.test(text)) return;
+          re.lastIndex = 0;
+          const frag = document.createDocumentFragment();
+          let last = 0;
+          let m;
+          while((m = re.exec(text)) !== null){
+            const start = m.index;
+            const end = start + m[0].length;
+            frag.appendChild(document.createTextNode(text.slice(last, start)));
+            const mark = document.createElement('mark');
+            mark.textContent = text.slice(start, end);
+            mark.style.background = 'color-mix(in oklab, var(--link) 25%, transparent)';
+            mark.style.color = 'inherit';
+            mark.style.border = '1px solid color-mix(in oklab, var(--link) 35%, var(--border))';
+            mark.style.borderRadius = '8px';
+            mark.style.padding = '0 4px';
+            mark.style.boxShadow = '0 6px 18px rgba(0,0,0,.06)';
+            marks.push(mark);
+            frag.appendChild(mark);
+            last = end;
+          }
+          frag.appendChild(document.createTextNode(text.slice(last)));
+          node.parentNode.replaceChild(frag, node);
+        });
+
+        // scroll to first match
+        if(marks[0]) marks[0].scrollIntoView({behavior:'smooth', block:'center'});
       }
-    }, { threshold: 0.25 });
 
-    const heroSide = document.querySelector(".hero-side");
-    if(heroSide) counterObs.observe(heroSide);
+      q.addEventListener('input', () => highlight(q.value.trim()));
 
-    // =======================
-    // Skills fill animation
-    // =======================
-    const fills = $$("[data-fill]");
-    let skillsDone = false;
-    const skillsObs = new IntersectionObserver((entries)=>{
-      if(skillsDone) return;
-      if(entries.some(e=>e.isIntersecting)){
-        skillsDone = true;
-        fills.forEach(f => f.style.width = (f.getAttribute("data-fill") || "0") + "%");
-        skillsObs.disconnect();
-      }
-    }, { threshold: 0.25 });
+      // TOC scrollspy (very light)
+      const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+      const sections = links
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
 
-    const skillsSec = document.querySelector("#skills");
-    if(skillsSec) skillsObs.observe(skillsSec);
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const id = '#' + entry.target.id;
+            links.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === id ? 'true' : 'false'));
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px', threshold: 0.01 });
 
-    // =======================
-    // Buttons
-    // =======================
-    $("#printBtn").addEventListener("click", ()=> window.print());
-
-    $("#copyLink").addEventListener("click", async ()=>{
-      try{
-        await navigator.clipboard.writeText(location.href);
-        showToast('لینک صفحه کپی شد ✅');
-      }catch{
-        showToast('کپی لینک ممکن نیست (مرورگر اجازه نداد).');
-      }
-    });
-
-    $("#copyEmail").addEventListener("click", async ()=>{
-      const email = "your@email.com";
-      try{
-        await navigator.clipboard.writeText(email);
-        showToast('ایمیل کپی شد: <b>' + email + '</b>');
-      }catch{
-        showToast('کپی ایمیل ممکن نیست (مرورگر اجازه نداد).');
-      }
-    });
-
-    // Demo "download CV" (creates a file on the fly)
-    $("#downloadCV").addEventListener("click", ()=>{
-      const content =
-`رزومه (دمو)
-نام: علیرضا پورعسگری
-
-- این فایل نمونه است.
-- اگر اطلاعات واقعی‌ات را بدهی، فایل رزومه/JSON هم برات می‌سازم.
-`;
-      const blob = new Blob([content], {type:"text/plain;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Alireza-Pourasgari-CV.txt";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      showToast('رزومه نمونه دانلود شد ✅');
-    });
-
-    // Contact form demo
-    $("#contactForm").addEventListener("submit", (e)=>{
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const name = (fd.get("name") || "").toString().trim() || "دوست عزیز";
-      showToast('ممنون <b>' + name + '</b> — پیام شما ثبت شد (دمو). ✅');
-      e.target.reset();
-    });
+      sections.forEach(sec => io.observe(sec));
+    })();
   </script>
 </body>
-                </html>
+</html>
