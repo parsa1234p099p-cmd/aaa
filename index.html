@@ -1,894 +1,161 @@
-<!doctype html>
-<html lang="fa" dir="rtl">
+<!DOCTYPE html>
+<html lang="fa">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light dark" />
-  <title>علیرضا پورعسگری — صفحه معرفی</title>
-  <meta name="description" content="صفحه معرفی حرفه‌ای و سبک برای علیرضا پورعسگری، با ساختار شبیه ویکی‌پدیا." />
-  <style>
-    /* ====== Lightweight, professional, Wikipedia-ish (single file) ====== */
-    :root{
-      --bg: #ffffff;
-      --panel: #f6f7f8;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --link: #2563eb;
-      --linkHover: #1d4ed8;
-      --shadow: 0 8px 24px rgba(0,0,0,.06);
-      --radius: 16px;
-      --contentW: 1100px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Arabic", "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    }
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#0b1220;
-        --panel:#0f172a;
-        --text:#e5e7eb;
-        --muted:#9ca3af;
-        --border:#1f2937;
-        --link:#60a5fa;
-        --linkHover:#93c5fd;
-        --shadow: 0 10px 28px rgba(0,0,0,.35);
-      }
-    }
-    [data-theme="light"]{
-      --bg: #ffffff;
-      --panel: #f6f7f8;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --link: #2563eb;
-      --linkHover: #1d4ed8;
-      --shadow: 0 8px 24px rgba(0,0,0,.06);
-    }
-    [data-theme="dark"]{
-      --bg:#0b1220;
-      --panel:#0f172a;
-      --text:#e5e7eb;
-      --muted:#9ca3af;
-      --border:#1f2937;
-      --link:#60a5fa;
-      --linkHover:#93c5fd;
-      --shadow: 0 10px 28px rgba(0,0,0,.35);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت مشابه</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{
-      margin:0;
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.75;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a{ color: var(--link); text-decoration:none; }
-    a:hover{ color: var(--linkHover); text-decoration:underline; }
+        body {
+            font-family: 'Tahoma', sans-serif;
+            direction: rtl;
+            background-color: #f4f4f4;
+        }
 
-    /* Top bar */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: saturate(180%) blur(10px);
-      background: color-mix(in oklab, var(--bg) 78%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .topbar-inner{
-      max-width: var(--contentW);
-      margin: 0 auto;
-      padding: 10px 16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width: 190px;
-      user-select:none;
-    }
-    .logo{
-      width: 34px; height: 34px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, color-mix(in oklab, var(--link) 85%, #ffffff), color-mix(in oklab, var(--linkHover) 85%, #000000));
-      box-shadow: var(--shadow);
-    }
-    .brand strong{ font-size: 14px; letter-spacing: -.2px; }
-    .brand span{ display:block; font-size: 12px; color: var(--muted); margin-top: -2px; }
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 10px;
+        }
 
-    .search{
-      flex:1;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 12px;
-    }
-    .search svg{ width:18px; height:18px; opacity:.7; }
-    .search input{
-      width:100%;
-      border:0;
-      outline:none;
-      background: transparent;
-      color: var(--text);
-      font-size: 14px;
-    }
-    .actions{ display:flex; gap:8px; align-items:center; }
-    .btn{
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 10px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      cursor:pointer;
-      user-select:none;
-      font-size: 13px;
-    }
-    .btn:hover{ filter: brightness(1.03); }
-    .btn svg{ width:18px; height:18px; opacity:.85; }
-    .kbd{
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 2px 6px;
-      border-radius: 8px;
-      background: color-mix(in oklab, var(--panel) 60%, transparent);
-    }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Layout */
-    .wrap{
-      max-width: var(--contentW);
-      margin: 0 auto;
-      padding: 18px 16px 56px;
-      display:grid;
-      grid-template-columns: 300px minmax(0, 1fr);
-      gap: 18px;
-      align-items:start;
-    }
-    @media (max-width: 980px){
-      .wrap{ grid-template-columns: 1fr; }
-      .brand{ min-width: auto; }
-    }
+        .header-top .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-    /* Side */
-    .side{
-      position: sticky;
-      top: 70px;
-      align-self: start;
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
-    @media (max-width: 980px){
-      .side{ position: static; }
-    }
+        .header-top nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
 
-    .card{
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .card .hd{
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .card .hd h3{
-      margin:0;
-      font-size: 13px;
-      letter-spacing: -.2px;
-    }
-    .card .bd{ padding: 14px; }
+        .header-top nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
 
-    /* Infobox */
-    .infobox{
-      padding: 14px;
-    }
-    .hero{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      margin-bottom: 12px;
-    }
-    .avatar{
-      width: 66px; height: 66px;
-      border-radius: 18px;
-      background:
-        radial-gradient(120px 80px at 25% 25%, rgba(255,255,255,.35), transparent 60%),
-        linear-gradient(135deg, color-mix(in oklab, var(--link) 55%, #10b981), color-mix(in oklab, var(--linkHover) 65%, #8b5cf6));
-      border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
-      box-shadow: var(--shadow);
-      display:grid;
-      place-items:center;
-      font-weight: 700;
-      letter-spacing: -.4px;
-    }
-    .avatar span{ filter: drop-shadow(0 6px 14px rgba(0,0,0,.2)); }
-    .hero .title{
-      min-width:0;
-    }
-    .hero h1{
-      margin:0;
-      font-size: 18px;
-      line-height:1.3;
-      letter-spacing: -.4px;
-    }
-    .hero p{
-      margin:4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.6;
-    }
-    .meta{
-      margin-top: 10px;
-      display:grid;
-      gap: 10px;
-    }
-    .meta-row{
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap: 10px;
-      font-size: 13px;
-      padding: 10px 10px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: color-mix(in oklab, var(--bg) 40%, transparent);
-    }
-    .meta-row b{ color: var(--muted); font-weight: 600; }
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-top: 5px;
+        }
 
-    /* TOC */
-    .toc a{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      color: var(--text);
-      font-size: 13px;
-      text-decoration:none;
-    }
-    .toc a small{
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 11px;
-    }
-    .toc a:hover{
-      background: color-mix(in oklab, var(--bg) 35%, transparent);
-      border-color: var(--border);
-    }
-    .toc a[aria-current="true"]{
-      background: color-mix(in oklab, var(--link) 12%, var(--panel));
-      border-color: color-mix(in oklab, var(--link) 25%, var(--border));
-    }
+        .content {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
 
-    /* Main content */
-    .main{
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
-    .page{
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .page-head{
-      padding: 18px 18px 14px;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 55%, transparent), transparent);
-    }
-    .page-head h2{
-      margin:0;
-      font-size: 20px;
-      letter-spacing: -.5px;
-      line-height:1.3;
-    }
-    .page-head .subtitle{
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+        .main-section {
+            flex: 3;
+        }
 
-    .content{
-      padding: 18px;
-    }
-    .content section{
-      padding: 14px 0;
-      border-top: 1px dashed color-mix(in oklab, var(--border) 80%, transparent);
-    }
-    .content section:first-child{ border-top: 0; padding-top: 0; }
+        .main-content h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
 
-    h3.sec-title{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: -.3px;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
-    .anchor{
-      opacity:.5;
-      font-size: 12px;
-      font-family: var(--mono);
-      border: 1px solid var(--border);
-      padding: 2px 6px;
-      border-radius: 10px;
-      background: var(--panel);
-    }
+        .main-content p {
+            font-size: 18px;
+        }
 
-    p{ margin: 8px 0; color: color-mix(in oklab, var(--text) 92%, transparent); }
-    .note{
-      margin-top: 10px;
-      padding: 12px 12px;
-      border: 1px solid color-mix(in oklab, var(--link) 28%, var(--border));
-      background: color-mix(in oklab, var(--link) 10%, var(--panel));
-      border-radius: 14px;
-      color: color-mix(in oklab, var(--text) 92%, transparent);
-      font-size: 13px;
-    }
-    .pillrow{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin-top: 10px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      font-size: 12px;
-      color: var(--text);
-    }
-    .dot{
-      width: 8px; height: 8px; border-radius: 99px;
-      background: color-mix(in oklab, var(--link) 80%, #10b981);
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--link) 18%, transparent);
-    }
+        .main-image img {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
 
-    /* Timeline */
-    .timeline{
-      display:grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .t-item{
-      border: 1px solid var(--border);
-      background: color-mix(in oklab, var(--panel) 85%, var(--bg));
-      border-radius: 14px;
-      padding: 12px 12px;
-      display:grid;
-      grid-template-columns: 110px 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 520px){
-      .t-item{ grid-template-columns: 1fr; }
-    }
-    .t-year{
-      font-family: var(--mono);
-      color: var(--muted);
-      font-size: 12px;
-      white-space:nowrap;
-    }
-    .t-body b{ display:block; margin-bottom: 4px; }
-    .t-body span{ color: var(--muted); font-size: 13px; }
+        .sidebar {
+            flex: 1;
+            background-color: #eaeaea;
+            padding: 20px;
+        }
 
-    /* Tables */
-    table{
-      width:100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      overflow:hidden;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      margin-top: 10px;
-      font-size: 13px;
-    }
-    th, td{
-      padding: 10px 10px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-    th{
-      text-align:right;
-      background: var(--panel);
-      font-weight: 600;
-      color: color-mix(in oklab, var(--text) 92%, transparent);
-    }
-    tr:last-child td{ border-bottom:0; }
-    .muted{ color: var(--muted); }
+        .sidebar-content h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
 
-    /* Footer */
-    footer{
-      max-width: var(--contentW);
-      margin: 0 auto;
-      padding: 18px 16px 40px;
-      color: var(--muted);
-      font-size: 12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .foot-left{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .badge{
-      font-family: var(--mono);
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-    }
+        .sidebar-content ul {
+            list-style: none;
+        }
 
-    /* Print */
-    @media print{
-      .topbar, .side, .btn, .search { display:none !important; }
-      .wrap{ grid-template-columns: 1fr; }
-      .page, .card{ box-shadow:none; }
-      body{ background:#fff; color:#000; }
-      a{ color:#000; text-decoration:underline; }
-    }
-  </style>
+        .sidebar-content ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 5px 0;
+        }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
-  <!-- Top bar -->
-  <header class="topbar" role="banner">
-    <div class="topbar-inner">
-      <div class="brand" aria-label="برند">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <strong>دانش‌نامهٔ شخصی</strong>
-          <span>صفحه معرفی سبک و حرفه‌ای</span>
+    <header>
+        <div class="header-top">
+            <span class="logo">TABNAK</span>
+            <nav>
+                <ul>
+                    <li><a href="#">پروژه‌ها</a></li>
+                    <li><a href="#">بازار و آگهی</a></li>
+                    <li><a href="#">فن‌آوری</a></li>
+                    <li><a href="#">استان‌ها</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
+        <div class="header-bottom">
+            <span class="date">دوشنبه ۲ بهمن ۱۴۰۴</span>
+            <span class="phone">۰۹۱۲ ۳۵۴ ۴۵۶۷</span>
+        </div>
+    </header>
 
-      <div class="search" role="search" aria-label="جستجو در صفحه">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input id="q" type="search" placeholder="جستجو در این صفحه… (مثلاً «زندگی‌نامه»)" autocomplete="off" />
-        <span class="kbd" title="میانبر">/</span>
-      </div>
+    <div class="content">
+        <section class="main-section">
+            <div class="main-content">
+                <h1>طرح تسهیلات ویزای شهر</h1>
+                <p>مبلغ یک میلیارد تومان</p>
+            </div>
+            <div class="main-image">
+                <img src="image.jpg" alt="محتوای اصلی">
+            </div>
+        </section>
 
-      <div class="actions">
-        <button class="btn" id="themeBtn" type="button" aria-label="تغییر حالت روشن/تاریک">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3v2m0 14v2M5 12H3m18 0h-2M6.2 6.2l-1.4-1.4m14.4 14.4l-1.4-1.4M17.8 6.2l1.4-1.4M4.8 19.2l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M12 18a6 6 0 100-12 6 6 0 000 12z" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          <span>حالت</span>
-        </button>
-
-        <button class="btn" id="printBtn" type="button" aria-label="چاپ یا خروجی PDF">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 9V3h12v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M6 18H5a2 2 0 01-2-2v-5a2 2 0 012-2h14a2 2 0 012 2v5a2 2 0 01-2 2h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M7 14h10v7H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-          <span>چاپ</span>
-        </button>
-      </div>
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>خبرهای مهم</h3>
+                <ul>
+                    <li><a href="#">خبر شماره یک</a></li>
+                    <li><a href="#">خبر شماره دو</a></li>
+                    <li><a href="#">خبر شماره سه</a></li>
+                </ul>
+            </div>
+        </aside>
     </div>
-  </header>
 
-  <main class="wrap" role="main">
-    <!-- Sidebar -->
-    <aside class="side" aria-label="ستون کناری">
-      <div class="card">
-        <div class="infobox" aria-label="جعبه اطلاعات">
-          <div class="hero">
-            <div class="avatar" aria-hidden="true"><span>ع‌پ</span></div>
-            <div class="title">
-              <h1>علیرضا پورعسگری</h1>
-              <p>صفحهٔ معرفی با ساختار دانش‌نامه‌ای</p>
-            </div>
-          </div>
-
-          <!-- شما می‌تونید اطلاعات زیر رو با داده‌های واقعی پر کنید -->
-          <div class="meta">
-            <div class="meta-row">
-              <b>حوزه</b>
-              <div>— (مثلاً: فناوری، کسب‌وکار، پژوهش، هنر)</div>
-            </div>
-            <div class="meta-row">
-              <b>ملیت</b>
-              <div>ایرانی</div>
-            </div>
-            <div class="meta-row">
-              <b>فعالیت</b>
-              <div>— (مثلاً: ۱۳۹۰ تا کنون)</div>
-            </div>
-            <div class="meta-row">
-              <b>شناخته‌شده برای</b>
-              <div>— (۲–۳ مورد کلیدی)</div>
-            </div>
-          </div>
-
-          <div class="note" role="note">
-            این قالب «سبک» طراحی شده: بدون کتابخانه خارجی، فقط یک فایل HTML + CSS + JS کم‌حجم.
-          </div>
-
-          <div class="pillrow" aria-label="برچسب‌ها">
-            <span class="pill"><span class="dot" aria-hidden="true"></span> ویرایش‌پذیر</span>
-            <span class="pill"><span class="dot" aria-hidden="true"></span> واکنش‌گرا</span>
-            <span class="pill"><span class="dot" aria-hidden="true"></span> آماده چاپ</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card toc" aria-label="فهرست">
-        <div class="hd">
-          <h3>فهرست</h3>
-          <span class="muted" style="font-size:12px">Scroll</span>
-        </div>
-        <div class="bd" id="toc">
-          <a href="#intro"><span>خلاصه</span><small>01</small></a>
-          <a href="#bio"><span>زندگی‌نامه</span><small>02</small></a>
-          <a href="#career"><span>مسیر حرفه‌ای</span><small>03</small></a>
-          <a href="#works"><span>آثار و پروژه‌ها</span><small>04</small></a>
-          <a href="#awards"><span>جوایز و افتخارات</span><small>05</small></a>
-          <a href="#media"><span>رسانه و حضور عمومی</span><small>06</small></a>
-          <a href="#refs"><span>منابع</span><small>07</small></a>
-        </div>
-      </div>
-
-      <div class="card" aria-label="میانبرها">
-        <div class="hd"><h3>میانبرها</h3></div>
-        <div class="bd">
-          <div style="display:grid; gap:8px; font-size:13px;">
-            <div><span class="kbd">/</span> رفتن به جستجو</div>
-            <div><span class="kbd">Esc</span> بستن جستجو</div>
-            <div><span class="kbd">Ctrl</span> + <span class="kbd">P</span> چاپ/خروجی PDF</div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main -->
-    <section class="main" aria-label="محتوا">
-      <article class="page">
-        <div class="page-head">
-          <h2>علیرضا پورعسگری</h2>
-          <div class="subtitle">
-            نمونهٔ صفحه معرفی «در حد ویکی‌پدیا»، اما مدرن، حرفه‌ای، و کم‌حجم.
-          </div>
-        </div>
-
-        <div class="content" id="content">
-          <!-- INTRO -->
-          <section id="intro" data-title="خلاصه">
-            <h3 class="sec-title">خلاصه <span class="anchor">#intro</span></h3>
-            <p>
-              <b>علیرضا پورعسگری</b> — (یک معرفی کوتاه ۲ تا ۴ خطی اینجا بنویسید: حوزهٔ فعالیت، مهم‌ترین دستاوردها، جایگاه یا نقش فعلی).
-              این بخش مثل لیدِ ویکی‌پدیا عمل می‌کند و مهم‌ترین اطلاعات را سریع منتقل می‌کند.
-            </p>
-            <div class="note">
-              نکته: هرجا «—» دیدید یعنی جایگزینِ اطلاعات واقعی است. اگر اطلاعات واقعی را بدهید، من همین صفحه را دقیق و کامل برایتان پر می‌کنم.
-            </div>
-          </section>
-
-          <!-- BIO -->
-          <section id="bio" data-title="زندگی‌نامه">
-            <h3 class="sec-title">زندگی‌نامه <span class="anchor">#bio</span></h3>
-            <p>
-              در این بخش می‌توانید دربارهٔ <b>زادگاه</b>، <b>تحصیلات</b>، مسیر شکل‌گیری علاقه‌ها و نقاط عطف اولیه بنویسید.
-              متن را کوتاه، دقیق و قابل استناد نگه دارید.
-            </p>
-
-            <table aria-label="اطلاعات کلیدی زندگی‌نامه">
-              <thead>
-                <tr>
-                  <th>موضوع</th>
-                  <th>جزئیات</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>تولد</td>
-                  <td class="muted">— (مثلاً: ۱۳۶۸، تهران)</td>
-                </tr>
-                <tr>
-                  <td>تحصیلات</td>
-                  <td class="muted">— (مثلاً: کارشناسی/ارشد …)</td>
-                </tr>
-                <tr>
-                  <td>زمینه‌ها</td>
-                  <td class="muted">— (مثلاً: مدیریت محصول، مهندسی نرم‌افزار، پژوهش)</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-
-          <!-- CAREER -->
-          <section id="career" data-title="مسیر حرفه‌ای">
-            <h3 class="sec-title">مسیر حرفه‌ای <span class="anchor">#career</span></h3>
-            <p>
-              مسیر حرفه‌ای را با یک روایت کوتاه شروع کنید، سپس تایم‌لاین شفاف ارائه دهید. برای حرفه‌ای‌تر شدن،
-              هر آیتم را با «نقش + سازمان + اثرگذاری/نتیجه» تکمیل کنید.
-            </p>
-
-            <div class="timeline" aria-label="تایم‌لاین">
-              <div class="t-item">
-                <div class="t-year">۱۴۰۲ — اکنون</div>
-                <div class="t-body">
-                  <b>— (عنوان نقش / مسئولیت)</b>
-                  <span>— (سازمان/پروژه) · نتیجه: — (مثلاً: رشد، بهبود، راه‌اندازی محصول)</span>
-                </div>
-              </div>
-              <div class="t-item">
-                <div class="t-year">۱۳۹۹ — ۱۴۰۲</div>
-                <div class="t-body">
-                  <b>— (عنوان نقش)</b>
-                  <span>— (توضیح کوتاه، ۱ خط)</span>
-                </div>
-              </div>
-              <div class="t-item">
-                <div class="t-year">۱۳۹۵ — ۱۳۹۹</div>
-                <div class="t-body">
-                  <b>— (عنوان نقش)</b>
-                  <span>— (توضیح کوتاه، ۱ خط)</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- WORKS -->
-          <section id="works" data-title="آثار و پروژه‌ها">
-            <h3 class="sec-title">آثار و پروژه‌ها <span class="anchor">#works</span></h3>
-            <p>
-              فهرست پروژه‌ها/آثار را با داده‌های قابل اندازه‌گیری جذاب‌تر کنید (سال، نقش، وضعیت، دستاورد).
-              اگر لینک وب‌سایت/گیت‌هاب/مقاله دارید، اضافه کنید.
-            </p>
-
-            <table aria-label="پروژه‌ها و آثار">
-              <thead>
-                <tr>
-                  <th style="width:26%">عنوان</th>
-                  <th style="width:14%">سال</th>
-                  <th style="width:20%">نقش</th>
-                  <th>توضیح</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>—</td>
-                  <td class="muted">—</td>
-                  <td class="muted">—</td>
-                  <td class="muted">— (یک جمله دقیق از ماهیت و خروجی)</td>
-                </tr>
-                <tr>
-                  <td>—</td>
-                  <td class="muted">—</td>
-                  <td class="muted">—</td>
-                  <td class="muted">—</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-
-          <!-- AWARDS -->
-          <section id="awards" data-title="جوایز و افتخارات">
-            <h3 class="sec-title">جوایز و افتخارات <span class="anchor">#awards</span></h3>
-            <p>
-              اگر جایزه/رتبه/تقدیرنامه دارید، با ذکر سال و مرجع رسمی ثبت کنید.
-              بهتر است هر مورد به منبع یا خبر رسمی لینک داشته باشد.
-            </p>
-
-            <div class="timeline" aria-label="جوایز">
-              <div class="t-item">
-                <div class="t-year">۱۴۰۱</div>
-                <div class="t-body">
-                  <b>— (عنوان جایزه/افتخار)</b>
-                  <span>— (مرجع/رویداد) · دلیل: —</span>
-                </div>
-              </div>
-              <div class="t-item">
-                <div class="t-year">۱۳۹۸</div>
-                <div class="t-body">
-                  <b>—</b>
-                  <span>—</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- MEDIA -->
-          <section id="media" data-title="رسانه و حضور عمومی">
-            <h3 class="sec-title">رسانه و حضور عمومی <span class="anchor">#media</span></h3>
-            <p>
-              اینجا می‌توانید گفتگوها، سخنرانی‌ها، مصاحبه‌ها، کتاب‌ها یا حضور در رویدادها را فهرست کنید.
-              اگر لینک دارید، مثل نمونه زیر اضافه کنید.
-            </p>
-
-            <ul style="margin:10px 0 0; padding:0 18px; color:color-mix(in oklab, var(--text) 92%, transparent);">
-              <li class="muted">— سخنرانی/ارائه در رویداد … (سال …)</li>
-              <li class="muted">— مصاحبه با … (سال …) — لینک: <a href="#" onclick="return false;">نمونه</a></li>
-            </ul>
-          </section>
-
-          <!-- REFERENCES -->
-          <section id="refs" data-title="منابع">
-            <h3 class="sec-title">منابع <span class="anchor">#refs</span></h3>
-            <p>
-              برای حالت «ویکی‌پدیایی»، منابع را شماره‌گذاری کنید. اگر بعداً منابع واقعی را بدهید، همینجا به‌صورت استاندارد می‌چینم.
-            </p>
-            <ol style="margin:10px 0 0; padding:0 18px; color:var(--muted);">
-              <li>— منبع ۱ (لینک/نام)</li>
-              <li>— منبع ۲</li>
-            </ol>
-          </section>
-        </div>
-      </article>
-    </section>
-  </main>
-
-  <footer>
-    <div class="foot-left">
-      <span class="badge">Single-file</span>
-      <span class="badge">No external libs</span>
-      <span class="badge">RTL-ready</span>
-      <span>© <span id="year"></span> — صفحه معرفی علیرضا پورعسگری</span>
-    </div>
-    <div>ساخته‌شده برای سرعت، خوانایی و چاپ‌پذیری.</div>
-  </footer>
-
-  <script>
-    // ====== Tiny JS (fast) ======
-    (function(){
-      const root = document.documentElement;
-      const themeBtn = document.getElementById('themeBtn');
-      const printBtn = document.getElementById('printBtn');
-      const q = document.getElementById('q');
-      const toc = document.getElementById('toc');
-      const year = document.getElementById('year');
-
-      year.textContent = new Date().getFullYear();
-
-      // Theme: respects system by default, but user can override
-      const storedTheme = localStorage.getItem('theme');
-      if(storedTheme === 'light' || storedTheme === 'dark'){
-        root.setAttribute('data-theme', storedTheme);
-      }
-
-      function currentTheme(){
-        return root.getAttribute('data-theme') || 'system';
-      }
-
-      themeBtn.addEventListener('click', () => {
-        const t = currentTheme();
-        const next = (t === 'dark') ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-      });
-
-      printBtn.addEventListener('click', () => window.print());
-
-      // Focus search with "/"
-      window.addEventListener('keydown', (e) => {
-        if(e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey){
-          // prevent typing "/" in inputs
-          const tag = (document.activeElement && document.activeElement.tagName) || '';
-          if(tag !== 'INPUT' && tag !== 'TEXTAREA'){
-            e.preventDefault();
-            q.focus();
-          }
-        }
-        if(e.key === 'Escape'){
-          if(document.activeElement === q){
-            q.value = '';
-            q.blur();
-            clearHighlights();
-          }
-        }
-        if((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')){
-          // allow default print
-        }
-      });
-
-      // Simple in-page search: highlights matches in visible text nodes
-      let marks = [];
-      function clearHighlights(){
-        marks.forEach(m => {
-          const parent = m.parentNode;
-          parent.replaceChild(document.createTextNode(m.textContent), m);
-          parent.normalize();
-        });
-        marks = [];
-      }
-
-      function highlight(term){
-        clearHighlights();
-        if(!term || term.length < 2) return;
-
-        const walker = document.createTreeWalker(
-          document.getElementById('content'),
-          NodeFilter.SHOW_TEXT,
-          {
-            acceptNode: (node) => {
-              if(!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-              const p = node.parentElement;
-              if(!p) return NodeFilter.FILTER_REJECT;
-              // skip scripts/styles/anchors/buttons
-              if(['SCRIPT','STYLE','A','BUTTON','INPUT','TEXTAREA'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
-              return NodeFilter.FILTER_ACCEPT;
-            }
-          }
-        );
-
-        const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-        const nodes = [];
-        while(walker.nextNode()) nodes.push(walker.currentNode);
-
-        nodes.forEach(node => {
-          const text = node.nodeValue;
-          if(!re.test(text)) return;
-          re.lastIndex = 0;
-          const frag = document.createDocumentFragment();
-          let last = 0;
-          let m;
-          while((m = re.exec(text)) !== null){
-            const start = m.index;
-            const end = start + m[0].length;
-            frag.appendChild(document.createTextNode(text.slice(last, start)));
-            const mark = document.createElement('mark');
-            mark.textContent = text.slice(start, end);
-            mark.style.background = 'color-mix(in oklab, var(--link) 25%, transparent)';
-            mark.style.color = 'inherit';
-            mark.style.border = '1px solid color-mix(in oklab, var(--link) 35%, var(--border))';
-            mark.style.borderRadius = '8px';
-            mark.style.padding = '0 4px';
-            mark.style.boxShadow = '0 6px 18px rgba(0,0,0,.06)';
-            marks.push(mark);
-            frag.appendChild(mark);
-            last = end;
-          }
-          frag.appendChild(document.createTextNode(text.slice(last)));
-          node.parentNode.replaceChild(frag, node);
-        });
-
-        // scroll to first match
-        if(marks[0]) marks[0].scrollIntoView({behavior:'smooth', block:'center'});
-      }
-
-      q.addEventListener('input', () => highlight(q.value.trim()));
-
-      // TOC scrollspy (very light)
-      const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-      const sections = links
-        .map(a => document.querySelector(a.getAttribute('href')))
-        .filter(Boolean);
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            const id = '#' + entry.target.id;
-            links.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === id ? 'true' : 'false'));
-          }
-        });
-      }, { rootMargin: '-20% 0px -70% 0px', threshold: 0.01 });
-
-      sections.forEach(sec => io.observe(sec));
-    })();
-  </script>
+    <footer>
+        <p>تمامی حقوق محفوظ است</p>
+    </footer>
 </body>
 </html>
